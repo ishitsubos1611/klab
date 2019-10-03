@@ -1,0 +1,74 @@
+.startup p{
+  margin : 5px 0;
+  text-align: center;
+}
+.confirmation-wrapper{
+  text-align: center;
+  font-size: 40px;
+}
+
+.startup{
+  margin : 10px 5%;
+  display: inline-block;
+  width: 90%;
+  font-size: 30px;
+  text-align: center;
+  border : 6px solid #da3c41;
+  color : #da3c41;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.destination{
+  margin : 10px 5%;
+  color: #da3c41;
+  width: 90%;
+  text-align: center;
+  font-size: 40px;
+  padding :10px 0px;
+  border: 6px solid #da3c41;
+  border-radius: 10px;
+
+}
+
+.red{
+  color: #da3c41;
+}
+
+.message{
+  font-size: 30px;
+  margin : 0 0;
+}
+
+.check-list{
+  margin : 0 0;
+}
+
+.btn-wrapper {
+  font-size : 30px;
+  text-align: center;
+}
+
+.resistration{
+  color: #da3c41;
+  width: 90%;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+  padding :20px 0px;
+  border: 6px solid #da3c41;
+  border-radius: 10px;
+
+}
+
+.resistration:hover{
+  width: 90%;
+  padding :20px 0px;
+  display :inline-block;
+  text-decoration: none;
+  font-size: 40px;
+  color: white;
+  background-color: #da3c41;
+  border-radius: 10px;
+}

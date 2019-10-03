@@ -1,0 +1,128 @@
+body {
+  margin :0 auto;
+  max-width: 600px;
+}
+@media only screen and (max-width: 600px) {
+  body{
+    font-size: 18px;
+  }
+}
+
+.startup p{
+  margin: 0px;
+  text-align: center;
+}
+
+.startup{
+  text-align: center;
+  margin : 10px auto;
+  display: inline-block;
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+  border : 6px solid #da3c41;
+  color : #da3c41;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.message {
+  width: 100%;
+  font-size : 20px;
+  text-align: center;
+  margin: 20px 0px 5% 0px;
+}
+
+.map-wrapper{
+  width: 100%;
+  margin:auto;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.destination-wrapper{
+  width: 97%;
+  height: 80px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.destination-wrapper p{
+  margin:5px 0 10px 0
+  font-size: 20px;
+}
+
+#output {
+  padding: 0;
+  color: #da3c41;
+  width: 101%;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px 0;
+  border: 6px solid #da3c41;
+  border-radius: 10px;
+}
+.select-title{
+  text-align: center;
+  font-size: 18px;
+}
+
+.select-wrapper {
+  margin-top: 50px;
+  font-size : 18px;
+  text-align: center;
+}
+
+form {
+
+  width: 90%; /* フォームの高さを指定する */
+  padding: 10px;      /* フォームの余白を指定する */
+  margin: 0 auto;
+
+}
+select {
+  -webkit-appearance: none;/* ベンダープレフィックス(Google Chrome、Safari用) */
+  -moz-appearance: none;      /* ベンダープレフィックス(Firefox用) */
+  appearance: none;   /* 標準のスタイルを無効にする */
+  cursor: pointer;    /* マウスカーソルの形を指定する */
+  width: 100%; /* ボックスの高さを指定する */
+  height: 64px;
+  padding: 10px 15px; /* ボックス内側の余白を指定する */
+  color: #da3c41;     /* フォントの色を指定 */
+  background-color: white;
+  font-size: 18px;
+  border: 6px solid #da3c41;/* ボックスの境界線を実線で指定する */
+  border-radius: 10px;        /* 角丸を指定する */
+  margin: 5px 0;
+}
+::-ms-expand {        /* select要素のデザインを無効にする（IE用） */
+  display: none;
+}
+
+.next-btn-parent{
+  text-align: center;
+}
+
+.next-btn {
+  width: 100%;
+  padding :10px 0px;
+  display :inline-block;
+  text-decoration: none;
+  margin: 5px auto;
+  font-size: 18px;
+}
+
+.next-btn{
+  border : 6px solid #2970cc;
+  color : #2970cc;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.next-btn:hover{
+  color: white;
+  background-color: #2970cc;
+  border-radius: 10px;
+}
+

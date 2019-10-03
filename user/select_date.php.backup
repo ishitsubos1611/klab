@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>変更・追加・削除希望の日選択</title>
+
+  <link rel="stylesheet" href="../css/0-3-A3.css">
+  <link rel="stylesheet" href="../css/0-3-A1.css">
+  <link rel="stylesheet" href="../css/calender.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+<body margin:auto; text-align:center;>
+
+ <div class="main">
+ <div class="message">
+        変更・追加または追加希望の日を
+        クリックして下さい。
+ </div>
+ ※緑は既にスケジュールが入ってます
+</div>
+
+   <form name="myform3" method='post' onsubmit="return checkText3()">
+
+<?php 
+ $area = $_POST['area'];
+ $style = $_POST['style'];
+ $gid = $_POST['gid'];
+
+
+ echo '<input name = area' .' type=hidden value="' . $area . '">';
+ echo '<input name = style' .' type=hidden value="' . $style . '">';
+ echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+
+?>
+
+<!-- <form name="step1" action="./modify_registration.php" method='post'> -->
+
+
+  <?php
+  function weekdayColor_get($i) {
+    if ($i == 0) return '#ff0000'; else return '#77EEFF';
+  }
+  function color_get($j, $d, $day, $thismonth, $thisyear, $m, $y, $arr) {
+    $date = $y.$m.$d;
+    foreach ($arr as &$value) {
+      if ($value["date"] == $date) {
+        return '#99FF66';
+      }
+    }
+    $todayDate = $thisyear.$thismonth.$day;
+    if($j == 0) return '#FF99CC'; elseif($todayDate == $date) return '#ffff00';
+
+    return '#ffffff';
+  }
+  $file = "calender.json";
+  $json = file_get_contents($file);
+  $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+  $arr = array();
+  $arr = json_decode($json,true);
+
+  $m = $_GET['m'];
+  if ($m) {
+    $year = date('Y', strtotime($m . '01'));
+    $month = date('n', strtotime($m . '01'));
+  } else {
+    $year = date('Y');
+    $month = date('n');
+  }
+  $day = date('j');
+  $thismonth = date('n');
+  $thisyear = date('Y');
+  $weekday = array('日', '月', '火', '水', '木', '金', '土');
+  echo '<p><table id="calender">';
+  echo '<caption>';
+  echo '<a href="?m=' . date('Ym', mktime(0, 0, 0, $month - 1 , 1, $year)) . '" class="year"> &lt;　</a> ' . $year . '年' . $month . '月';
+  echo ' <a href="?m=' . date('Ym', mktime(0, 0, 0, $month + 1 , 1, $year)) . '" class="year">　&gt;</a>';
+  echo '</caption><tbody><tr>';
+  $i = 0;
+  while ($i <= 6) {
+    $c = weekdayColor_get($i);
+    echo '<th style="background-color : '.$c.';">' . $weekday[$i] . '</th>';
+    $i++;
+  }
+  echo '</tr><tr>';
+  $i = 0;
+  while ($i != date('w', mktime(0, 0, 0, $month, 1, $year))) {
+    echo '<td style="background-color : #ffffff;">　</td>';
+    $i++;
+  }
+  for ($days = 1; checkdate($month, $days, $year); $days++) {
+    if ($i > 6) {
+      echo '</tr><tr>';
+      $i = 0;
+    }
+    $c = color_get($i, $days, $day, $thismonth, $thisyear, $month, $year, $arr, $json_count);
+    echo '<td style="background-color : ' . $c . ';">'.$days.'</td>';
+    $i++;
+  }
+  while ($i < 7) {
+    echo '<td style="background-color : #ffffff;">　</td>';
+    $i++;
+  }
+  echo '</tr></tbody></table><p>';
+
+  ?>
+  </div>
+
+ <div id="cal"></div>
+ <div id="clickedDate"></div>
+   <script>
+      
+     var cellnum;
+     var cellnum;
+     var previousNum = "";
+     var dayVal;
+     var yearVal = "<?php echo $year ?>";
+     var monthVal = "<?php echo $month ?>";
+
+  $.getJSON("calender.json", function(data){
+    $("#calender td").on("click",function(){
+      dayVal = $(this)[0].innerText;
+      cellnum = '' +yearVal+ monthVal + dayVal;
+
+      dataNum = data.length;
+      for(var i in data){
+        if (cellnum == data[i].date) {
+          dataNum = i;
+        }
+      }
+     if ((cellnum == previousNum) || (dataNum == data.length)) {
+        $('.info').remove();
+        previousNum = "";
+      }else {
+        $('#cal').html('<div id="guide" class="info"><p>　(人気)　二条城ガイド </p>'
+        +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>Boarding time</td><td>'+data[dataNum].boardingTime+'</td></tr>'
+        +'<tr><td>END</td><td>'+data[dataNum].endTime+'</td><td>('+data[dataNum].requiredTime+'min)</td></tr>'
+        +'<tr><td>Language</td><td>'+data[dataNum].lang+'</td></tr>'
+        +'<tr><td>Total fee</td><td>¥'+data[dataNum].fee+'</td><td>('+data[dataNum].numOfppl+'名)</td></tr></table></div>');
+        //+'<form  id="form'+idnumber+'" action="guideDelete.php" method="post"><input type="hidden" name="id" value="'+idnumber+'"/><input id="detail" type="submit" value="detail"></form></div>'
+      }
+      $('#clickedDate').html('<p class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</p>');
+
+      previousNum = cellnum;  
+    });
+  });
+
+//formにactionとvalueを代入する
+  function checkText3() {
+ 
+        //actionメソッドに遷移先のURLを代入する
+        document.myform3.action = "modify_registration.php";
+        //nameに合わせてvalueを代入する
+        document.myform3.year.value = yearVal;
+        document.myform3.month.value = monthVal;
+        document.myform3.day.value = dayVal;
+        
+        //alert( document.myform3.month.value );
+    }
+
+      </script>
+
+
+<input name = "year" type="hidden" >
+<input name = "month" type="hidden" >
+<input name = "day" type="hidden" >
+
+ <div class="main">
+        <div class="select-btn guide-select">
+          <select name="mode" require>
+            <option value="0" >変更</option>
+            <option value="1" >追加</option>
+          </select>
+        </div>
+        <p></p>
+      </div>
+
+        <p></p>
+
+       <input class = "btn resistration" type="submit" value="Next">
+        <p></p>
+      </div>
+      <div class="btn-wrapper">
+       <a href="confirm_delete.php" class = "btn resistration" > 削除</a>
+        <p></p>
+      </div>
+       <!-- <input class = "btn " type="reset" value="入力内容をリセットする"> -->
+ </div>
+
+</form>
+ </body>
+</html>

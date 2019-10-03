@@ -1,0 +1,36 @@
+<?php
+ $location = $_POST['location'];
+ $lng = $_POST['lng'];
+ $lat = $_POST['lat'];
+ $time = $_POST['time'];
+ $fee = $_POST['fee'];
+ $maxsubjects = $_POST['maxsubject'];
+ $area = $_POST['area'];
+ $style = $_POST['style'];
+ $month = $_POST['month'];
+ $day = $_POST['day'];
+ $mode = $_POST['mode'];
+ 
+ echo $location;
+ echo "<BR>";
+ echo $lat;
+ echo "<BR>";
+ echo $lng;
+ echo "<BR>";
+ echo $time;
+ echo "<BR>";
+ echo $fee;
+ echo "<BR>";
+ echo $maxsubjects;
+ echo "<BR>";
+ echo $area;
+ echo "<BR>";
+ echo $style;
+ echo "<BR>";
+ echo $month;
+ echo "<BR>";
+ echo $day;
+ echo "<BR>";
+ echo $mode;
+ echo "<BR>";
+?>
