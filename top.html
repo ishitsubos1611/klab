@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>シェアリングツアーガイドサービス</title>
+
+  <link rel="stylesheet" href="css/top.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script>
+
+history.pushState(null, null, null);
+$(window).on("popstate", function (event) {
+  if (!event.originalEvent.state) {
+    history.pushState(null, null, null);
+    return;
+  }
+});
+
+</script>
+  </head>
+  <body>
+    <div class="main">
+      <p class="message-wrapper">
+        <p class="message-btn">シェアリングツアーガイドサービス</p> 
+      <p>
+      </p>
+      <div class="radio-btn-wrapper">
+
+
+        <a href="#"  class = "btn next-btn-guide" >ガイド　ログイン</a>
+        <a href="guide/select_area_regist.php"  class = "btn next-btn-guide" >ガイド（スポット）登録・削除</a>
+        <a href="guide/select_area.php"  class = "btn next-btn-guide" >ガイド日程の登録・変更・削除</a>
+        <a href="guide/select_area4booking.php"  class = "btn next-btn-guide" >ガイド予約確認</a>
+
+        <a href="#"  class = "btn next-btn-user" >ユーザログイン</a>
+
+<!--        <form name=step action="#" method='post'>
+          <input class = "btn next-btn-user" type="submit" value="ユーザ ログイン">
+        </form>
+-->
+        <a href="http://delab2.kyoto-su.ac.jp/~yamamoto/user/select_area.php"  class = "btn next-btn-user" >ガイド希望登録</a>
+      </div>
+    </div>
+  </body>
+</html>
+
