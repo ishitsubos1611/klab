@@ -4,7 +4,7 @@
 
 任意のディレクトリで以下のコマンドを使用してください。
 ```
-git clone https://github.com/shadowlink0122/ProjectEnshu.git
+https://github.com/ishitsubos1611/klab.git/
 ```
 
 git コマンドがない人は
