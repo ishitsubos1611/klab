@@ -1,0 +1,54 @@
+[
+  {
+    "date":201992,
+    "GuidScheduleID": 0,
+    "guidelocation":"京都鉄道博物館",
+    "start_time":"9:00",
+    "end_time":"10:00",
+    "requiredTime":60,
+    "lang":"JP",
+    "charge":1500,
+    "max_num_participant":10
+  },{
+    "date":201992,
+    "GuidScheduleID": 1,
+    "guidelocation":"京都水族館",
+    "start_time":"10:00",
+    "end_time":"11:00",
+    "requiredTime":60,
+    "lang":"JP",
+    "charge":1000,
+    "max_num_participant":5
+  },{
+    "date":2019910,
+    "GuidScheduleID": 2,
+    "guidelocation":"四条烏丸",
+    "start_time":"12:00",
+    "end_time":"10:00",
+    "requiredTime":120,
+    "lang":"US",
+    "charge":1800,
+    "max_num_participant":9
+  },{
+    "date":"all",
+    "GuidScheduleID": 3,
+    "guidelocation":"二条城",
+    "start_time":"8:00",
+    "end_time":"10:00",
+    "requiredTime":120,
+    "lang":"JP",
+    "charge":2000,
+    "max_num_participant":8
+  },{
+    "date":20191010,
+    "GuidScheduleID": 4,
+    "guidelocation":"京都水族館",
+    "start_time":"9:00",
+    "end_time":"10:00",
+    "requiredTime":60,
+    "lang":"JP",
+    "charge":1200,
+    "max_num_participant":5
+  }
+]
+
