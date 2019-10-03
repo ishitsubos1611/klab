@@ -1,0 +1,113 @@
+body{
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 600px) {
+  body{
+    font-size: 12px;
+    box-sizing: border-box;
+  }
+}
+
+.message-btn{
+ width: 95%;
+  padding :10px 0px;
+  display :inline-block;
+  text-decoration: none;
+  /*margin: 5px auto;*/
+  /*font-size: 18px;i*/
+}
+.message-btn{
+  border : 6px solid #da3c41;
+  color : white;
+  background-color: #da3c41;
+  border-radius: 10px;
+  /*margin-bottom: 50px;*/
+}
+
+.next-btn-guide {
+  width: 95%;
+  padding :10px 0px;
+  display :inline-block;
+  text-decoration: none;
+  /*margin: 5px auto;*/
+  /*font-size: 18px;i*/
+}
+.next-btn-guide{
+  border : 6px solid #2970cc;
+  color : #2970cc;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.next-btn-guide:hover{
+  color: white;
+  background-color: #2970cc;
+  border-radius: 10px;
+}
+
+.next-btn-user {
+  width: 95%;
+  padding :10px 0px;
+  display :inline-block;
+  text-decoration: none;
+  /*margin: 5px auto;*/
+  /*font-size: 18px;i*/
+}
+.next-btn-user{
+  border : 6px solid #da3c41;
+  color : #da3c41;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.next-btn-user:hover{
+  color: white;
+  background-color: #da3c41;
+  border-radius: 10px;
+}
+
+form {
+    width: 100%; /* フォームの横幅を指定する */
+    /*padding: 10px; */     /* フォームの余白を指定する */
+    /*margin: 0 auto;*/
+    text-align: center;
+
+}
+
+select {
+    -webkit-appearance: none;/* ベンダープレフィックス(Google Chrome、Safari用) */
+    -moz-appearance: none;      /* ベンダープレフィックス(Firefox用) */
+    appearance: none;   /* 標準のスタイルを無効にする */
+    cursor: pointer;    /* マウスカーソルの形を指定する */
+    width: 95%; /* ボックスの横幅を指定する */
+    height: 64px;
+    padding: 10px 15px; /* ボックス内側の余白を指定する */
+    color: #da3c41;     /* フォントの色を指定 */
+    background-color: white;
+  /*font-size: 18px;i*/
+    border: 6px solid #da3c41;/* ボックスの境界線を実線で指定する */
+    border-radius: 10px;        /* 角丸を指定する */
+    /*margin: 5px 0 10px 0;*/
+}
+  ::-ms-expand {        /* select要素のデザインを無効にする（IE用） */
+    display: none;
+}
+
+.btn-wrapper {
+  text-align: center;
+  /*font-size: 18px;i*/
+}
+
+.btn {
+  width: 80%;
+  padding :10px 0px;
+  display :inline-block;
+  text-decoration: none;
+  /*font-size: 18px;i*/
+

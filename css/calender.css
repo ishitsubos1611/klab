@@ -1,0 +1,46 @@
+body {
+  margin:  0 auto;
+  width: 50%;
+}
+.year {
+  text-decoration:none;
+  font-weight: bold;
+}
+.year:hover {
+  color: #000000;
+}
+#calender{
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #ffffff;
+
+}
+#calender th,td{
+  text-align: center;
+  vertical-align: middle;
+  border : 3px solid;
+  padding : 5px;
+}
+#calender tr td:hover{
+  background-color: #CCFFFF !important;
+}
+.guide{
+  border: solid 2px #FF8856;
+}
+.guide td{
+  border: none;
+}
+.guide form{
+  text-align: right;
+}
+.guide input{
+  font-size: 1.2em;
+  padding: 10px 30px;
+  color: #ffffff;
+  background-color: #ffaaaa;
+}
+.guide input:hover{
+  color: #ffaaaa;
+  background-color: #ffffff;
+  border-color: #ffaaaa;
+}
