@@ -258,7 +258,7 @@ $(window).on("popstate", function (event) {
      <div class="select-wrapper">
           <p class = "select-title">ガイド時間</p>
           <div class="select-btn guide-select">
-            <select name=time>
+            <select name=time required>
               <option value="10">~10分</option>
               <option value="20">10~20分</option>
               <option value="30">20~30分</option>
@@ -289,7 +289,7 @@ $(window).on("popstate", function (event) {
 -->
        <p class="select-title">参加人数</p>
         <div class="select-btn guide-select">
-          <select name="maxsubject">
+          <select name="maxsubject" required>
            <option value="1">1人</option>
            <option value="2">2人</option>
            <option value="3">3人</option>
