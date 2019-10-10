@@ -2,9 +2,9 @@
 //$id = $_POST['id'];
 //$area = json_decode($_POST['area']);
 $area = $_POST['area'];
-//$area = 'kyoto';
 $category = $_POST['category'];
-//$category = 'all';
+//$area = 'kyoto';
+//$style = $_POST['style'];
 
 console.log('area');
 console.log($area);
@@ -22,25 +22,13 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
  echo '接続失敗';
  exit;
 }
-
 if($category == 'all'){
-
-// データ取得sql
-$sql = "SELECT * FROM POI WHERE area = ? ";
+// データ取得
+$sql = "SELECT * FROM POI WHERE area = ?";
 $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($area));
-
-
-}else{
-
-// データ取得sql
-$sql = "SELECT * FROM POI WHERE area = ? AND category = ?";
-$stmt = ($dbh->prepare($sql));
-$stmt->execute(array($area, $category));
-
 }
 
-// データ取得
 //あらかじめ配列を生成しておき、while文で回します。
 $memberList = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
