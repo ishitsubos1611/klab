@@ -70,8 +70,8 @@
    <div class="main">
     <div class="startup">
         ガイドさんの選択
-       </div>
-    <form name="myform3" method='post'>
+    </div> 
+    <form name="myform3" method='post' onsubmit="return checkText3()">
 <!--    <form name="myform3" method='post' onsubmit="return checkText3()">
     <input name = "location" type="hidden"/>
     <input name = "lat" type="hidden" />
