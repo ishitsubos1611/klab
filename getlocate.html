@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "ja">
+   <head>
+    <meta charset = "utf-8">
+    <title>緯度経度取得方法</title>
+  </head>
+  <body>
+
+    緯度経度の取得
+    
+    <script>
+      // パラメータを取得
+      var param = location.search
+      let search = new URLSearchParams(param);
+
+      // 現在地を取得
+      navigator.geolocation.getCurrentPosition(
+      // 取得成功した場合
+      function(position) {
+          alert("緯度["+position.coords.latitude +"] 経度["+ position.coords.longitude]);
+      },
+
+      // 取得失敗した場合
+      function(error) {
+        switch(error.code) {
+            case 1: //PERMISSION_DENIED
+            alert("位置情報の利用が許可されていません");
+            break;
+            case 2: //POSITION_UNAVAILABLE
+            alert("現在位置が取得できませんでした");
+            break;
+            case 3: //TIMEOUT
+            alert("タイムアウトになりました");
+            break;
+            default:
+            alert("その他のエラー(エラーコード:"+error.code+")");
+            break;
+        }
+      }
+      );
+
+    </script>
+  </body>
+</html>
