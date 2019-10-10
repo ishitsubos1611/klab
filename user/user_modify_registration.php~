@@ -49,7 +49,7 @@
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "confirm_modify.php";
+        document.myform3.action = "user_confirm.php";
         //document.myform3.action = mode;
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
@@ -89,63 +89,6 @@
  //echo  '<p>' . $year . '年' . $month . '月' . $day . '日' . 'のスケジュール修正中</p>';
 
 
-// データベース接続
-
-//$host = 'localhost';
-$host = '127.0.0.1';
-$dbname = 'tour_db';
-$dbuser = 'yamamoto';
-$dbpass = 'rikuya0217';
-
-try {
-$dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, array(PDO::ATTR_EMULATE_PREPARES => false));
-} catch (PDOException $e) {
- var_dump($e->getMessage());
- echo '接続失敗';
- exit;
-}
-
-//データ取得
-$sql = "SELECT * FROM G_Schedule WHERE (? between start_time and end_time) AND location=?";
-$stmt = ($dbh->prepare($sql));
-$stmt->execute(array($stime,$location));
-
-$guideData[] = array();
-$start_time = 0;
-$end_time = 0;
-
-
-while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $guideData[]=array(
-        'GuidScheduleID'=>$row['scheduleGID'],
-    'GuideID'=>$row['GID'],
-    'year'=>$row['year'],
-    'date'=>$row['date'],
-    'start_time'=>$row['start_time'],
-    'end_time'=>$row['end_time'],
-    'language'=>$row['Language'],
-    'guidelocation'=>$row['location'],
-    'guidelat'=>$row['lat'],
-    'guidelong'=>$row['long'],
-    'charge'=>$row['charge'],
-    'max_num_participant'=>$row['max_num_participant'],
-    'payment_date'=>$row['payment_date'],
-    'period'=>$row['period']
-        );
-  //$start_time = $row['start_time'];
-  //$end_time = $row['end_time'];
-
-}
-
-//jsonとして出力
- //console.log($guideData);
- //header('Content-type: application/json');
- //echo json_encode($guideData,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
- //echo json_encode($guideData,JSON_UNESCAPED_UNICODE);
- //$json_guideData =  json_encode($guideData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
- $json_guideData =  json_encode($guideData, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-//print_r($json_guideData);
-//echo '<input name = json_guideData' .' type=hidden value="' . $json_guideData . '">';
 
 ?>
 
@@ -154,11 +97,11 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         クリックしてください。</p>-->
            <p>希望のガイドさんをチェックしてください。</p> 
       </div>
-    
+    <!--
         <input type="checkbox" name="sample" value="1">ガイド1
         <input type="checkbox" name="sample" value="2">ガイド2
         <input type="checkbox" name="sample" value="3">ガイド3
-        
+    -->    
         <div id="guide"></div>
 <!--
       <div id="cal">
@@ -187,13 +130,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     console.log("<?php $start_time = $_POST['start_time']; echo $start_time ?>");
     //console.log("<?php $json_guideData = $_POST['json_guideData']; echo $json_guideData ?>");
     </script>
+    
   <script>
-    //$(function(){
+    
         var guideData = [];
         var locationVal = "<?php $location = $_POST['location']; echo $location ?>";
         var stimeVal = "<?php $start_time = $_POST['start_time']; echo $start_time ?>";
         //$.post('select_date.php','cellnum');
         //var data = JSON.parse('<?php echo addslashes($json_guideData);  ?>');
+
         $(function(){
             $.ajax({
                 type:"POST",
@@ -207,27 +152,38 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                 console.log(data);
                 //alert(data[0].lat);
                 guideData = data;
+                console.log(guideData); 
                 console.log(stimeVal);
                 console.log(locationVal);
                 //console.log(dateVal);
+	        selectGuide();
             }).fail(function(xhr,err){
                 console.log(err);
             });
-        });
-        //var json_guideData = json_encode(guideData, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-        //var data = JSON.parse('<?php echo addslashes($json_guideData);  ?>');
-        /*if(guideData === []){
-            $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
-        }*/
-        for(var i =0; i < guideData.length; i++){
-            //var div = $('<div id="guide" class="info"><p>ガイドID：'+guideData[i].GID+'</p></div>');
-            $('#guide').html('<div class="info"><p>ガイドID：'+guideData[i].GID+'</p></div>');
+          });
+      
+        //if(guideData === []){
+        //    $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
+   // }
+      function selectGuide(){
+	if(guideData == []){
+            $('#guide').html('<p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p>');
+	}
+        //console.log(guideData[0]['date']);
+        for (var i = 0; i <guideData.length; i++){
+	    //console.log(guideData[i]['date']);	      
+	    //var div = $('<div id="guide" class="info"><p>ガイドID：'+guideData[i].GID+'</p></div>');
+            $('#guide').html('<p>ガイドID：'+guideData[i].GID+'　<input type="checkbox" name="guide" value="guideData[i].GID"></p>');
             /*$('#cal').append('<div id="guide" class="info"><p>　(人気)　'+guideData[i].location+'ガイド </p>'
           +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuideID</td><td>'+guideData[i].GID+'</td></tr><tr><td>Boarding time</td><td>'+guideData[i].start_time+'</td></tr>'
           +'<tr><td>END</td><td>'+guideData[i].end_time+'</td><td>('+guideData[i].period+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+guideData[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+guideData[i].charge+'</td><td>('+guideData[i].max_num_participant+'名)</td></tr></table></div>');*/
-        }
+	}
+      }				    
+      //});
+      //showGuide();					    
+					     
     //});
    </script>
 

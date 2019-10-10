@@ -24,16 +24,18 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
  exit;
 }
 // データ取得 (ガイド希望時間(stime)がstart_time~end_timeである場合とlocationが一致するデータのみ取得)
-$sql = "SELECT * FROM G_Schedule WHERE (? between start_time and end_time) AND location=?";
+$sql = "SELECT * FROM G_Schedule WHERE date is NULL AND location=?";
+//$sql = "SELECT * FROM G_Schedule WHERE (? between start_time and end_time) AND location=?";
 $stmt = ($dbh->prepare($sql));
 //$stmt->bindParam(':stime', $stime, PDO::PARAM_STR);
 //$stmt->bindParam(':location', $location, PDO::PARAM_STR);
-$stmt->execute(array($stime,$location));
+$stmt->execute(array($location));
+//$stmt->execute(array($stime,$location));
 
 //あらかじめ配列を生成しておき、while文で回します。
-$guideData = array();
+$list = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
- $guideData[]=array(
+ $list[]=array(
   //'scheduleGID' =>$row['scheduleGID'],
   'GID' =>$row['GID'],
   'year' =>$row['year'],
@@ -54,4 +56,4 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 //jsonとして出力
 //console.log($memberList);
 header('Content-type: application/json');
-echo json_encode($guideData,JSON_UNESCAPED_UNICODE);
+echo json_encode($list,JSON_UNESCAPED_UNICODE);
