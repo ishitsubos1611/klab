@@ -23,10 +23,13 @@ $(window).on("popstate", function (event) {
  height: 450px;
 }
 </style>
-
-    <link rel="stylesheet" href="../css/0-3-A3.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
+    
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!--<link rel="stylesheet" href="../css/0-3-A3.css">-->
+    <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" cr\
+ossorigin="anonymous"></script>
    <script>
 
       var map;
@@ -228,10 +231,19 @@ $(window).on("popstate", function (event) {
 
 ?>
     <div class="main">
-      <div class="startup">
+<!--      <div class="startup"> -->
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
-        <p>スポット登録中</p>
-      </div>
+<!--        <p>スポット登録中</p>
+	    </div> -->
+      <div class="container-fluid">
+        <div class="text-center">
+	  <br><br>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div><a href="#"  class = "btn btn-danger disabled btn-xl btn-block" >スポット登録中</a></div>
+            </div>
+          </div>
       <div class="message">
         <p>ガイド可能な場所のピンを
         クリックして下さい。</p>
@@ -241,74 +253,115 @@ $(window).on("popstate", function (event) {
           <div id="map"></div>
       </div>
       <div class="destination-wrapper">
-         <p id = "message">ガイド可能な場所</p>
-        <div class = "destination" id = "output"></div>
+          <p id = "message">ガイド可能な場所</p>
+<!--      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <div><a href="#"  class = "btn btn-info btn-lg btn-block" >ガイド可能な場所</a></div>
+        </div>
+　　　</div>    -->
+        <div class = "destination" id = "output"></div> 
         <script>
           document.getElementById("output").style.display = "none";
         </script>
       </div>
-
+      <br><br>
      <div class="select-wrapper">
-          <p class = "select-title">ガイド時間</p>
-          <div class="select-btn guide-select">
-            <select name=time required>
-              <option value="10">10分</option>
-              <option value="20">20分</option>
-              <option value="30">30分</option>
-              <option value="40">40分</option>
-              <option value="50">50分</option>
-              <option value="60">60分</option>
-              <option value="70">70分</option>
-              <option value="80">80分</option>
-              <option value="90">90分</option>
-            </select>
-        </div>
-        <p class ="select-title">料金</p>
-        <div class="select-btn guide-select">
-          <select name="fee" required>
-            <option value="100">100円</option>
-            <option value="200">200円</option>
-            <option value="250">250円</option>
-            <option value="290">290円</option>
-            <option value="350">350円</option>
-            <option value="490">490円</option>
-            <option value="590">590円</option>
-            <option value="690">690円</option>
-            <option value="790">790円</option>
-            <option value="1000">1,000円~</option>
-          </select>
-        </div>
-        <p class="select-title">最大人数</p>
-        <div class="select-btn guide-select">
-          <select name="maxsubject" required>
-            <option value="5">5人</option>
-            <option value="10">10人</option>
-            <option value="12">12人</option>
-            <option value="15">15人</option>
-            <option value="20">20人</option>
-          </select>
-        </div>
+       <p class = "select-title">ガイド時間</p>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+	   <div class="form-group">
+             <div class="select-btn guide-select">
+               <select name="time" required class="form-control">
+                 <option value="10">10分</option>
+                 <option value="20">20分</option>
+                 <option value="30">30分</option>
+                 <option value="40">40分</option>
+                 <option value="50">50分</option>
+                 <option value="60">60分</option>
+                 <option value="70">70分</option>
+                 <option value="80">80分</option>
+                 <option value="90">90分</option>
+               </select>
+	     </div>
+	   </div>
+         </div>
+       </div>
+       <p class ="select-title">料金</p>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           <div class="form-group">
+             <div class="select-btn guide-select">
+               <select name="fee" required class="form-control">
+                 <option value="100">100円</option>
+                 <option value="200">200円</option>
+                 <option value="250">250円</option>
+                 <option value="290">290円</option>
+                 <option value="350">350円</option>
+                 <option value="490">490円</option>
+                 <option value="590">590円</option>
+                 <option value="690">690円</option>
+                 <option value="790">790円</option>
+                 <option value="1000">1,000円~</option>
+               </select>
+             </div>
+           </div>
+         </div>
+       </div>
+       <p class="select-title">最大人数</p>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           <div class="form-group">
+             <div class="select-btn guide-select">
+               <select name="maxsubject" required class="form-control">
+		 <option value="5">5人</option>
+		 <option value="10">10人</option>
+		 <option value="12">12人</option>
+		 <option value="15">15人</option>
+		 <option value="20">20人</option>
+               </select>
+             </div>
+	   </div>
+	 </div>
+       </div>       
+       <p class="select-title">対応可能言語</p>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           
+           <div class="select-btn guide-select">
+             <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
+             <input type="checkbox" name="language[]"  value="EN">英語</option>
+             <input type="checkbox" name="language[]"  value="CH">中国語</option>
+             <input type="checkbox" name="language[]"  value="FR">フランス語</option>
+             <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
 
-        <p class="select-title">対応可能言語</p>
-        <div class="select-btn guide-select">
-            <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
-            <input type="checkbox" name="language[]"  value="EN">英語</option>
-            <input type="checkbox" name="language[]"  value="CH">中国語</option>
-            <input type="checkbox" name="language[]"  value="FR">フランス語</option>
-            <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-          </select>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
-
-      <p> 
-
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="Next"/>
+<br>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+	   <div class="next-btn-parent"> 
+             <input class="btn btn-info btn-lg btn-block" type="submit" value="Next"/>
+	   </div>
+	 </div>
       </div>
-      </form>
+      
+</div>
+</div>
+</div>
+</div>
+<br><br>
+</form>
 
-  </body>
+
+</body>
 </html>
