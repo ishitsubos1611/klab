@@ -10,15 +10,19 @@
 }
 </style>
 
-    <link rel="stylesheet" href="../css/0-3-A3.css">
+<!--<link rel="stylesheet" href="../css/0-3-A3.css">-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
 <body>
 
-   <div class="main">
-    <div class="startup">
+  <div class="main">
+    <div class="container-fluid">
+      <div class="text-center">
+	<div class="startup">
+	  <br><br>
 
 <?php
 
@@ -72,7 +76,14 @@
 // echo '<input name = location' .' type=hidden value="' . $location . '">';
 // echo '<input name = sGID' .' type=hidden value="' . $sGID . '">';
 
- echo  '<p>' . $year . '年' . $month . '月' . $day . '日' . 'のガイド登録' . $modify_mode. '中</p> </div>';
+ echo  '<div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10">
+	    <div class="btn btn-danger disabled btn-xl btn-block">
+	      <p>' . $year . '年' . $month . '月' . $day . '日' . 'のガイド登録' . $modify_mode. '中</p>
+	    </div>
+	  </div>
+        </div>';
 // echo '<div class="message">  <p> ' . $year . '年' . $month . '月' . $day . '日の' . $modify_mode ;
 
 // データベースDB接続
@@ -94,7 +105,11 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 if($mode == 0 ){
 
 
- echo   '<p class="select-title">' . $modify_mode. 'するスポットを選択して下さい</p>  <select name="scheduleGID" require>';
+echo   '<p class="select-title">' . $modify_mode. 'するスポットを選択して下さい</p>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <div class="form-group"> <select name="scheduleGID" require class="form-control">';
 
 $date = $month . "-" . $day;
 //データ取得
@@ -124,98 +139,142 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 } 
 
 echo ' </select>
-        </div>
-        <p></p>
-      </div>';
+            </div>
+	  </div>
+	  </div>
+        <p></p>';
 
 echo 
-    ' <div class="select-wrapper"> 
-        <p class = "select-title">ガイド開始時間</p>
-     </div>';
+    ' <p class = "select-title">ガイド開始時間</p>';
 //    <div class="message">
 //         <p> '
 //     . $year . '年' . $month . '月' . $day . '日の' 
 //     . $modify_mode  
 //    . '</p>
 //    </div>
-echo       ' <div class="select-btn guide-select">
-            <select name=starttime required>
-              <option value="8:00">8:00</option>
-              <option value="9:00">9:00</option>
-              <option value="10:00">10:00</option>
-              <option value="11:00">11:00</option>
-              <option value="12:00">12:00</option>
-              <option value="13:00">13:00</option>
-              <option value="14:00">14:00</option>
-              <option value="15:00">15:00</option>
-              <option value="16:00">16:00</option>
-              <option value="17:00">17:00</option>
-            </select>
-        </div> 
-        <p class = "select-title">ガイド終了時間</p>
-        <div class="select-btn guide-select">
-            <select name=endtime required>
-              <option value="9:00">9:00</option>
-              <option value="10:00">10:00</option>
-              <option value="11:00">11:00</option>
-              <option value="12:00">12:00</option>
-              <option value="13:00">13:00</option>
-              <option value="14:00">14:00</option>
-              <option value="15:00">15:00</option>
-              <option value="16:00">16:00</option>
-              <option value="17:00">17:00</option>
-              <option value="18:00">18:00</option>
-            </select>
-        </div> 
-        <p class = "select-title">ガイド時間</p>
-        <div class="select-btn guide-select">
-            <select name=time required>
-              <option value="10">10分</option>
-              <option value="20">20分</option>
-              <option value="30">30分</option>
-              <option value="40">40分</option>
-              <option value="50">50分</option>
-              <option value="60">60分</option>
-              <option value="70">70分</option>
-              <option value="80">80分</option>
-              <option value="90">90分</option>
-            </select>
-        </div>
-        <p class ="select-title">料金</p>
-        <div class="select-btn guide-select">
-          <select name="fee" required>
-            <option value="100">100円</option>
-            <option value="200">200円</option>
-            <option value="250">250円</option>
-            <option value="290">290円</option>
-            <option value="350">350円</option>
-            <option value="490">490円</option>
-            <option value="590">590円</option>
-            <option value="690">690円</option>
-            <option value="790">790円</option>
-            <option value="1000">1,000円~</option>
-          </select>
-        </div>
-        <p class="select-title">最大人数</p>
-        <div class="select-btn guide-select">
-          <select name="maxsubject" required>
-            <option value="5">5人</option>
-            <option value="10">10人</option>
-            <option value="12">12人</option>
-            <option value="15">15人</option>
-            <option value="20">20人</option>
-          </select>
-        </div>
-
-        <p class="select-title">対応可能言語</p>
-        <div class="select-btn guide-select">
+      echo       '
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8"> 
+          <div class="form-group">
+	    <div class="select-btn guide-select">
+              <select name=starttime required class="form-control">
+		<option value="8:00">8:00</option>
+		<option value="9:00">9:00</option>
+		<option value="10:00">10:00</option>
+		<option value="11:00">11:00</option>
+		<option value="12:00">12:00</option>
+		<option value="13:00">13:00</option>
+		<option value="14:00">14:00</option>
+		<option value="15:00">15:00</option>
+		<option value="16:00">16:00</option>
+		<option value="17:00">17:00</option>
+              </select>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <p></p>
+      <p class = "select-title">ガイド終了時間</p>
+      <div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+          <div class="form-group">
+            <div class="select-btn guide-select">
+              <select name=endtime required class="form-control">
+		<option value="9:00">9:00</option>
+		<option value="10:00">10:00</option>
+		<option value="11:00">11:00</option>
+		<option value="12:00">12:00</option>
+		<option value="13:00">13:00</option>
+		<option value="14:00">14:00</option>
+		<option value="15:00">15:00</option>
+		<option value="16:00">16:00</option>
+		<option value="17:00">17:00</option>
+		<option value="18:00">18:00</option>
+              </select>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <p></p>
+      <p class = "select-title">ガイド時間</p>
+      <div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	  <div class="form-group">
+            <div class="select-btn guide-select">
+              <select name=time required class="form-control">
+		<option value="10">10分</option>
+		<option value="20">20分</option>
+		<option value="30">30分</option>
+		<option value="40">40分</option>
+		<option value="50">50分</option>
+		<option value="60">60分</option>
+		<option value="70">70分</option>
+		<option value="80">80分</option>
+		<option value="90">90分</option>
+              </select>
+            </div>
+	  </div>
+	</div>
+      </div>
+      <p></p>
+      <p class ="select-title">料金</p>
+      <div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	  <div class="form-group">
+            <div class="select-btn guide-select">
+              <select name="fee" required class="form-control">
+		<option value="100">100円</option>
+		<option value="200">200円</option>
+		<option value="250">250円</option>
+		<option value="290">290円</option>
+		<option value="350">350円</option>
+		<option value="490">490円</option>
+		<option value="590">590円</option>
+		<option value="690">690円</option>
+		<option value="790">790円</option>
+		<option value="1000">1,000円~</option>
+              </select>
+            </div>
+	  </div>
+	</div>
+      </div>
+      <p></p>
+      <p class="select-title">最大人数</p>
+      <div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	  <div class="form-group">
+            <div class="select-btn guide-select">
+              <select name="maxsubject" required class="form-control">
+		<option value="5">5人</option>
+		<option value="10">10人</option>
+		<option value="12">12人</option>
+		<option value="15">15人</option>
+		<option value="20">20人</option>
+              </select>
+            </div>
+	  </div>
+	</div>
+      </div>  
+      <p></p>
+      <p class="select-title">対応可能言語</p>
+      <div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	  <div class="select-btn guide-select">
             <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
             <input type="checkbox" name="language[]"  value="EN">英語</option>
             <input type="checkbox" name="language[]"  value="CH">中国語</option>
             <input type="checkbox" name="language[]"  value="FR">フランス語</option>
             <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-          </select>
+          </div>
         </div>
+      </div>  
+ 
 
       </div>
 
@@ -265,35 +324,49 @@ echo
         <p class = "select-title">時間帯(開始時刻）</p>
      </div>';
 
-echo       ' <div class="select-btn guide-select">
-            <select name=starttime required>
-              <option value="8:00">8:00</option>
-              <option value="9:00">9:00</option>
-              <option value="10:00">10:00</option>
-              <option value="11:00">11:00</option>
-              <option value="12:00">12:00</option>
-              <option value="13:00">13:00</option>
-              <option value="14:00">14:00</option>
-              <option value="15:00">15:00</option>
-              <option value="16:00">16:00</option>
-              <option value="17:00">17:00</option>
-            </select>
-        </div> 
-        <p class = "select-title">時間帯(終了時刻）</p>
-        <div class="select-btn guide-select">
-            <select name=endtime required>
-              <option value="9:00">9:00</option>
-              <option value="10:00">10:00</option>
-              <option value="11:00">11:00</option>
-              <option value="12:00">12:00</option>
-              <option value="13:00">13:00</option>
-              <option value="14:00">14:00</option>
-              <option value="15:00">15:00</option>
-              <option value="16:00">16:00</option>
-              <option value="17:00">17:00</option>
-              <option value="18:00">18:00</option>
-            </select>
-        </div> 
+echo       ' <div class="row">
+               <div class="col-sm-2"></div>
+               <div class="col-sm-8">
+                 <div class="form-group">
+                   <div class="select-btn guide-select">
+                     <select name=starttime required class="form-control">
+                       <option value="8:00">8:00</option>
+                       <option value="9:00">9:00</option>
+                       <option value="10:00">10:00</option>
+                       <option value="11:00">11:00</option>
+                       <option value="12:00">12:00</option>
+                       <option value="13:00">13:00</option>
+                       <option value="14:00">14:00</option>
+                       <option value="15:00">15:00</option>
+                       <option value="16:00">16:00</option>
+                       <option value="17:00">17:00</option>
+                     </select>
+		   </div>
+		 </div>
+	       </div>   
+             </div> 
+             <p class = "select-title">時間帯(終了時刻）</p>
+	     <div class="row">
+               <div class="col-sm-2"></div>
+               <div class="col-sm-8">
+                 <div class="form-group">
+		   <div class="select-btn guide-select">
+		     <select name=endtime required class="form-control">
+		       <option value="9:00">9:00</option>
+		       <option value="10:00">10:00</option>
+		       <option value="11:00">11:00</option>
+		       <option value="12:00">12:00</option>
+		       <option value="13:00">13:00</option>
+		       <option value="14:00">14:00</option>
+		       <option value="15:00">15:00</option>
+		       <option value="16:00">16:00</option>
+		       <option value="17:00">17:00</option>
+		       <option value="18:00">18:00</option>
+		     </select>
+		   </div>
+		 </div>
+	       </div>
+             </div> 
 
       </div>
 
@@ -346,11 +419,14 @@ echo '          </select>
 ?>
 
 
-      <p> 
-
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="確認"/>
+　　　<div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+        <input class="btn btn-info btn-lg btn-block" type="submit" value="確認"/>
+	</div>
       </div>
+    </div>
+  </div>
       </form>
 
   </body>
