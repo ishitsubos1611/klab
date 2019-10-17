@@ -23,17 +23,17 @@
 <body>
 
   <div class="main">
-    <br><br>
     <div class="container-fluid">
       <div class="text-center">
-	<p class="bg-info h2">
+	<br><br>
+	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
 	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
-	</p>
+	</a>
 	<div class="message">
         カレンダーの日を
         クリックして下さい。
 	</div>
- ※緑はガイド可能な日として登録されている日です
+ <p class="h4"> ※<span class="text-success">緑</span>はガイド可能な日として登録されている日です</p>
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
 --> 
@@ -240,7 +240,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 //console.log(cellnum);
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
       for(var i in data){
         if (cellnum == previousNum){
@@ -352,7 +352,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 </form> -->
 
 <div class="main">
-  <p></p>
+  <br>
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">

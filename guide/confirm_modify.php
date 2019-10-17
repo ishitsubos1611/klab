@@ -134,29 +134,30 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
     <div class="main">
       <div class="container-fluid">
-        <div class="text-center">	
+        <div class="text-center">
+	  <br><br>
 	    <div class="row">
               <div class="col-sm-2"></div>
               <div class="col-sm-8">
-                <div class = "btn btn-danger disabled btn-xl btn-block">
+                <a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
                   <p><?php echo $year; ?>年<?php echo $_POST['month']; ?>月<?php echo $_POST['day']; ?>日の<?php echo $modify_mode;?> </p>
-		</div>
+		</a>
               </div>
 	    </div>
 	    <p></p>
       <div class="confirmation-wrapper">
-        <div class="row">
+        <!--<div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-	    <div class = "btn btn-danger disabled btn-xl btn-block">
-              <p class = "destination" id = "location-output"><?php echo $location; ?></p>
-	    </div>
+	    <div class = "btn btn-danger disabled btn-xl btn-block">-->
+              <p class = "text-danger h3" id = "location-output"><?php echo $location; ?></p> <br>
+	    <!--</div>
 	  </div>
-	</div>
-        <p class="time-zone check-list"><?php echo $stime; ?>-<?php echo $etime; ?>
-        <p class="time red check-list">ガイド時間：<?php echo $time; ?>分</p>
-        <p class="message">Language : <?php echo $language;?>　</p>
-        <p class="charge red check-list">Charge ¥<?php echo $fee; ?> (1~<?php echo $maxsub?>名)</p>
+	</div>-->
+        <p class="text-danger h3"><?php echo $stime; ?>-<?php echo $etime; ?></p> <br>
+        <p class="text-danger h3">ガイド時間：<?php echo $time; ?>分</p> <br>
+        <p class="text-danger h3">Language : <?php echo $language;?>　</p> <br>
+        <p class="text-danger h3">Charge ¥<?php echo $fee; ?> (1~<?php echo $maxsub?>名)</p> <br>
       </div>
 <!--      <div class="btn-wrapper">
          
@@ -169,7 +170,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
           <INPUT class="btn btn-info btn-lg btn-block" type="submit" value='<?php echo $modify_mode; ?>'>
 	</div>
       </div>
-      <p></p>
+      <br>
 </form>
       <div class="btn-wrapper">
       <div class="row">
@@ -180,6 +181,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
           </form>
         </div>
       </div>
+      <br>
       </div>
     </div>
   </body>

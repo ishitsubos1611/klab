@@ -21,8 +21,8 @@
   <div class="main">
     <div class="container-fluid">
       <div class="text-center">
+	<br><br>
 	<div class="startup">
-	  <br><br>
 
 <?php
 
@@ -77,13 +77,13 @@
 // echo '<input name = sGID' .' type=hidden value="' . $sGID . '">';
 
  echo  '<div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-10">
-	    <div class="btn btn-danger disabled btn-xl btn-block">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
 	      <p>' . $year . '年' . $month . '月' . $day . '日' . 'のガイド登録' . $modify_mode. '中</p>
-	    </div>
+	    </a>
 	  </div>
-        </div>';
+        </div> <br>';
 // echo '<div class="message">  <p> ' . $year . '年' . $month . '月' . $day . '日の' . $modify_mode ;
 
 // データベースDB接続
@@ -141,7 +141,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 echo ' </select>
             </div>
 	  </div>
-	  </div>
+	</div>
+	 
         <p></p>';
 
 echo 
@@ -283,7 +284,12 @@ echo
 
 }elseif($mode == 1){
 
- echo   '<p class="select-title">' . $modify_mode. 'するスポットを選択して下さい</p>  <select name="location" require>';
+echo   '<p class="select-title">' . $modify_mode.
+       'するスポットを選択して下さい</p>
+        <div class="row">
+          <div class="col-sm-2"> </div>
+          <div class="col-sm-8">
+	    <div class="form-group"> <select name="location" require class="form-control">';
 
 $date = $month . "-" . $day;
 //データ取得
@@ -315,14 +321,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 } 
 
 echo ' </select>
-        </div>
+      </div>
+    </div>
+  </div>
         <p></p>
       </div>';
 
 echo 
-    ' <div class="select-wrapper"> 
-        <p class = "select-title">時間帯(開始時刻）</p>
-     </div>';
+    ' 
+        <p class = "select-title">時間帯(開始時刻）</p>';
 
 echo       ' <div class="row">
                <div class="col-sm-2"></div>
@@ -375,7 +382,12 @@ echo       ' <div class="row">
 
 }elseif($mode == 2){
 
- echo   '<p class="select-title">削除するスケジュールを選択して下さい</p>  <select name="scheduleGID" require>';
+echo   '<p class="select-title">削除するスケジュールを選択して下さい</p>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <div class="form-group">
+	      <select name="scheduleGID" require class="form-control">';
 
 
 $date = $month . "-" . $day;
@@ -410,8 +422,10 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 //print_r($json_guideData);
 
 echo '          </select>
-        </div>
-        <p></p>
+            </div>
+	  </div>
+	</div>
+	
       </div>';
 
 }//mode =2 の時

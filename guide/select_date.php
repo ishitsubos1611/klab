@@ -5,17 +5,11 @@
   <title>変更・追加・削除希望の日選択</title>
 
   <!--<link rel="stylesheet" href="../css/0-3-A1.css">
-  <link rel="stylesheet" href="../css/0-3-A3.css">-->
-  <link rel="stylesheet" href="../css/calender.css">
+      <link rel="stylesheet" href="../css/0-3-A3.css">-->
   <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"\
-	  crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" cr\
-	  ossorigin="anonymous"></script>
 
 <?php
  $area = $_POST['area'];
@@ -30,14 +24,15 @@
   <div class="main">
     <div class="container-fluid">
       <div class="text-center">
-	<div class="startup">
+	<br><br>
+	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
 	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
-	</div>
+	</a>
 	<div class="message">
           カレンダーの日を
           クリックして下さい。
 	</div>
- ※緑はガイド可能な日として登録されている日です
+ <p class="h4"> ※<span class="text-success">緑</span>はガイド可能な日として登録されている日です</p>
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
  -->
@@ -247,7 +242,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
       cellnum =  monthVal + '-'  + dayVal;
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
       for(var i in data){
         if (cellnum == previousNum){
@@ -260,8 +255,8 @@ list($row_month, $row_day)=explode("-", $row['date']);
           stimeVal = data[i].start_time;
           etimeVal = data[i].end_time;
 
-          $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
+          $('#cal').append('<div id="guide" class="info text-center h4"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
+          +'<table id="states" class="table-hover"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
           +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
@@ -341,6 +336,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 <div class="main">
   <div class="container-fluid">
     <div class="text-center">
+      <br>
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
@@ -365,7 +361,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 	</div>
       </div>
       
-      <p></p>
+      <br>
     </div>
   </div>
 </div>
