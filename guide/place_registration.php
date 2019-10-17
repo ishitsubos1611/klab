@@ -248,10 +248,11 @@ ossorigin="anonymous"></script>
         <p>ガイド可能な場所のピンを
         クリックして下さい。</p>
       </div>
-     <p align="center"> ピンク色のピンは既に登録されているスポットです </p>
+     <p> ピンク色のピンは既に登録されているスポットです </p>
       <div class="map-wrapper">
           <div id="map"></div>
       </div>
+      <br><br>
       <div class="destination-wrapper">
           <p id = "message">ガイド可能な場所</p>
 <!--      <div class="row">
@@ -259,12 +260,18 @@ ossorigin="anonymous"></script>
         <div class="col-sm-8">
           <div><a href="#"  class = "btn btn-info btn-lg btn-block" >ガイド可能な場所</a></div>
         </div>
-　　　</div>    -->
-        <div class = "destination" id = "output"></div> 
-        <script>
-          document.getElementById("output").style.display = "none";
-        </script>
-      </div>
+	　　　</div>    -->
+        <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           <div class = "destination bg-warning" id = "output"></div> 
+           <script>
+             document.getElementById("output").style.display = "none";
+           </script>
+	 </div>
+	</div>
+      
+	
       <br><br>
      <div class="select-wrapper">
        <p class = "select-title">ガイド時間</p>
@@ -332,18 +339,15 @@ ossorigin="anonymous"></script>
          <div class="col-sm-2"></div>
          <div class="col-sm-8">
            
-           <div class="select-btn guide-select">
+          <!-- <div class="select-btn guide-select">-->
              <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
              <input type="checkbox" name="language[]"  value="EN">英語</option>
              <input type="checkbox" name="language[]"  value="CH">中国語</option>
              <input type="checkbox" name="language[]"  value="FR">フランス語</option>
              <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-
-          </div>
-
-        </div>
-
-      </div>
+           <!--</div>-->
+       </div>
+       </div>
 
 <br>
        <div class="row">

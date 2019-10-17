@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>変更・追加・削除希望の日選択</title>
 
-  <link rel="stylesheet" href="../css/0-3-A1.css">
-  <link rel="stylesheet" href="../css/0-3-A3.css">
+  <!--<link rel="stylesheet" href="../css/0-3-A1.css">
+      <link rel="stylesheet" href="../css/0-3-A3.css">-->
+  <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -18,21 +19,28 @@
 ?>
 
 </head>
-<body margin:auto; text-align:center;>
+<!--<body margin:auto; text-align:center;>-->
+<body>
 
- <div class="main">
-    <div class="startup">
-      <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
-   </div>
- <div class="message">
+  <div class="main">
+    <br><br>
+    <div class="container-fluid">
+      <div class="text-center">
+	<p class="bg-info h2">
+	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
+	</p>
+	<div class="message">
         カレンダーの日を
         クリックして下さい。
- </div>
+	</div>
  ※緑はガイド可能な日として登録されている日です
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
 --> 
-</div>
+      </div>
+    </div>
+  </div>
+  
 
    <form name="myform3" method='post' onsubmit="return checkText3()">
 
@@ -343,10 +351,16 @@ list($row_month, $row_day)=explode("-", $row['date']);
 
 </form> -->
 
- <div class="main">
+<div class="main">
+  <p></p>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
       <div class="confirmation-wrapper">
-  <a href="../top.html" class = "btn resistration"  >トップページに戻る</a>
+	<a href="../top.html" class = "btn btn-info btn-lg btn-block"  >トップページに戻る</a>
       </div>
- </div>
- </body>
+    </div>
+  </div>
+</div>
+</body>
 </html>
