@@ -42,7 +42,7 @@
 <?php 
  $period = $_POST['time'];
  $participants = $_POST['maxsubject'];
- $language = $_POST['language'];
+ $language = implode("、",$_POST['language']);
   
  echo '<input name = area' .' type=hidden value="' . $area . '">';
  echo '<input name = style' .' type=hidden value="' . $style . '">';
@@ -50,7 +50,8 @@
  echo '<input name = location' .' type=hidden value="' . $location . '">';
  echo '<input name = period' .' type=hidden value="' . $period . '">';
  echo '<input name = participants' .' type=hidden value="' . $participants . '">';
- echo '<input name = language' .' type=hidden value="' . $language . '">'; 
+ echo '<input name = language' .' type=hidden value="' . $language . '">';
+ echo '<input name = uid' .' type=hidden value="' . $uid . '">'; 
 
 // データベース接続
 

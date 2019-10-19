@@ -25,6 +25,7 @@
  $day = $_POST['day'];
  $mode = $_POST['mode'];
  $gid = $_POST['gid'];
+ $uid = $_POST['uid']; 
  $year = $_POST['year'];
  $location = $_POST['location'];
  $start_time = $_POST['start_time'];
@@ -87,7 +88,13 @@
  echo '<input name = day' .' type=hidden value="' . $day . '">';
  echo '<input name = mode' .' type=hidden value="' . $mode . '">';
  echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+ echo '<input name = uid' .' type=hidden value="' . $uid . '">';    
  echo '<input name = location' .' type=hidden value="' . $location . '">';
+ echo '<input name = language' .' type=hidden value="' . $language . '">';    
+ echo '<input name = stime' .' type=hidden value="' . $stime . '">';
+ echo '<input name = end_time' .' type=hidden value="' . $end_time . '">';    
+ echo '<input name = period' .' type=hidden value="' . $period . '">';
+ echo '<input name = participants' .' type=hidden value="' . $participants . '">';    
  //echo  '<p>' . $year . '年' . $month . '月' . $day . '日' . 'のスケジュール修正中</p>';
 
 
@@ -104,7 +111,10 @@
         <input type="checkbox" name="sample" value="2">ガイド2
         <input type="checkbox" name="sample" value="3">ガイド3
     -->    
-        <div id="guide"></div>
+      <div id="guide"></div>
+
+      <div id="output"></div>
+
 <!--
       <div id="cal">
         <input type="checkbox" name="sample" value="1">ガイド1
@@ -134,13 +144,14 @@
     </script>
     
   <script>
-    
+        var guide = [];
         var guideData = [];
         var locationVal = "<?php $location = $_POST['location']; echo $location ?>";
         var stimeVal = "<?php $start_time = $_POST['start_time']; echo $start_time ?>";
 	var periodVal = "<?php echo $period=$_POST['period'] ?>";
 	var participants = "<?php echo $participants=$_POST['participants'] ?>";
-	var language = "<?php echo $language=$_POST['language'] ?>";
+	var language = "<?php echo $language=implode("、",$_POST['language']) ?>";
+	//var submit = $('<input>');
         //$.post('select_date.php','cellnum');
         //var data = JSON.parse('<?php echo addslashes($json_guideData);  ?>');
 
@@ -162,6 +173,7 @@
                 console.log(locationVal);
 	        console.log(periodVal);
 	        console.log(participants);
+	        console.log(guideData[0].charge);
                 //console.log(dateVal);
 	        selectGuide();
             }).fail(function(xhr,err){
@@ -176,24 +188,81 @@
 	if(guideData.length == 0){
             $('#guide').html('<p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p>');
 	}
+	console.log(guideData.length);
+	console.log(<?php echo $uid; ?>);
         //console.log(guideData[0]['date']);
-        for (var i = 0; i <guideData.length; i++){
+	
+          for (var i = 0; i <guideData.length; i++){
+					       
 	    //console.log(guideData[i]['date']);	      
 	    //var div = $('<div id="guide" class="info"><p>ガイドID：'+guideData[i].GID+'</p></div>');
-            $('#guide').html('<p>ガイドID：'+guideData[i].GID+'　<input type="checkbox" name="guide" value="guideData[i].GID"></p>');
+	    //function() {				       
+		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　<input type="checkbox"></p>');
+		//$('input[type="checkbox"]').attr('id','checkbox'+i);			       
+		$('input[type="checkbox"]').attr('name','guide');
+		$('input[type="checkbox"]').attr('value',guideData[i].GID);			       
+	        //document.getElementById("checkbox").value = guideData[i].GID;
+	    //}			       
+	    //document.getElementById("checkbox").name = guide[i];
+	    //console.log(document.getElementByName("guide[0]").value);				     
+	    //$.post('user_confirm.php', name='guideData[i].charge');
+					     
             /*$('#cal').append('<div id="guide" class="info"><p>　(人気)　'+guideData[i].location+'ガイド </p>'
           +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuideID</td><td>'+guideData[i].GID+'</td></tr><tr><td>Boarding time</td><td>'+guideData[i].start_time+'</td></tr>'
           +'<tr><td>END</td><td>'+guideData[i].end_time+'</td><td>('+guideData[i].period+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+guideData[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+guideData[i].charge+'</td><td>('+guideData[i].max_num_participant+'名)</td></tr></table></div>');*/
+	  
 	}
-      }				    
+        //console.log(document.getElementById("checkbox").value);
+	
+	/*function onCheckBox() {
+	    var check = document.myform3.checkbox.checked;
+            var value = document.getElement("checkbox").value;
+            var target = document.getElementById("output");
+            
+            if(check == true) {
+	       target.innerHTML = "さんをチェックしています。";				     
+	    }				     
+	    $('#output').html(<p>ガイド'+value+'さんにチェックしました。);				     
+	}*/				     
+
+      $('input').on('change',function() {
+	   //var vals=[];
+  	   //var check=[];				   
+	   //$('input[name=guide]:checked').each(function() {
+	   var vals = $('input:checked').map(function() {				     
+               //var check=$(this).prop('checked');
+	       //vals.push($(this).val());
+	       return $(this).val();			     
+	   }).get();
+	       var check = $(this).prop('checked');	 			     
+               if(check == true) {
+		  $('#output').html('<p>ガイド'+vals+'さんにチェックしました。</p>');
+		  //$.post("user_confirm.php",charge=value);
+		  //$('form').html('<input id="submit_charge" type="hidden" name="charge" value="">');
+		  			     
+		  console.log(check);
+		  console.log(vals);			     
+	       }else{
+                  $('#output').html('');
+		  console.log(check);
+		  console.log(vals);			     
+	       }
+		  console.log(vals);
+		  //console.log(vals[1]);	     
+           //});
+      }); 
+					     
+   }				    
       //});
       //showGuide();					    
 					     
     //});
    </script>
 
+  
+</script>
 <!--     <div class="select-wrapper">
         <p class = "select-title">ガイド開始時間</p>
         <div class="select-btn guide-select">

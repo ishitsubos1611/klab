@@ -21,7 +21,8 @@
 echo $scheduleUID = $_POST['scheduleUID'];
 echo $date = $_POST['date'];
 
-$UID = 1;
+//$UID = 1;
+$UID = $_POST['uid'];  
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -43,7 +44,7 @@ $sql = "DELETE FROM U_Schedule WHERE scheduleUID=:scheduleUID";
 $stmt = $dbh->prepare($sql);
 //print_r($dbh->errorInfo());
 
-$stmt->bindParam(':scheduleGID', $scheduleGID, PDO::PARAM_INT);
+$stmt->bindParam(':scheduleUID', $scheduleUID, PDO::PARAM_INT);
 
 
 $stmt->execute();

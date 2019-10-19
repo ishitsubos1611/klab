@@ -21,13 +21,13 @@ $GID = $_POST['gid'];
 $UID = $_POST['uid'];  
 $date = $_POST['date'];
 $year = $_POST['year'];
-$start_time = $_POST['start_time'];
+$start_time = $_POST['stime'];
 $end_time = $_POST['end_time'];
 $language = $_POST['language'];
 $location = $_POST['location'];
 $lat = $_POST['lat'];
 $long = $_POST['long'];
-$max_num_participant = $_POST['maxsub'];
+$max_num_participant = $_POST['participants'];
 $charge = $_POST['fee'];
 $payment_date = $_POST['payment_date'];
 $period = $_POST['period'];
@@ -46,7 +46,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 // INSERT
-$sql = "INSERT INTO U_Schedule (UID, GID, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:UID, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
+$sql = "INSERT INTO U_Schedule (UID, GID, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:UID, :GID, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
 
 //$sql = "INSERT INTO G_Schedule (GID, year, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:GID, :year, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
 /*$sql .= "WHERE DATE_FORMAT(date, '%Y-%m-%d') = STR_TO_DATE(:date ,'%Y-%m-%d')";
