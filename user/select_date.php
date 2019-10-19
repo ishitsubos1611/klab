@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>変更・追加・削除希望の日選択</title>
 
-  <link rel="stylesheet" href="../css/0-3-A1.css">
-  <link rel="stylesheet" href="../css/0-3-A3.css">
+  <!--<link rel="stylesheet" href="../css/0-3-A1.css">
+      <link rel="stylesheet" href="../css/0-3-A3.css">-->
+  <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -22,19 +23,25 @@
 </head>
 <body margin:auto; text-align:center;>
 
- <div class="main">
-    <div class="startup">
-      <?php if(isset($_GET["uid"])) echo $gid = $_GET['uid'];else echo $uid = $_POST['uid']; ?>さんのガイド希望日を選択中
-   </div>
- <div class="message">
+  <div class="main">
+    <div class="container-fluid">
+      <div class="text-center">
+	<br><br>
+	<a href="#"  class = "btn btn-warning disabled btn-xl btn-block">
+	  <?php if(isset($_GET["uid"])) echo $gid = $_GET['uid'];else echo $uid = $_POST['uid']; ?>さんのガイド希望日を選択中
+	</a>
+	<div class="message">
         カレンダーの日を
         クリックして下さい。
- </div>
- ※緑は既に登録されている日です
+	</div>
+	<p class="h4">※<span class="text-success">緑</span>は既に登録されている日です</p>
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
 --> 
-</div>
+      </div>
+    </div>
+  </div>
+  
 
    <form name="myform3" method='post' onsubmit="return checkText3()">
 
@@ -199,7 +206,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 //END ISHITSUBO
   ?>
 
-</div>
+<!--</div>-->
 
  <div id="clickedDate"></div>
  <div id="cal"></div>
@@ -250,13 +257,12 @@ console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData
       $.post('modify_registration.php','cellnum');
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info text-center h4">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div><br>');
       //$('#cal').remove();
       //$('.select-btn guide-select').remove();
-      $('#cal').html(
-          '<p class = "select-title">ガイド開始時間</p>'
-          +'<div class="select-btn guide-select"><select name=start_time><option value="08:00:00">8:00</option><option value="09:00:00">9:00</option><option value="10:00:00">10:00</option><option value="11:00:00">11:00</option><option value="12:00:00">12:00</option><option value="13:00:00">13:00</option><option value="14:00:00">14:00</option><option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div>');
-      $('#next').html('<p></p>'+'<input id="submit_btn" class = "btn resistration" type="submit" value="ガイドさんの検索へ">');
+      $('#cal').html('<p class ="select-title text-center">ガイド開始時間</p>'
++'<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="form-group"><div class="select-btn guide-select text-center"><select class="form-control"><option value="08:00:00">8:00</option>	       <option value="09:00:00">9:00</option>	       <option value="10:00:00">10:00</option>	       <option value="11:00:00">11:00</option>	       <option value="12:00:00">12:00</option>	       <option value="13:00:00">13:00</option>	       <option value="14:00:00">14:00</option>	       <option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div></div></div></div>');
+      $('#next').html('<p></p>'+'<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><input id="submit_btn" class = "btn btn-info btn-lg btn-block" type="submit" value="ガイドさんの検索へ"></div></div><br><br>');
 
       for(var i in data){
         if (cellnum == previousNum){
