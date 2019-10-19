@@ -36,6 +36,7 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
+      var nowLat=0, nowLng=0;
 
       $(function(){
         $.ajax({
@@ -72,9 +73,36 @@ $(window).on("popstate", function (event) {
         });
       });
 
-      //console.log(markerData.length);
+      // 位置取得成功した場合
+      function success(position) {
+	var data = position.coords ;
+　　　	nowLat = data.latitude ;
+	nowLng = data.longitude;
+	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
+      }
+
+      // 取得失敗した場合
+      function error(error) {
+        switch(error.code) {
+            case 1: //PERMISSION_DENIED
+            alert("位置情報の利用が許可されていません");
+            break;
+            case 2: //POSITION_UNAVAILABLE
+            alert("現在位置が取得できませんでした");
+            break;
+            case 3: //TIMEOUT
+            alert("タイムアウトになりました");
+            break;
+            default:
+            alert("その他のエラー(エラーコード:"+error.code+")");
+            break;
+        }
+      }
       
-      var MKData = JSON.parse('{"lat":35.010239,"lng":135.759646}');
+      navigator.geolocation.getCurrentPosition(success, error);
+
+      //var MKData = JSON.parse(success());     
+
       var timerID = 0;
 
       StartTimer = function() {
@@ -86,15 +114,18 @@ $(window).on("popstate", function (event) {
       };
 
       function initMap(){
-        // #mapに地図を埋め込む
+	 alert("緯度["+ nowLat +"] 経度aaaa["+ nowLng +"]");    
+	// #mapに地図を埋め込む
         //var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']});
-        var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
+       	//var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
         //var mapLatLng = new google.maps.LatLng(35.700000,139.772000);
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: mapLatLng,
-          zoom: 13 // 地図のズームを指定
-        });
+	 
+	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
 
+	map = new google.maps.Map(document.getElementById('map'), {
+        center: mapLatLng,
+        zoom: 13 // 地図のズームを指定
+       	});
 
         for (var i = 0; i < markerData.length; i++) {
 
