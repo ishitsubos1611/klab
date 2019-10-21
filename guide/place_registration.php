@@ -25,7 +25,7 @@ $(window).on("popstate", function (event) {
 </style>
 
     <link rel="stylesheet" href="../css/0-3-A3.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?lang=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
 

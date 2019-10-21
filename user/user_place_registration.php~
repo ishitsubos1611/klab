@@ -36,7 +36,6 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
-      var nowLat=0, nowLng=0;
 
       $(function(){
         $.ajax({
@@ -73,36 +72,9 @@ $(window).on("popstate", function (event) {
         });
       });
 
-      // 位置取得成功した場合
-      function success(position) {
-	var data = position.coords ;
-　　　	nowLat = data.latitude ;
-	nowLng = data.longitude;
-	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
-      }
-
-      // 取得失敗した場合
-      function error(error) {
-        switch(error.code) {
-            case 1: //PERMISSION_DENIED
-            alert("位置情報の利用が許可されていません");
-            break;
-            case 2: //POSITION_UNAVAILABLE
-            alert("現在位置が取得できませんでした");
-            break;
-            case 3: //TIMEOUT
-            alert("タイムアウトになりました");
-            break;
-            default:
-            alert("その他のエラー(エラーコード:"+error.code+")");
-            break;
-        }
-      }
+      //console.log(markerData.length);
       
-      navigator.geolocation.getCurrentPosition(success, error);
-
-      //var MKData = JSON.parse(success());     
-
+      var MKData = JSON.parse('{"lat":35.010239,"lng":135.759646}');
       var timerID = 0;
 
       StartTimer = function() {
@@ -114,18 +86,15 @@ $(window).on("popstate", function (event) {
       };
 
       function initMap(){
-	 alert("緯度["+ nowLat +"] 経度aaaa["+ nowLng +"]");    
-	// #mapに地図を埋め込む
+        // #mapに地図を埋め込む
         //var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']});
-       	//var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
+        var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
         //var mapLatLng = new google.maps.LatLng(35.700000,139.772000);
-	 
-	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: mapLatLng,
+          zoom: 13 // 地図のズームを指定
+        });
 
-	map = new google.maps.Map(document.getElementById('map'), {
-        center: mapLatLng,
-        zoom: 13 // 地図のズームを指定
-       	});
 
         for (var i = 0; i < markerData.length; i++) {
 
@@ -289,7 +258,7 @@ $(window).on("popstate", function (event) {
      <div class="select-wrapper">
           <p class = "select-title">ガイド時間</p>
           <div class="select-btn guide-select">
-            <select name=time>
+            <select name=time required>
               <option value="10">~10分</option>
               <option value="20">10~20分</option>
               <option value="30">20~30分</option>
@@ -320,7 +289,7 @@ $(window).on("popstate", function (event) {
 -->
        <p class="select-title">参加人数</p>
         <div class="select-btn guide-select">
-          <select name="maxsubject">
+          <select name="maxsubject" required>
            <option value="1">1人</option>
            <option value="2">2人</option>
            <option value="3">3人</option>
