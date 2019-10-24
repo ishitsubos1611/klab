@@ -33,11 +33,16 @@ $(window).on("popstate", function (event) {
  <form name="myform3" method='post' onsubmit="return checkText3()">
 
 <?php
- $area = $_POST['area'];
- $style = $_POST['style'];
+ //$ginfo = array();
+ $ginfo = explode(",",$_POST['guide']);
+ $stime = explode(":",$_POST['stime'],-1); 
+ //$area = $_POST['area'];
+ //$style = $_POST['style'];
  //$month = $_POST['month'];
  //$day = $_POST['day'];
- $gid = $_POST['guide'];
+ //$ginfo = $_POST['guide'];
+ $gid = $ginfo[0];
+ $fee = $ginfo[1]; 
  $uid = $_POST['uid']; 
  $year = $_POST['year'];
  $date = $_POST['date']; 
@@ -46,11 +51,11 @@ $location = $_POST['location'];
 //$long = $_POST['lng'];
 $period = $_POST['period'];
 $participants = $_POST['participants'];  
-$start_time = $_POST['stime'];  
-$fee = $_POST['charge'];
+$start_time = implode(":",$stime);  
+//$fee = $_POST['charge'];
 //$participants = $_POST['participants'];
 //$language = $_POST['language'];
-$language = implode("、", $_POST['language']);
+$language = $_POST['language'];
 //$thisdate = $_POST['thisdate'];
 //$thismonth = $_POST['thismonth'];
 //$thisyear = $_POST['thisyear'];
@@ -60,12 +65,14 @@ $payment_date = '8';
  echo '<input name = gid' .' type=hidden value="' . $gid . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">'; 
  echo '<input name = location' .' type=hidden value="' . $location . '">';
+ echo '<input name = year' .' type=hidden value="' . $year . '">'; 
+ echo '<input name = date' .' type=hidden value="' . $date . '">'; 
  //echo '<input name = lat' .' type=hidden value="' . $lat . '">';
  //echo '<input name = long' .' type=hidden value="' . $long . '">';
  echo '<input name = start_time' .' type=hidden value="' . $start_time . '">';
  echo '<input name = end_time' .' type=hidden value="' . $end_time . '">'; 
  echo '<input name = language' .' type=hidden value="' . $language. '">';
- echo '<input name = fee' .' type=hidden value="' . $fee. '">';
+ echo '<input name = fee' .' type=hidden value="' . $fee . '">';
  echo '<input name = participants' .' type=hidden value="' . $participants. '">';
  echo '<input name = period' .' type=hidden value="' . $period. '">';
  echo '<input name = payment_day' .' type=hidden value="' . $payment_date. '"><br>';
@@ -109,14 +116,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    $final_step = "登録";
    $stepNum = 1;
   }
-  else if(($location == $row['location']) && (empty($row['date']))){
+  else if(($location == $row['location']) && ($date == $row['date'])){
 
    $location = "既に" . $location . "は登録されています";
+   $date = "既に" . $date . "に登録済みのガイド予定があります";
    $final_step = "削除";
    $stepNum = 2;
   
-   $scheduleGID = $row['scheduleGID'];  
-   echo '<input name = scheduleGID' .' type=hidden value="' . $scheduleGID. '">'; 
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">'; 
   }
   else if(($date == $row['date'])){
    $date = "既に" . $date . "に登録済みのガイド予定があります";
@@ -131,6 +139,10 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    //デバッグ用
    console.log(<?php echo $gid ?>);
    console.log(<?php echo $fee ?>);
+   console.log(<?php echo $date ?>);
+   console.log(<?php echo $start_time ?>);
+   console.log(<?php echo $scheduleUID ?>);
+   console.log(<?php echo $year ?>);
 </script>
 
 <script>
@@ -161,8 +173,10 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
          8:00-18:00
   -->
  <!-- <p class="time red check-list">ガイドさん：<?php echo $gid; ?></p> -->
+        <p class="time red check-list">ガイド予約日：<?php echo $year; ?>年<?php echo $date; ?></p>
+	<p class="time red check-list">開始時間：<?php echo $start_time; ?></p>
         <p class="time red check-list">ガイド時間：<?php echo $period; ?>分</p>
-        <p class="message">Language : <?php echo implode("、", $_POST['language']);?>　</p>
+        <p class="message">Language : <?php echo $language ?>　</p>
         <p class="charge red check-list">Charge ¥<?php echo $fee; ?> (1~<?php echo $participants?>名)</p>
       </div> 
    <!--   <div class="btn-wrapper">

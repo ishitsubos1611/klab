@@ -21,7 +21,7 @@ $GID = $_POST['gid'];
 $UID = $_POST['uid'];  
 $date = $_POST['date'];
 $year = $_POST['year'];
-$start_time = $_POST['stime'];
+$start_time = $_POST['start_time'];
 $end_time = $_POST['end_time'];
 $language = $_POST['language'];
 $location = $_POST['location'];
@@ -31,6 +31,22 @@ $max_num_participant = $_POST['participants'];
 $charge = $_POST['fee'];
 $payment_date = $_POST['payment_date'];
 $period = $_POST['period'];
+
+/*$GID=1;
+$UID=1;
+$date="10月25日";
+$year="2019";
+$start_time="8:00:00";
+$end_time="16:00:00"; 
+$language="JP";
+$location="京都府京都文化博物館";
+//$lat=;
+//$long=;
+$max_num_participant=10;
+$charge=100;
+//$payment_date=;
+//$period=;  
+*/  
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -46,7 +62,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 // INSERT
-$sql = "INSERT INTO U_Schedule (UID, GID, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:UID, :GID, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
+$sql = "INSERT INTO U_Schedule (UID, GID, year, date, start_time, end_time, language, location, lat, lng, max_num_participant, charge, payment_date, period) VALUES (:UID, :GID, :year, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
 
 //$sql = "INSERT INTO G_Schedule (GID, year, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:GID, :year, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
 /*$sql .= "WHERE DATE_FORMAT(date, '%Y-%m-%d') = STR_TO_DATE(:date ,'%Y-%m-%d')";
@@ -58,7 +74,7 @@ $stmt = $dbh->prepare($sql);
 
 $stmt->bindParam(':UID', $UID, PDO::PARAM_INT);
 $stmt->bindParam(':GID', $GID, PDO::PARAM_INT);
-$stmt->bindParam(':year', $year, PDO::PARAM_INT);
+$stmt->bindParam(':year', $year, PDO::PARAM_STR);
 $stmt->bindParam(':date', $date, PDO::PARAM_STR);
 $stmt->bindParam(':start_time', $start_time, PDO::PARAM_STR);
 $stmt->bindParam(':end_time', $end_time, PDO::PARAM_STR);
