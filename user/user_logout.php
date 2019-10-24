@@ -23,8 +23,6 @@ $_SESSION = array();
     <body>
         <h1>ログアウト画面</h1>
         <div><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
-        <ul>
-            <li><a href="user_login.php">ログイン画面に戻る</a></li>
-        </ul>
+            <p><a href="user_login.php">ログイン画面に戻る</a></p>
     </body>
 </html>
