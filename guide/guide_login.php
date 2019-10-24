@@ -2,10 +2,10 @@
 // セッション開始
 session_start();
 
-$db['host'] = "localhost";  // DBサーバのURL
-$db['user'] = "ishi";  // ユーザー名
-$db['pass'] = "asdf1611";  // ユーザー名のパスワード
-$db['dbname'] = "account_db";  // データベース名
+$host = "localhost";  // DBサーバのURL
+$dbuser = "ishi";  // ユーザー名
+$dbpass = "asdf1611";  // ユーザー名のパスワード
+$dbname = "account_db";  // データベース名
 
 // エラーメッセージの初期化
 $errorMessage = "";
@@ -24,11 +24,11 @@ if (isset($_POST["login"])) {
         $userid = $_POST["userid"];
 
         // 2. ユーザIDとパスワードが入力されていたら認証する
-        $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $db['host'], $db['dbname']);
+        $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $host, $dbname);
 
         // 3. エラー処理
         try {
-            $pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+            $pdo = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, [PDO::ATTR_EMULATE_PREPARES => false]);
 
             $stmt = $pdo->prepare('SELECT * FROM G_account WHERE name = ?');
             $stmt->execute(array($userid));
