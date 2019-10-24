@@ -160,7 +160,9 @@ $(window).on("popstate", function (event) {
             disableAutoPan: true //自動移動を解除
           });
            // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
+	  
+	 // myInfoWindow.open(map, marker[i]);
+
 
           markerEvent(i);//メソッド呼び出し
 	       //console.log(markerData[0]['lat']);
@@ -192,6 +194,7 @@ $(window).on("popstate", function (event) {
            // target.innerHTML = "【　" + JPname + "  】";
            // target = document.getElementById("message");
            // target.innerHTML = "ガイド可能な場所";
+	     myInfoWindow.open(map, marker[i]);
           };
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
       }
@@ -443,5 +446,3 @@ $(window).on("popstate", function (event) {
 </div>
       </form>
 
-  </body>
-</html>
