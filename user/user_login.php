@@ -47,7 +47,7 @@ if (isset($_POST["login"])) {
                         $row['Uname'];  // ユーザー名
                     }
                     $_SESSION["NAME"] = $row['Uname'];
-                    header("Location: top.php");  // メイン画面へ遷移
+                    header("Location: ../top.php");  // メイン画面へ遷移
                     exit();  // 処理終了
                 } else {
                     // 認証失敗
