@@ -1,14 +1,14 @@
 <?php
 //$id = $_POST['id'];
 //$area = json_decode($_POST['area']);
-$gid = $_POST['gid'];
+$area = $_POST['area'];
+$category = $_POST['category'];
 //$area = 'kyoto';
-//$category = $_POST['category'];
-//$category = 'all';
+//$style = $_POST['style'];
 
-
+console.log('area');
+console.log($area);
 // データベース接続
-
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -22,25 +22,26 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
  echo '接続失敗';
  exit;
 }
-
-// データ取得sql
-$sql = "SELECT * FROM G_Schedule WHERE GID = ? ";
-$stmt = ($dbh->prepare($sql));
-$stmt->execute(array($gid));
-
+if($category == 'all'){
 // データ取得
+$sql = "SELECT * FROM POI WHERE area = ?";
+$stmt = ($dbh->prepare($sql));
+$stmt->execute(array($area));
+}
+
 //あらかじめ配列を生成しておき、while文で回します。
 $memberList = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  $memberList[]=array(
-  'GID' =>$row['GID'],
+  'id' =>$row['id'],
   'area' =>$row['area'],
-  'location' =>$row['location'],
+  'name' =>$row['location'],
+  'JPname'=>$row['JPname'],
   'lat'=>$row['lat'],
-  'lng'=>$row['long']
+  'lng'=>$row['long'],
+  'url' =>$row['URL']
  );
 }
-
 
 //jsonとして出力
 console.log($memberList);

@@ -11,9 +11,11 @@ $lat = 35.069162899999995;
 $long = 135.7556467;
 
 
+
 //console.log('area');
 //console.log($area);
 // データベース接続
+
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -35,7 +37,9 @@ $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($lat,$long,$lat));
 //}
 
+
 echo $sql;
+
 
 //あらかじめ配列を生成しておき、while文で回します。
 $memberList = array();
@@ -51,8 +55,10 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  );
 }
 
+
 //jsonとして出力
 console.log($memberList);
 header('Content-type: application/json');
 echo json_encode($memberList,JSON_UNESCAPED_UNICODE);
+
 

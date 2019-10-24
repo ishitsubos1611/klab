@@ -23,10 +23,13 @@ $(window).on("popstate", function (event) {
  height: 450px;
 }
 </style>
+
     
     <link rel="stylesheet" href="../css/bootstrap.css">
-    <!--<link rel="stylesheet" href="../css/0-3-A3.css">-->
+    <!--<link rel="stylesheet" href="../css/0-3-A3.css">
+-->
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
 
@@ -175,7 +178,8 @@ $(window).on("popstate", function (event) {
         StartTimer();
       });
 
-//formにactionとvalueを代入する
+
+//formにactionとvalueを代入する
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
@@ -229,10 +233,12 @@ $(window).on("popstate", function (event) {
 
 ?>
     <div class="main">
-<!--      <div class="startup"> -->
+<!--      <div class="startup">
+ -->
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
 <!--        <p>スポット登録中</p>
-	    </div> -->
+	    </div>
+ -->
       <div class="container-fluid">
         <div class="text-center">
 	  <br><br>
@@ -243,7 +249,8 @@ $(window).on("popstate", function (event) {
             </div>
           </div>
 	  <br>
-	  <!--<div class="message">-->
+	  <!--<div class="message">
+-->
             <p class="h4">ガイド可能な場所のピンを
               クリックして下さい。</p>
 	  <!--</div>-->
@@ -273,7 +280,8 @@ $(window).on("popstate", function (event) {
       
 	
 	    <br><br>
-	    <!--<div class="select-wrapper">-->
+	    <!--<div class="select-wrapper">
+-->
 	    <p class = "select-title">ガイド時間</p>
 	    <div class="row">
               <div class="col-sm-2"></div>
@@ -346,7 +354,8 @@ $(window).on("popstate", function (event) {
              <input type="checkbox" name="language[]"  value="FR">フランス語</option>
              <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
            <!--</div>-->
-       </div>
+
+       </div>
        </div>
 
 <br>
