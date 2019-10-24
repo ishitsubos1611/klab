@@ -41,7 +41,7 @@ if (isset($_POST["login"])) {
 
                     // 入力したIDのユーザー名を取得
                     $id = $row['Gid'];
-                    $sql = "SELECT * FROM userData WHERE Gid = $id";  //入力したIDからユーザー名を取得
+                    $sql = "SELECT * FROM G_account WHERE Gid = $id";  //入力したIDからユーザー名を取得
                     $stmt = $pdo->query($sql);
                     foreach ($stmt as $row) {
                         $row['Gname'];  // ユーザー名
