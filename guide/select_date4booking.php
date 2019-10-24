@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>変更・追加・削除希望の日選択</title>
 
-  <link rel="stylesheet" href="../css/0-3-A1.css">
-  <link rel="stylesheet" href="../css/0-3-A3.css">
+  <!--<link rel="stylesheet" href="../css/0-3-A1.css">
+      <link rel="stylesheet" href="../css/0-3-A3.css">-->
+  <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -18,21 +19,28 @@
 ?>
 
 </head>
-<body margin:auto; text-align:center;>
+<!--<body margin:auto; text-align:center;>-->
+<body>
 
- <div class="main">
-    <div class="startup">
-      <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
-   </div>
- <div class="message">
+  <div class="main">
+    <div class="container-fluid">
+      <div class="text-center">
+	<br><br>
+	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
+	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド予約日の確認中
+	</a>
+	<div class="message">
         カレンダーの日を
         クリックして下さい。
- </div>
- ※緑はガイド可能な日として登録されている日です
+	</div>
+ <p class="h4">※<font color="ff69b4">ピンク</font>はガイド予約日として登録されている日です</p>
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
 --> 
-</div>
+      </div>
+    </div>
+  </div>
+  
 
    <form name="myform3" method='post' onsubmit="return checkText3()">
 
@@ -71,6 +79,7 @@ $end_time = 0;
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 list($row_month, $row_day)=explode("-", $row['date']);
         $guideData[]=array(
+'UserScheduleID' =>$row['scheduleUID'],
         'GuidScheduleID'=>$row['scheduleGID'],
     'GuideID'=>$row['GID'],
     'year'=>$row['year'],
@@ -79,12 +88,12 @@ list($row_month, $row_day)=explode("-", $row['date']);
     'day'=>$row_day,
     'start_time'=>$row['start_time'],
     'end_time'=>$row['end_time'],
-    //'language'=>implode("、", $row['language']),
+    //'language'=>implode("、", $row['Language']),
     'language'=>$row['language'],
     'guidelocation'=>$row['location'],
     'requiredTime'=>$row['period'],
     'guidelat'=>$row['lat'],
-    'guidelong'=>$row['long'],
+    'guidelong'=>$row['lng'],
     'charge'=>$row['charge'],
     'max_num_participant'=>$row['max_num_participant']
         );
@@ -111,12 +120,12 @@ list($row_month, $row_day)=explode("-", $row['date']);
   }
   function color_get($j, $d, $day, $thismonth, $thisyear, $m, $y, $arr) {
 //    $date = $y.$m.$d;
-//    $date = $m. "-" .$d;
-    $date = $m. "月" .$d . "日";
+    $date = $m. "-" .$d;
+//    $date = $m. "月" .$d . "日";
 
     foreach ($arr as &$value) {
       if ($value["date"] == $date && $value["year"] == $y) {
-        return '#99FF66';
+        return '#ff69b4';
       } 
     }
     if ($j == 0) {
@@ -228,11 +237,12 @@ list($row_month, $row_day)=explode("-", $row['date']);
     $("#calender td").on("click",function(){
       dayVal = $(this)[0].innerText;
  //     cellnum = '' +yearVal+ monthVal + dayVal;
-      cellnum =  monthVal + '月'  + dayVal + '日';
+  //    cellnum =  monthVal + '月'  + dayVal + '日';
+  cellnum =  monthVal + '-'  + dayVal;
 //console.log(cellnum);
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
       for(var i in data){
         if (cellnum == previousNum){
@@ -246,7 +256,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
           etimeVal = data[i].end_time;
 
           $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
+          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>UserScheduleID</td><td>'+data[i].UserScheduleID+'</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
           +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
@@ -343,10 +353,16 @@ list($row_month, $row_day)=explode("-", $row['date']);
 
 </form> -->
 
- <div class="main">
+<div class="main">
+  <br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
       <div class="confirmation-wrapper">
-  <a href="../top.html" class = "btn resistration"  >トップページに戻る</a>
+	<a href="../top.html" class = "btn btn-info btn-lg btn-block"  >トップページに戻る</a>
       </div>
- </div>
- </body>
+    </div>
+  </div>
+</div>
+</body>
 </html>

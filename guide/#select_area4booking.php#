@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<?php 
+cd <?php 
  $select_step = $_POST['step'];
 
  if($select_step == 1){

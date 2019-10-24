@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>変更・追加・削除希望の日選択</title>
 
-  <link rel="stylesheet" href="../css/0-3-A1.css">
-  <link rel="stylesheet" href="../css/0-3-A3.css">
+  <!--<link rel="stylesheet" href="../css/0-3-A1.css">
+      <link rel="stylesheet" href="../css/0-3-A3.css">-->
+  <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -20,18 +21,26 @@
 </head>
 <body margin:auto; text-align:center;>
 
- <div class="main">
-    <div class="startup">
-      <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
-   </div>
- <div class="message">
-        カレンダーの日を
-        クリックして下さい。
- </div>
- ※緑はガイド可能な日として登録されている日です
+  <div class="main">
+    <div class="container-fluid">
+      <div class="text-center">
+	<br><br>
+	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
+	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
+	</a>
+	<div class="message">
+          カレンダーの日を
+          クリックして下さい。
+	</div>
+ <p class="h4"> ※<span class="text-success">緑</span>はガイド可能な日として登録されている日です</p>
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
---> 
+ -->
+      
+      </div>
+    </div>
+    
+    
 </div>
 
    <form name="myform3" method='post' onsubmit="return checkText3()">
@@ -233,7 +242,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
       cellnum =  monthVal + '-'  + dayVal;
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
       for(var i in data){
         if (cellnum == previousNum){
@@ -246,8 +255,8 @@ list($row_month, $row_day)=explode("-", $row['date']);
           stimeVal = data[i].start_time;
           etimeVal = data[i].end_time;
 
-          $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
+          $('#cal').append('<div id="guide" class="info text-center h4"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
+          +'<table id="states" class="table-hover"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
           +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
@@ -324,24 +333,38 @@ list($row_month, $row_day)=explode("-", $row['date']);
 <input name = "month" type="hidden" >
 <input name = "day" type="hidden" >
 
- <div class="main">
-        <div class="select-btn guide-select">
-          <select name="mode" require>
-            <option value="1" >登録(追加)</option>
-            <option value="0" >変更</option>
-            <option value="2" >削除</option>
-          </select>
-        </div>
-        <p></p>
+<div class="main">
+  <div class="container-fluid">
+    <div class="text-center">
+      <br>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <div class="select-btn guide-select">
+              <select name="mode" require class="form-control">
+		<option value="1" >登録(追加)</option>
+		<option value="0" >変更</option>
+		<option value="2" >削除</option>
+              </select>
+            </div>
+	  </div>
+	</div>
       </div>
+      <p></p>
 
-        <p></p>
-
-       <input id="submit_btn" class = "btn resistration" type="submit" value="Next">
-        <p></p>
+      <p></p>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+	  <input id="submit_btn" class = "btn btn-info btn-lg btn-block" type="submit" value="Next">
+	</div>
       </div>
- </div>
-
+      
+      <br>
+    </div>
+  </div>
+</div>
 </form>
- </body>
+</body>
 </html>

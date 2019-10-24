@@ -24,7 +24,8 @@ $(window).on("popstate", function (event) {
 }
 </style>
 
-    <link rel="stylesheet" href="../css/0-3-A3.css">
+    <!--<link rel="stylesheet" href="../css/0-3-A3.css">-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
@@ -264,28 +265,73 @@ $(window).on("popstate", function (event) {
 //  echo ' <br>' . $thisdate . "<br>";
 
 ?>
-    <div class="main">
-      <div class="startup">
+<div class="main">
+  <div class="container-fluid">
+    <div class="text-center">
+      <br><br>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+	  <a href="#"  class = "btn btn-warning disabled btn-xl btn-block">
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
-        <p><?php echo $famous; ?>ガイド</p>
+            <?php echo $famous; ?>ガイド
+	  </a>
+	</div>
       </div>
-      <div class="message">
-        <p>ガイドしてほしい<?php echo $famous; ?>のピンを
+      <br>
+	  <!--<div class="message">-->
+      <p class="h4">ガイドしてほしい<?php echo $famous; ?>のピンを
         クリックして下さい。</p>
-      </div>
-     <p align="center"> ピンク色のピンは既にガイドさんが登録しているスポットです </p>
+	  <!--</div>-->
+      
+      <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既にガイドさんが登録しているスポットです </p>
+      <p></p>
       <div class="map-wrapper">
-          <div id="map"></div>
+        <div id="map"></div>
       </div>
+      <br><br>
       <div class="destination-wrapper">
-         <p id = "message">選択した名所</p>
-        <div class = "destination" id = "output"></div>
-        <script>
+        <p id = "message">選択した名所</p>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <div class = "bg-warning" id = "output"></div>
+	  </div>
+	</div>
+          <script>
           document.getElementById("output").style.display = "none";
           //console.log(document.getElementById("output"));
         </script>
       </div>
 
+      <br>
+      <!--<div class="select-wrapper">-->
+        <p class = "select-title">ガイド時間</p>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <div class="form-group">
+              <div class="select-btn guide-select">
+		<select name="time" required class="form-control">
+		  <option value="10">~10分</option>
+		  <option value="20">10~20分</option>
+		  <option value="30">20~30分</option>
+		  <option value="40">30~40分</option>
+		  <option value="50">40~50分</option>
+		  <option value="60">50~60分</option>
+		  <option value="70">60~70分</option>
+		  <option value="80">70~80分</option>
+		  <option value="90">80~90分</option>
+		</select>
+              </div>
+	    </div>
+	  </div>
+	</div>
+      
+	
+	    
+
+<!--
      <div class="select-wrapper">
           <p class = "select-title">ガイド時間</p>
           <div class="select-btn guide-select">
@@ -300,7 +346,8 @@ $(window).on("popstate", function (event) {
               <option value="80">70~80分</option>
               <option value="90">80~90分</option>
             </select>
-        </div>
+        </div> -->
+
 <!--
         <p class ="select-title">料金</p>
         <div class="select-btn guide-select">
@@ -317,9 +364,54 @@ $(window).on("popstate", function (event) {
             <option value="1000">1,000円~</option>
           </select>
         </div>
--->
+	-->
        <p class="select-title">参加人数</p>
-        <div class="select-btn guide-select">
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           <div class="form-group">
+             <div class="select-btn guide-select">
+               <select name="maxsubject" required class="form-control">
+		 <option value="1">1人</option>
+		 <option value="2">2人</option>
+		 <option value="3">3人</option>
+		 <option value="4">4人</option>
+		 <option value="5">5人</option>
+		 <option value="6">6人</option>
+		 <option value="7">7人</option>
+		 <option value="8">8人</option>
+		 <option value="9">9人</option>
+               </select>
+	     </div>
+	   </div>
+	 </div>
+       </div>
+
+       <p class="select-title">あなたの言語</p>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+           <div class="select-btn guide-select">
+             <input type="checkbox" class="h4" name="language[]"  value="JP" checked="checked">日本語</option>
+             <input type="checkbox" class="h4" name="language[]"  value="EN">英語</option>
+             <input type="checkbox" class="h4" name="language[]"  value="CH">中国語</option>
+             <input type="checkbox" class="h4" name="language[]"  value="FR">フランス語</option>
+             <input type="checkbox" class="h4" name="language[]"  value="DE">ドイツ語</option>
+           </div>
+         </div>
+       </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+	  <div class="next-btn-parent"> 
+            <input class="btn btn-info btn-lg btn-block" type="submit" value="Next"/>
+	  </div>
+	</div>
+
+       <!-- <div class="select-btn guide-select">
           <select name="maxsubject">
            <option value="1">1人</option>
            <option value="2">2人</option>
@@ -341,17 +433,14 @@ $(window).on("popstate", function (event) {
             <input type="checkbox" name="language[]"  value="FR">フランス語</option>
             <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
           </select>
-        </div>
+        </div> -->
+
 
       </div>
-
+      <br><br>
     </div>
-
-      <p> 
-
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="Next"/>
-      </div>
+  </div>
+</div>
       </form>
 
   </body>
