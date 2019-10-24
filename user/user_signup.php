@@ -60,22 +60,20 @@ if (isset($_POST["signUp"])) {
     <body>
         <h1>新規登録画面</h1>
         <form id="loginForm" name="loginForm" action="" method="POST">
-            <fieldset>
-                <legend>新規登録フォーム</legend>
-                <div><font color="#ff0000"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></font></div>
-                <div><font color="#0000ff"><?php echo htmlspecialchars($signUpMessage, ENT_QUOTES); ?></font></div>
-                <label for="username">ユーザー名</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>">
-                <br>
-                <label for="password">パスワード</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
-                <br>
-                <label for="password2">パスワード(確認用)</label><input type="password" id="password2" name="password2" value="" placeholder="再度パスワードを入力">
-                <br>
-                <input type="submit" id="signUp" name="signUp" value="新規登録">
-            </fieldset>
+            <div>
+                <div><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
+                <div><?php echo htmlspecialchars($signUpMessage, ENT_QUOTES); ?></div>
+                <p>ユーザー名</p>
+		<input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>">
+                <p>パスワード</p>
+		<input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
+                <p>パスワード(確認用)</p>
+		<input type="password" id="password2" name="password2" value="" placeholder="再度パスワードを入力">
+                <p><input type="submit" id="signUp" name="signUp" value="新規登録"></p>
+            </div>
         </form>
-        <br>
         <form action="user_login.php">
-            <input type="submit" value="戻る">
+            <p><input type="submit" value="戻る"></p>
         </form>
     </body>
 </html>
