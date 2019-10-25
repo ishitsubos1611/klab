@@ -6,9 +6,7 @@ $gid = $_POST['gid'];
 //$category = $_POST['category'];
 //$category = 'all';
 
-
 // データベース接続
-
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -40,7 +38,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   'lng'=>$row['long']
  );
 }
-
 
 //jsonとして出力
 console.log($memberList);

@@ -31,9 +31,9 @@ $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($stime,$location));
 
 //あらかじめ配列を生成しておき、while文で回します。
-$UserList = array();
+$list = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
- $UserList[]=array(
+ $list[]=array(
   //'scheduleGID' =>$row['scheduleGID'],
   'GID' =>$row['GID'],
   'year' =>$row['year'],
@@ -54,4 +54,4 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 //jsonとして出力
 //console.log($memberList);
 header('Content-type: application/json');
-echo json_encode($UserList,JSON_UNESCAPED_UNICODE);
+echo json_encode($list,JSON_UNESCAPED_UNICODE);
