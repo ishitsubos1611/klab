@@ -40,8 +40,8 @@ $(window).on("popstate", function (event) {
           dataType:"json",
           data:{
           //   area : 'kyoto', 
-      //             category : categoryVal
-      //       category : 'all',
+          //         category : categoryVal
+      //        category : 'all',
       lat : '35.069162899999995',
       long : '135.7556467'
           }
