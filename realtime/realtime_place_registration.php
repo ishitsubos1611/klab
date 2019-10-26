@@ -40,8 +40,13 @@ $(window).on("popstate", function (event) {
           url:"poi_dbconnect.php",
           dataType:"json",
           data:{
-      //lat : '35.069162899999995',
-      //long : '135.7556467'
+
+            area : 'kyoto', 
+            //category : categoryVal
+            category : 'all',
+      lat : '35.069162899999995',
+      long : '135.7556467'
+
           }
         }).done(function(data){
           console.log(data);
@@ -131,17 +136,13 @@ $(window).on("popstate", function (event) {
             position: markerLatLng, // マーカーを立てる位置を指定
             icon: icon, //色を指定
             map: map // マーカーを立てる地図を指定
-          });
-          // 吹き出しに出す文
-          myInfoWindow = new google.maps.InfoWindow({
-            content: markerData[i]['JPname'],
-            disableAutoPan: true //自動移動を解除
-          });
-           // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
+					   
+	  });
           markerEvent(i);//メソッド呼び出し
        }
-      }
+      } 
+
+      var currentInfoWindow = null; //吹き出しチェック
       function markerEvent(i) {
         google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
           return function(){
@@ -151,9 +152,43 @@ $(window).on("popstate", function (event) {
             target = document.getElementById("output");
             target.innerHTML = JPname;
             target.style.display = "block";
+
+					   
+          // 吹き出しに出す文
+          myInfoWindow = new google.maps.InfoWindow({
+            content: markerData[i]['JPname'],
+            disableAutoPan: true //自動移動を解除
+	  });
+
+	  // 開いている他の吹き出しがあれば非表示
+          if (currentInfoWindow) {
+              currentInfoWindow.close();
+          }				   
+					   
+           // 吹き出しを開く
+          myInfoWindow.open(map, marker[i]);
+          //markerEvent(i);//メソッド呼び出し
+          // 開いている吹き出しを記憶
+	  currentInfoWindow = myInfoWindow;
           };
+	//}
+      //}
+      //function markerEvent(i) {
+        //google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
+          //return function(){
+            //$form_name = JPname;
+            //$form_lat = lat;
+            //$form_lng = lng;
+            //target = document.getElementById("output");
+            //target.innerHTML = JPname;
+            //target.style.display = "block";
+          //};
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
-      }
+      //}
+        google.maps.event.addListener(marker, 'mouseover', function(){
+          infowin.open(map, marker);
+        });
+      }					   
       function ajaxMap(){
         initMap();
         if( $('#map').find('div').length ){
