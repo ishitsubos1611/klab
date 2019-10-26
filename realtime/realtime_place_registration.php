@@ -69,10 +69,10 @@ $(window).on("popstate", function (event) {
       // 位置取得成功した場合
       function success(position) {
 	var data = position.coords ;
-　　　	//nowLat = data.latitude ;
-	//nowLng = data.longitude;
-	nowLat = 35.010174;
-        nowLng = 135.759193;
+　　　	nowLat = data.latitude ;
+	nowLng = data.longitude;
+	//nowLat = 35.010174;
+        //nowLng = 135.759193;
 	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
       }
       // 取得失敗した場合
@@ -108,7 +108,9 @@ $(window).on("popstate", function (event) {
 	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
 	map = new google.maps.Map(document.getElementById('map'), {
         center: mapLatLng,
-        zoom: 16 // 地図のズームを指定
+      scaleControl: true ,//スケールバー表示
+      zoom: 16 // 地図のズームを指定
+
        	});
         for (var i = 0; i < markerData.length; i++) {
           //アイコンの種類指定
