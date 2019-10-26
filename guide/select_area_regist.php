@@ -94,8 +94,8 @@ $(window).on("popstate", function (event) {
           <!--<p>エリアを選択してください</p>-->
 	  <div class="row">
             <div class="col-sm-2"></div>
-	    <div class="col-sm-4"><p>エリアを選択してください</p></div>
-            <div class="col-sm-4">
+	    <div class="col-sm-5"><p>エリアを選択してください</p></div>
+            <div class="col-sm-3">
 	      <div class="form-group">
                 <div class="select-btn">
                   <select name="area" class="form-control" >
@@ -110,8 +110,8 @@ $(window).on("popstate", function (event) {
           <!--<p>ガイド希望のカテゴリを選択してください</p>-->
 	  <div class="row">
             <div class="col-sm-2"></div>
-	    <div class="col-sm-4"><p>ガイド希望のカテゴリを選択してください</p></div>
-            <div class="col-sm-4">
+	    <div class="col-sm-5"><p>ガイド希望のカテゴリを選択してください</p></div>
+            <div class="col-sm-3">
 	      <div class="form-group">
                 <div class="select-btn guide-select">
                   <select name="category" class="form-control">
@@ -135,7 +135,8 @@ $(window).on("popstate", function (event) {
           <p>名所か道案内か選択してください</p>
 	  <div class="row">
             <div class="col-sm-2"></div>
-            <div class="col-sm-8">
+	    <div class="col-sm-5"><p>名所か道案内か選択してください</p></div>
+            <div class="col-sm-3">
 	      <div class="form-group">
                 <div class="select-btn">
                   <select name="style" class="form-control">
