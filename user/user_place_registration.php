@@ -37,7 +37,6 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
-      var nowLat=0, nowLng=0;
 
       $(function(){
         $.ajax({
@@ -67,13 +66,13 @@ $(window).on("popstate", function (event) {
           }
         }).done(function(data){
           console.log(data);
-          //alert(data[0].lat);
           guideData = data;
         }).fail(function(xhr,err){
           console.log(err);
         });
       });
-
+	
+      var nowLat, nowLng;
       // 位置取得成功した場合
       function success(position) {
 	var data = position.coords ;
@@ -102,7 +101,6 @@ $(window).on("popstate", function (event) {
       
       navigator.geolocation.getCurrentPosition(success, error);
 
-      //var MKData = JSON.parse(success());     
 
       var timerID = 0;
 
@@ -115,12 +113,6 @@ $(window).on("popstate", function (event) {
       };
 
       function initMap(){
-	 alert("緯度["+ nowLat +"] 経度aaaa["+ nowLng +"]");    
-	// #mapに地図を埋め込む
-        //var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']});
-       	//var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
-        //var mapLatLng = new google.maps.LatLng(35.700000,139.772000);
-	 
 	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -153,33 +145,11 @@ $(window).on("popstate", function (event) {
             map: map // マーカーを立てる地図を指定
 
           });
-
-          // 吹き出しに出す文
-          myInfoWindow = new google.maps.InfoWindow({
-            content: markerData[i]['JPname'],
-            disableAutoPan: true //自動移動を解除
-          });
-           // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
-
           markerEvent(i);//メソッド呼び出し
-	       //console.log(markerData[0]['lat']);
-	       //console.log(MKData['lat'], MKData['lng']);
        }
       }
-
-//      function add_marker() {
-//        for (var i = 0; i < mapData.length; i++) {
-//          var item = mapData[i];
-
-//          // マーカーの設置
-//          var marker = new google.maps.Marker({
-//            position: item['latlng'],
-//            map: map
-//          });
-//        }
-//      }
-
+	
+      var currentInfoWindow = null; //吹き出しチェック
       function markerEvent(i) {
         google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
           return function(){
@@ -189,11 +159,29 @@ $(window).on("popstate", function (event) {
             target = document.getElementById("output");
             target.innerHTML = JPname;
             target.style.display = "block";
-           // target.innerHTML = "【　" + JPname + "  】";
-           // target = document.getElementById("message");
-           // target.innerHTML = "ガイド可能な場所";
-          };
+	              
+	    // 吹き出しに出す文	
+	    myInfoWindow = new google.maps.InfoWindow({
+	  	content: markerData[i]['JPname'],
+            	disableAutoPan: true //自動移動を解除
+	    });
+	    
+	    // 開いている他の吹き出しがあれば非表示
+	    if (currentInfoWindow) {
+		currentInfoWindow.close();
+	    }
+
+	    // 吹き出しを開く
+	    myInfoWindow.open(map, marker[i]);
+	    // 開いている吹き出しを記憶
+	    currentInfoWindow = myInfoWindow;
+
+	  };
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
+
+	 google.maps.event.addListener(marker, 'mouseover', function(){
+          infowin.open(map, marker);
+        });
       }
       function ajaxMap(){
         initMap();
@@ -257,12 +245,6 @@ $(window).on("popstate", function (event) {
  echo '<input name = thisday' .' type=hidden value="' . $thisday . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">';
 
-// $year = date('Y', strtotime($m . '01'));
-//    $month = date('n', strtotime($m . '01'));
-//    $year = date('Y');
-//    $month = date('n');
-//  echo 'this' . date('Ym', mktime(0, 0, 0, $month - 1 , 1, $year)) . '** ' . $thisyear . '年' . $thismonth . '月';
-//  echo ' <br>' . $thisdate . "<br>";
 
 ?>
 <div class="main">
@@ -328,43 +310,6 @@ $(window).on("popstate", function (event) {
 	  </div>
 	</div>
       
-	
-	    
-
-<!--
-     <div class="select-wrapper">
-          <p class = "select-title">ガイド時間</p>
-          <div class="select-btn guide-select">
-            <select name=time>
-              <option value="10">~10分</option>
-              <option value="20">10~20分</option>
-              <option value="30">20~30分</option>
-              <option value="40">30~40分</option>
-              <option value="50">40~50分</option>
-              <option value="60">50~60分</option>
-              <option value="70">60~70分</option>
-              <option value="80">70~80分</option>
-              <option value="90">80~90分</option>
-            </select>
-        </div> -->
-
-<!--
-        <p class ="select-title">料金</p>
-        <div class="select-btn guide-select">
-          <select name="fee" required>
-            <option value="100">100円</option>
-            <option value="200">200円</option>
-            <option value="250">250円</option>
-            <option value="290">290円</option>
-            <option value="350">350円</option>
-            <option value="490">490円</option>
-            <option value="590">590円</option>
-            <option value="690">690円</option>
-            <option value="790">790円</option>
-            <option value="1000">1,000円~</option>
-          </select>
-        </div>
-	-->
        <p class="select-title">参加人数</p>
        <div class="row">
          <div class="col-sm-2"></div>
@@ -411,30 +356,6 @@ $(window).on("popstate", function (event) {
 	  </div>
 	</div>
 
-       <!-- <div class="select-btn guide-select">
-          <select name="maxsubject">
-           <option value="1">1人</option>
-           <option value="2">2人</option>
-           <option value="3">3人</option>
-           <option value="4">4人</option>
-           <option value="5">5人</option>
-           <option value="6">6人</option>
-           <option value="7">7人</option>
-           <option value="8">8人</option>
-           <option value="9">9人</option>
-          </select>
-        </div>
-
-        <p class="select-title">あなたの言語</p>
-        <div class="select-btn guide-select">
-            <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
-            <input type="checkbox" name="language[]"  value="EN">英語</option>
-            <input type="checkbox" name="language[]"  value="CH">中国語</option>
-            <input type="checkbox" name="language[]"  value="FR">フランス語</option>
-            <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-          </select>
-        </div> -->
-
 
       </div>
       <br><br>
@@ -443,5 +364,3 @@ $(window).on("popstate", function (event) {
 </div>
       </form>
 
-  </body>
-</html>

@@ -29,21 +29,24 @@ $(window).on("popstate", function (event) {
       var marker = [];
       var markerData = [];
       var guideData = [];
-//      var areaVal = "<?php echo $area = $_POST['area']; ?>";
-//      var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
-//      var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
+            var areaVal = "<?php echo $area = $_POST['area']; ?>";
+      var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
+      var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
       var nowLat, nowLng;
+      
       $(function(){
         $.ajax({
           type:"POST",
           url:"poi_dbconnect.php",
           dataType:"json",
           data:{
-          //   area : 'kyoto', 
-          //         category : categoryVal
-      //        category : 'all',
+
+            area : 'kyoto', 
+            //category : categoryVal
+            category : 'all',
       lat : '35.069162899999995',
       long : '135.7556467'
+
           }
         }).done(function(data){
           console.log(data);
@@ -63,7 +66,6 @@ $(window).on("popstate", function (event) {
           }
         }).done(function(data){
           console.log(data);
-          //alert(data[0].lat);
           guideData = data;
         }).fail(function(xhr,err){
           console.log(err);
@@ -74,7 +76,9 @@ $(window).on("popstate", function (event) {
 	var data = position.coords ;
 　　　	nowLat = data.latitude ;
 	nowLng = data.longitude;
-	alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
+	//nowLat = 35.010174;
+        //nowLng = 135.759193;
+	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
       }
       // 取得失敗した場合
       function error(error) {
@@ -95,7 +99,6 @@ $(window).on("popstate", function (event) {
       }
       
       navigator.geolocation.getCurrentPosition(success, error);
-      //var MKData = JSON.parse(success());     
       var timerID = 0;
       StartTimer = function() {
         timerID = setInterval(ajaxMap, 500);
@@ -104,16 +107,15 @@ $(window).on("popstate", function (event) {
         clearInterval(timerID);
       };
       function initMap(){
-	 alert("緯度["+ nowLat +"] 経度aaaa["+ nowLng +"]");    
+	// alert("緯度["+ nowLat +"] 経度aaaa["+ nowLng +"]");    
 	// #mapに地図を埋め込む
-        //var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']});
-       	//var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
-        //var mapLatLng = new google.maps.LatLng(35.700000,139.772000);
 	 
 	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
 	map = new google.maps.Map(document.getElementById('map'), {
         center: mapLatLng,
-        zoom: 16 // 地図のズームを指定
+      scaleControl: true ,//スケールバー表示
+      zoom: 16 // 地図のズームを指定
+
        	});
         for (var i = 0; i < markerData.length; i++) {
           //アイコンの種類指定
@@ -134,29 +136,13 @@ $(window).on("popstate", function (event) {
             position: markerLatLng, // マーカーを立てる位置を指定
             icon: icon, //色を指定
             map: map // マーカーを立てる地図を指定
-          });
-          // 吹き出しに出す文
-          myInfoWindow = new google.maps.InfoWindow({
-            content: markerData[i]['JPname'],
-            disableAutoPan: true //自動移動を解除
-          });
-           // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
+					   
+	  });
           markerEvent(i);//メソッド呼び出し
-	       //console.log(markerData[0]['lat']);
-	       //console.log(MKData['lat'], MKData['lng']);
        }
-      }
-//      function add_marker() {
-//        for (var i = 0; i < mapData.length; i++) {
-//          var item = mapData[i];
-//          // マーカーの設置
-//          var marker = new google.maps.Marker({
-//            position: item['latlng'],
-//            map: map
-//          });
-//        }
-//      }
+      } 
+
+      var currentInfoWindow = null; //吹き出しチェック
       function markerEvent(i) {
         google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
           return function(){
@@ -166,12 +152,43 @@ $(window).on("popstate", function (event) {
             target = document.getElementById("output");
             target.innerHTML = JPname;
             target.style.display = "block";
-           // target.innerHTML = "【　" + JPname + "  】";
-           // target = document.getElementById("message");
-           // target.innerHTML = "ガイド可能な場所";
+
+					   
+          // 吹き出しに出す文
+          myInfoWindow = new google.maps.InfoWindow({
+            content: markerData[i]['JPname'],
+            disableAutoPan: true //自動移動を解除
+	  });
+
+	  // 開いている他の吹き出しがあれば非表示
+          if (currentInfoWindow) {
+              currentInfoWindow.close();
+          }				   
+					   
+           // 吹き出しを開く
+          myInfoWindow.open(map, marker[i]);
+          //markerEvent(i);//メソッド呼び出し
+          // 開いている吹き出しを記憶
+	  currentInfoWindow = myInfoWindow;
           };
+	//}
+      //}
+      //function markerEvent(i) {
+        //google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
+          //return function(){
+            //$form_name = JPname;
+            //$form_lat = lat;
+            //$form_lng = lng;
+            //target = document.getElementById("output");
+            //target.innerHTML = JPname;
+            //target.style.display = "block";
+          //};
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
-      }
+      //}
+        google.maps.event.addListener(marker, 'mouseover', function(){
+          infowin.open(map, marker);
+        });
+      }					   
       function ajaxMap(){
         initMap();
         if( $('#map').find('div').length ){
@@ -192,7 +209,6 @@ $(window).on("popstate", function (event) {
         document.myform3.elements[1].value = $form_lat;
         document.myform3.elements[2].value = $form_lng;
         
-        //alert( document.myform3.location.value );
     }
     </script>
   </head>
@@ -227,12 +243,6 @@ $(window).on("popstate", function (event) {
  echo '<input name = thismonth' .' type=hidden value="' . $thismonth . '">';
  echo '<input name = thisday' .' type=hidden value="' . $thisday . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">';
-// $year = date('Y', strtotime($m . '01'));
-//    $month = date('n', strtotime($m . '01'));
-//    $year = date('Y');
-//    $month = date('n');
-//  echo 'this' . date('Ym', mktime(0, 0, 0, $month - 1 , 1, $year)) . '** ' . $thisyear . '年' . $thismonth . '月';
-//  echo ' <br>' . $thisdate . "<br>";
 ?>
     <div class="main">
       <div class="startup">
@@ -271,23 +281,7 @@ $(window).on("popstate", function (event) {
               <option value="90">80~90分</option>
             </select>
         </div>
-<!--
-        <p class ="select-title">料金</p>
-        <div class="select-btn guide-select">
-          <select name="fee" required>
-            <option value="100">100円</option>
-            <option value="200">200円</option>
-            <option value="250">250円</option>
-            <option value="290">290円</option>
-            <option value="350">350円</option>
-            <option value="490">490円</option>
-            <option value="590">590円</option>
-            <option value="690">690円</option>
-            <option value="790">790円</option>
-            <option value="1000">1,000円~</option>
-          </select>
-        </div>
--->
+
        <p class="select-title">参加人数</p>
         <div class="select-btn guide-select">
           <select name="maxsubject">
