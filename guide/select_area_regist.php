@@ -131,8 +131,8 @@ $(window).on("popstate", function (event) {
 	      </div>
 	    </div>
           </div>
-
-          <p>名所か道案内か選択してください</p>
+	  <br>
+          <!--<p>名所か道案内か選択してください</p>-->
 	  <div class="row">
             <div class="col-sm-2"></div>
 	    <div class="col-sm-5"><p>名所か道案内か選択してください</p></div>
