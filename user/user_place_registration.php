@@ -35,7 +35,7 @@ $(window).on("popstate", function (event) {
       var markerData = [];
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
-      var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
+      var uidVal = "<?php echo $uid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
 
       $(function(){
@@ -59,10 +59,10 @@ $(window).on("popstate", function (event) {
       $(function(){
         $.ajax({
           type:"POST",
-          url:"guide_dbconnect.php",
+          url:"user_dbconnect.php",
           dataType:"json",
           data:{
-             gid : gidVal
+             uid : uidVal
           }
         }).done(function(data){
           console.log(data);
