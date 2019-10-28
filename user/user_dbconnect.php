@@ -1,7 +1,7 @@
 <?php
 //$id = $_POST['id'];
 //$area = json_decode($_POST['area']);
-$gid = $_POST['gid'];
+$uid = $_POST['uid'];
 //$area = 'kyoto';
 //$category = $_POST['category'];
 //$category = 'all';
@@ -22,9 +22,9 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 // データ取得sql
-$sql = "SELECT * FROM G_Schedule WHERE GID = ? ";
+$sql = "SELECT * FROM U_Schedule WHERE UID = ? ";
 $stmt = ($dbh->prepare($sql));
-$stmt->execute(array($gid));
+$stmt->execute(array($uid));
 
 // データ取得
 //あらかじめ配列を生成しておき、while文で回します。
@@ -32,6 +32,7 @@ $memberList = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  $memberList[]=array(
   'GID' =>$row['GID'],
+  'UID' =>$row['UID'],
   'area' =>$row['area'],
   'location' =>$row['location'],
   'lat'=>$row['lat'],
@@ -43,4 +44,3 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 console.log($memberList);
 header('Content-type: application/json');
 echo json_encode($memberList,JSON_UNESCAPED_UNICODE);
-
