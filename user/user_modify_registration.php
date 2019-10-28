@@ -94,7 +94,7 @@
       <div class="message">
         <!--<p><?php echo $modify_mode; ?>希望のガイドさんを
         クリックしてください。</p>-->
-           <p>希望のガイドさんをチェックしてください。</p> 
+           <!--<p>希望のガイドさんをチェックしてください。</p> -->
       </div>
     <!--
         <input type="checkbox" name="sample" value="1">ガイド1
@@ -166,7 +166,7 @@
                 console.log(locationVal);
 	        console.log(periodVal);
 	        console.log(participants);
-                console.log(guideData[0].charge);
+                //console.log(guideData[0].charge);
                 console.log(language);
                 console.log(date);
                 console.log(year);
@@ -180,39 +180,24 @@
         //if(guideData === []){
         //    $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
    // }
-      function selectGuide(){
-	if(guideData.length == 0){
-            $('#guide').html('<p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p>');
-	}
-	console.log(guideData.length);
+    function selectGuide(){
+        console.log(guideData.length);
 	console.log(<?php echo $uid; ?>);
+	if(guideData.length == 0){
+            $('#output').html('<p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p>');
+	}else{
+	
         //console.log(guideData[0]['date']);
-	
-        for (var i = 0; i <guideData.length; i++){
-					       
-	    //console.log(guideData[i]['date']);	      
-	    //var div = $('<div id="guide" class="info"><p>ガイドID：'+guideData[i].GID+'</p></div>');
-	    //function() {
-		//var data = "'+guideData[i].GID+','+guideData[i].charge+'";			     
+
+       
+           $('.message').html('<p>希望のガイドさんをチェックしてください。</p>');    
+
+           for (var i = 0; i <guideData.length; i++){
+					       			     
 		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
-		//$('input[type="checkbox"]').attr('id','checkbox'+i);			       
-		//$('input[type="checkbox"]').attr('name','guide');
-		//$('input[name="guide"][type="checkbox"]').attr('value',guideData[i].GID+','+guideData[i].charge);			       
-	        //document.getElementById("checkbox").value = guideData[i].GID;
-	    //}			       
-	}
-        //console.log(document.getElementById("checkbox").value);
-	
-	/*function onCheckBox() {
-	    var check = document.myform3.checkbox.checked;
-            var value = document.getElement("checkbox").value;
-            var target = document.getElementById("output");
-            
-            if(check == true) {
-	       target.innerHTML = "さんをチェックしています。";				     
-	    }				     
-	    $('#output').html(<p>ガイド'+value+'さんにチェックしました。);				     
-	}*/				     
+					       
+	   }
+        //console.log(document.getElementById("checkbox").value);				     
 
       $('input[name="guide"]').on('change',function() {
 	   //var vals=[];
@@ -246,10 +231,10 @@
 	       }
                console.log(vals);
                checkVal=vals;
-		  //console.log(vals[1]);	     
+	       //console.log(vals[1]);	     
            //});
-      }); 
-					     
+       }); 
+     }
    }				    
       //});
       //showGuide();					    
@@ -258,11 +243,17 @@
   
 //formにactionとvalueを代入する
   function checkText3() {
-        console.log(checkVal);
-        if(!(checkVal)) {
-            alert('チェックを付けてください!');
-            return false;
-        }else{   
+      console.log(checkVal);
+      if(guideData.length == 0){
+        document.myform3.action = "user_confirm.php";
+        //document.myform3.elements[0].value = $form_name;
+        //document.myform3.elements[1].value = $form_lat;
+        //document.myform3.elements[2].value = $form_lng;
+      }       
+      else if(!(checkVal)) {
+         alert('チェックを付けてください!');
+         return false;
+      }else{   
         //actionメソッドに遷移先のURLを代入する
         document.myform3.action = "user_confirm.php";
         //document.myform3.action = mode;
@@ -273,8 +264,8 @@
         
         //alert( document.myform3.location.value );
         //console.log($start_time);
-        }
-    }    
+      }
+  }    
    </script>
 
   
