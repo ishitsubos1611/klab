@@ -72,8 +72,8 @@ $stmt = $dbh->prepare($sql);
 //print_r($dbh->errorInfo());
 //echo $sql;
 
-$stmt->bindParam(':UID', $UID, PDO::PARAM_INT);
-$stmt->bindParam(':GID', $GID, PDO::PARAM_INT);
+$stmt->bindParam(':UID', $UID, PDO::PARAM_STR);
+$stmt->bindParam(':GID', $GID, PDO::PARAM_STR);
 $stmt->bindParam(':year', $year, PDO::PARAM_STR);
 $stmt->bindParam(':date', $date, PDO::PARAM_STR);
 $stmt->bindParam(':start_time', $start_time, PDO::PARAM_STR);

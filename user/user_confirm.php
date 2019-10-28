@@ -32,7 +32,7 @@ $(window).on("popstate", function (event) {
 <p>
  <form name="myform3" method='post' onsubmit="return checkText3()">
 
-<?php
+<?php    
  //$ginfo = array();
  $ginfo = explode(",",$_POST['guide']);
  $stime = explode(":",$_POST['stime'],-1); 
@@ -41,8 +41,10 @@ $(window).on("popstate", function (event) {
  //$month = $_POST['month'];
  //$day = $_POST['day'];
  //$ginfo = $_POST['guide'];
- $gid = $ginfo[0];
- $fee = $ginfo[1]; 
+ if(!empty($ginfo)){  
+  $gid = $ginfo[0];
+  $fee = $ginfo[1];
+ }
  $uid = $_POST['uid']; 
  $year = $_POST['year'];
  $date = $_POST['date']; 
@@ -60,7 +62,7 @@ $language = $_POST['language'];
 //$thismonth = $_POST['thismonth'];
 //$thisyear = $_POST['thisyear'];
 $payment_date = '8';
-  
+$confirm = "確認";  
   
  echo '<input name = gid' .' type=hidden value="' . $gid . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">'; 
@@ -81,9 +83,22 @@ $payment_date = '8';
   $location = "スポットが選択されていません";
   $final_step = "トップに戻る";
   $stepNum = 0;
+ }
+ else if(empty($gid)){
+   $confirm="ガイドさんの募集"; 
+   $reserve =   "". $year . "年"  . $date . "";
+   $gid = "募集中";
+   $fee = 0; 
+   $final_step = "登録";
+   $stepNum = 1;
+   echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+   echo '<input name = fee' .' type=hidden value="' . $fee . '">';
  }else{
-  $final_step = "登録";
-  $stepNum = 1;
+   //echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+   //echo '<input name = fee' .' type=hidden value="' . $fee . '">';  
+   $reserve =   "". $year . "年"  . $date . "";
+   $final_step = "登録";
+   $stepNum = 1;
  }
 
 // データベース接続
@@ -110,37 +125,49 @@ $stmt->execute(array($uid));
 
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-  if(empty($gid)){
-   $gid = "募集中";
-   $final_step = "登録";
-   $stepNum = 1;
-  }
-  else if(($location == $row['location']) && ($date == $row['date'])){
+ 
+  
+  if(($location == $row['location']) && ($date == $row['date'])){
 
    $location = "既に" . $location . "は登録されています";
-   $date = "既に" . $date . "に登録済みのガイド予定があります";
+   $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
    $final_step = "削除";
    $stepNum = 2;
   
    $scheduleUID = $row['scheduleUID'];
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">'; 
   }
-  else if(($date == $row['date'])){
-   $date = "既に" . $date . "に登録済みのガイド予定があります";
+ /* else if(($row['date'] == NULL && $location == $row['location'])){
+   //$location = $row['location'];
+   //$date == $row['date'];
+   $reserve = "既に" . $year . "年" . $row['date'] . "に登録済みのガイド予定があります";
    $final_step = "削除";
    $stepNum = 2;
-  } 
+
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
+  }*/
+  //今は削除にしているが、日付が同じ場合はupdateで登録情報を変更できるようにしたい
+   else if($date == $row['date']) {
+   $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
+   $location = "この日は既に" . $row['location'] . "のガイド希望登録をしています";
+   $final_step = "削除";
+   $stepNum = 2;
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
+  }
 }
 
 ?>
 
 <script>
-   //デバッグ用
-   console.log(<?php echo $gid ?>);
-   console.log(<?php echo $fee ?>);
-   console.log(<?php echo $date ?>);
-   console.log(<?php echo $start_time ?>);
+  //デバッグ用
+   console.log('<?php echo $location ?>');
+   //console.log('<?php echo $row['location'] ?>');
+   console.log('<?php echo $gid ?>');
+   console.log('<?php echo $fee ?>');
+   console.log('<?php echo $date ?>');
+   console.log('<?php echo $start_time ?>');
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
 </script>
@@ -164,7 +191,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
 </script> 
       <div class="startup">
-        <p>確認</p>
+        <p><?php echo $confirm; ?></p>
       </div>
       <div class="confirmation-wrapper">
         <p class = "destination" id = "location-output"><?php echo $location; ?></p>
@@ -173,7 +200,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
          8:00-18:00
   -->
  <!-- <p class="time red check-list">ガイドさん：<?php echo $gid; ?></p> -->
-        <p class="time red check-list">ガイド予約日：<?php echo $year; ?>年<?php echo $date; ?></p>
+        <p class="time red check-list">ガイド予約日：<?php echo $reserve; ?></p>
 	<p class="time red check-list">開始時間：<?php echo $start_time; ?></p>
         <p class="time red check-list">ガイド時間：<?php echo $period; ?>分</p>
         <p class="message">Language : <?php echo $language ?>　</p>
