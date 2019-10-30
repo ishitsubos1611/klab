@@ -36,8 +36,8 @@ $(window).on("popstate", function (event) {
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
-      var nowdate = ;
-      var nowtime = ;
+      var nowdateVal = "<?php echo date('n-j'); ?>";
+      var nowtimeVal = "<?php echo date('H:i:s'); ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
 
       $(function(){
@@ -70,13 +70,13 @@ $(window).on("popstate", function (event) {
           data:{
       gid : gidVal,
       nowdate : nowdateVal,
-      nowtime : nowtimeVal,
+      nowtime : nowtimeVal
           }
         }).done(function(data,nowdate,nowtime){
           console.log(data);
           guideData = data;
-      alert(nowdate);
-      alert(nowtime);
+      alert(nowdateVal);
+      alert(nowtimeVal);
         }).fail(function(xhr,err){
           console.log(err);
         });
