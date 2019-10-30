@@ -39,6 +39,7 @@ $charge = $_POST['fee'];
 $payment_date = $_POST['payment_date'];
 $period = $_POST['period'];
 $num_month = $_POST['num_month'];
+$comment = $_POST['comment'];  
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -55,7 +56,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 
 // INSERT place
 
-     $sql = "INSERT INTO G_Schedule (GID, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:GID, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
+     $sql = "INSERT INTO G_Schedule (GID, Language, location, lat, `long`, max_num_participant, charge, payment_date, period, comment) VALUES (:GID, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period, :comment)";
 
 //     $sql = "INSERT INTO G_Schedule (GID, year, date, start_time, end_time, Language, location, lat, `long`, max_num_participant, charge, payment_date, period) VALUES (:GID, :year, :date, :start_time, :end_time, :language, :location, :lat, :long, :max_num_participant, :charge, :payment_date, :period)";
 
@@ -71,6 +72,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
      $stmt->bindParam(':charge', $charge, PDO::PARAM_INT);
      $stmt->bindParam(':payment_date', $payment_date, PDO::PARAM_STR);
      $stmt->bindParam(':period', $period, PDO::PARAM_INT);
+     $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
      //$stmt->bindParam(':maxsub', $maxsub, PDO::PARAM_INT);
 
      $stmt->execute();
