@@ -31,8 +31,8 @@ $(window).on("popstate", function (event) {
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
-      var nowdateVal = "<?php echo date("n-j"); ?>";
-      var nowtimeVal = "<?php echo date("H:i:s"); ?>";
+      var nowdateVal = "<?php echo date('n-j'); ?>";
+      var nowtimeVal = "<?php echo date('H:i:s'); ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
       var nowLat, nowLng;
       
@@ -50,11 +50,11 @@ $(window).on("popstate", function (event) {
       long : '135.7556467'
 
           }
-        }).done(function(data){
+        }).done(function(data,nowdate,nowtime){
           console.log(data);
       //alert(data[0].lat);
-      //alert(nowdateVal);
-      //alert(nowtimeVal);
+      alert(nowdateVal);
+      alert(nowtimeVal);
           markerData = data;
         }).fail(function(xhr,err){
           console.log(err);
@@ -70,11 +70,11 @@ $(window).on("popstate", function (event) {
       nowdate : nowdateVal,
       nowtime : nowtimeVal
           }
-        }).done(function(data,nowdateVal,nowtimeVal){
+        }).done(function(data){
           console.log(data);
       guideData = data;
-      alert(nowdateVal);
-      alert(nowtimeVal);
+      //alert(nowdateVal);
+      //alert(nowtimeVal);
         }).fail(function(xhr,err){
           console.log(err);
         });
