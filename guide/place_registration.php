@@ -285,7 +285,8 @@ $(window).on("popstate", function (event) {
 		<td>
 		  <form method="POST" action="place_registration.php?rep=1" target="com">
 		    <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
-		    <input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">
+		    <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
+		    <textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> 
 		    <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
 		</td></form>
 	      </tr>
