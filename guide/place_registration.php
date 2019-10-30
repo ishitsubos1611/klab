@@ -279,24 +279,45 @@ $(window).on("popstate", function (event) {
 	    </div>
 	    　　　　　　
 	    <br><br>
-	    <p class="select-title">ガイド場所に関するコメント(128文字まで)</p>
-	    <table align="center" border="0" cellspacing="0" cellpadding="1">
-	      <tr>
-		<td>
-		  <form method="POST" action="place_registration.php?rep=1" target="com">
-		    <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
-		    <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
-		    <textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> 
-		    <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
-		</td></form>
-	      </tr>
-	      <tr>
-		<td>
-		  <div id="commentv" style="font-size:13px;line-height:15px;color:#666699;width:580px;height:160px;border:1px solid #00ccff;padding:8px;overflow-y:scroll;display:none;"></div>
-		  <iframe name="com" src="place_registration.php" id="com" style="width:301px;height:201px;frameborder:0px;border:0px;padding:0px;overflow:hidden;display:none;"></iframe>
-		</td>
-	      </tr>
-	    </table>
+	    <!--<p class="select-title">ガイド場所に関するコメント(128文字まで)</p>-->
+	    <!--<div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+		<!--<table align="center" border="0" cellspacing="0" cellpadding="1">-->
+		<!--<table border="0" cellspacing="0" cellpadding="1">
+		  <tr>
+		    <td>
+		      <form method="POST" action="place_registration.php?rep=1" target="com">
+		      <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
+		      <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
+		      <!--<textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> -->
+		    <!--  <textarea id="comment" name="comment" rows="5" cols="100" maxlength="128" wrap="soft"></textarea>
+		      <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
+		      <!--</form>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      <div id="commentv" style="font-size:13px;line-height:15px;color:#666699;width:580px;height:160px;border:1px solid #00ccff;padding:8px;overflow-y:scroll;display:none;"></div>
+		      <iframe name="com" src="place_registration.php" id="com" style="width:301px;height:201px;frameborder:0px;border:0px;padding:0px;overflow:hidden;display:none;"></iframe>
+		    </td>
+		  </tr>
+		</table>
+	      </div>
+	    </div>-->
+
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+		<div class="form-group">
+		  <label for="exampleFormControlTextarea1" class="col-form-label-lg">ガイド場所に関するコメント(128文字まで)</label>
+		  <!--<form method="POST" action="place_registration.php?rep=1" target="com" maxlength="128">-->
+		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+		  <!--</form>-->
+		</div>
+	      </div>
+	    </div>
+	   
 	
 	    <br><br>
 	    <!--<div class="select-wrapper">
