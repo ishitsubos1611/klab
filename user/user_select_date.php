@@ -93,11 +93,11 @@ list($row_month, $row_day)=explode("-", $row['date']);
     'start_time'=>$row['start_time'],
     'end_time'=>$row['end_time'],
     //'language'=>implode("、", $row['Language']),
-    'language'=>$row['Language'],
+    'language'=>$row['language'],
     'location'=>$row['location'],
-    'requiredTime'=>$row['period'],
-    'guidelat'=>$row['lat'],
-    'guidelong'=>$row['long'],
+    'period'=>$row['period'],
+    'lat'=>$row['lat'],
+    'long'=>$row['long'],
     'charge'=>$row['charge'],
     'payment_date'=>$row['payment_date'],
     'max_num_participant'=>$row['max_num_participant']
@@ -228,25 +228,25 @@ list($row_month, $row_day)=explode("-", $row['date']);
 
 //  $.getJSON("calender.json", function(data){
 
-//    var markerData = [];
-/*    var gidVal = <?php echo $gid ?>;*/
+   /* var markerData = [];
+    var uidVal = <?php echo $uid ?>;
 
     $(function(){
 
-//       $.ajax({
-//         type:"POST",
-//         url:"db_getschedule.php",
-//         dataType:"json",
-//         data:{
-//            gid : gidVal
-//         }
-//       }).done(function(data){
-////      console.log(data);
-//        markerData = data;
-//       }).fail(function(xhr,err){
-//         console.log(err);
-//       });
-
+       $.ajax({
+         type:"POST",
+         url:"getUschedule.php",
+         dataType:"json",
+         data:{
+            uid : uidVal
+         }
+       }).done(function(data){
+         console.log(data);
+         markerData = data;
+       }).fail(function(xhr,err){
+         console.log(err);
+       });
+*/
 //console.log(markerData);
 //console.log(data);
 //console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData ?>")
@@ -256,52 +256,50 @@ console.log('<?php echo $language ?>');
       dayVal = $(this)[0].innerText;
  //     cellnum = '' +yearVal+ monthVal + dayVal;
       cellnum =  '' + monthVal + '月'  + dayVal + '日';
+      console.log(cellnum);
       //$.post('modify_registration.php','cellnum');
-
-      $('.info').remove();
+      $('#cal').show();
+      $('#next').show();
+      //$('.info').remove();
       $('#clickedDate').html('<div class="info">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
       //$('#cal').remove();
       //$('.select-btn guide-select').remove();
-      $('#cal').html(
+      /*$('#cal').html(
           '<p class = "select-title">ガイド開始時間</p>'
           +'<div class="select-btn guide-select"><select name=start_time><option value="08:00:00">8:00</option><option value="09:00:00">9:00</option><option value="10:00:00">10:00</option><option value="11:00:00">11:00</option><option value="12:00:00">12:00</option><option value="13:00:00">13:00</option><option value="14:00:00">14:00</option><option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div>');
-      $('#next').html('<p></p>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">'+'<input name="date" type="hidden" value="'+cellnum+'">'+'<input id="submit_btn" class = "btn resistration" type="submit" value="ガイドさんの検索へ">');
+      $('#next').html('<p></p>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">'+'<input name="date" type="hidden" value="'+cellnum+'">'+'<input id="submit_btn" class = "btn resistration" type="submit" value="ガイドさんの検索へ">');*/
 
       for(var i in data){
         if (cellnum == previousNum){
-          $('.info').remove();
-          $('.select-title').remove();
-          $('select-btn guide-select').remove();
-          $('select').remove();
-          $('#submit_btn').remove();
-          //$('#cal').append();
+          //$('.info').remove();
+          //$('.select-title').remove();
+          //$('select-btn guide-select').remove();
+          //$('select').remove();
+          //$('#submit_btn').remove();
+          $('#cal').hide();
+          $('#next').hide();
           previousNum = "";
           break;
 //        }else if(cellnum == data[i].date　|| data[i].date == "all"){
         }else{
           //stimeVal = data[i].start_time;
           //etimeVal = data[i].end_time;
-            
-          /*$('#cal').html(
+          console.log(data[i].date);  
+          $('#cal').html(
           '<p class = "select-title">ガイド開始時間</p>'
-          +'<div class="select-btn guide-select"><select name=start_time><option value="08:00:00">8:00</option><option value="09:00:00">9:00</option><option value="10:00:00">10:00</option><option value="11:00:00">11:00</option><option value="12:00:00">12:00</option><option value="13:00:00">13:00</option><option value="14:00:00">14:00</option><option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div>'
-              
- //             +'<p class = "select-title">ガイド終了時間</p>'+'<div class="select-btn guide-select"><select name=end_time required><option value="9:00">9:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option></select></div>'
-        );*/
+          +'<div class="select-btn guide-select"><select name=start_time><option value="08:00:00">8:00</option><option value="09:00:00">9:00</option><option value="10:00:00">10:00</option><option value="11:00:00">11:00</option><option value="12:00:00">12:00</option><option value="13:00:00">13:00</option><option value="14:00:00">14:00</option><option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div>');
+      $('#next').html('<p></p>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">'+'<input name="date" type="hidden" value="'+cellnum+'">'+'<input id="submit_btn" class = "btn resistration" type="submit" value="ガイドさんの検索へ">');
           
-
-//     $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-//     +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
-//     +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
-//     +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
-//     +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
-//     +'<input type="hidden" name="scheduleGID" value="'+data[i].GuidScheduleID+'"/>');
-          //+'<form  id="form'+idnumber+'" action="guideDelete.php" method="post"><input type="hidden" name="id" value="'+idnumber+'"/><input id="detail" type="submit" value="detail"></form></div>'
-        }
-      }
-
+          if(cellnum == data[i].date){
+           console.log("成功!");
+           console.log(data[i]);
+           $('#cal').prepend('<p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table>');
+           break;
+         }
+       }
+     }
       previousNum = cellnum;
-    });
+    //});
   });
 //END ISHITSUBO-2
 
