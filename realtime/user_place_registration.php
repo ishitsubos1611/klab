@@ -36,6 +36,8 @@ $(window).on("popstate", function (event) {
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
+      var nowdate = ;
+      var nowtime = ;
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
 
       $(function(){
@@ -43,13 +45,17 @@ $(window).on("popstate", function (event) {
           type:"POST",
           url:"poi_dbconnect.php",
           dataType:"json",
-          data:{
-             area : areaVal, 
-             category : categoryVal 
+      data:{
+
+        
+      // area : areaVal,
+      area : 'kyoto',
+      //category : categoryVal
+      category : 'all'
           }
         }).done(function(data){
           console.log(data);
-          //alert(data[0].lat);
+      //alert(data[0].lat);
           markerData = data;
         }).fail(function(xhr,err){
           console.log(err);
@@ -62,11 +68,15 @@ $(window).on("popstate", function (event) {
           url:"guide_dbconnect.php",
           dataType:"json",
           data:{
-             gid : gidVal
+      gid : gidVal,
+      nowdate : nowdateVal,
+      nowtime : nowtimeVal,
           }
-        }).done(function(data){
+        }).done(function(data,nowdate,nowtime){
           console.log(data);
           guideData = data;
+      alert(nowdate);
+      alert(nowtime);
         }).fail(function(xhr,err){
           console.log(err);
         });
@@ -77,9 +87,7 @@ $(window).on("popstate", function (event) {
       function success(position) {
 	var data = position.coords ;
 　　　	nowLat = data.latitude ;
-      nowLng = data.longitude;
-      nowLat = 35.010174;
-        nowLng = 135.759193;
+	nowLng = data.longitude;
 	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
       }
 
@@ -201,7 +209,7 @@ $(window).on("popstate", function (event) {
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "user_select_date.php";
+        document.myform3.action = "guide_recommend.php";
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
         document.myform3.elements[1].value = $form_lat;

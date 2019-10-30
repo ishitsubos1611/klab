@@ -203,7 +203,7 @@ $(window).on("popstate", function (event) {
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "user_select_date.php";
+        document.myform3.action = "guide_recommend.php";
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
         document.myform3.elements[1].value = $form_lat;

@@ -77,9 +77,7 @@ $(window).on("popstate", function (event) {
       function success(position) {
 	var data = position.coords ;
 　　　	nowLat = data.latitude ;
-      nowLng = data.longitude;
-      nowLat = 35.010174;
-        nowLng = 135.759193;
+	nowLng = data.longitude;
 	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
       }
 
