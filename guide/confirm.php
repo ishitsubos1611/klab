@@ -59,6 +59,7 @@ $language = implode("、", $_POST['language']);
 $thisdate = $_POST['thisdate'];
 $thismonth = $_POST['thismonth'];
 $thisyear = $_POST['thisyear'];
+$comment = $_POST['comment'];
 
 $payment_date = '8';
 
@@ -70,7 +71,9 @@ $payment_date = '8';
  echo '<input name = fee' .' type=hidden value="' . $fee. '">';
  echo '<input name = maxsub' .' type=hidden value="' . $maxsub. '">';
  echo '<input name = period' .' type=hidden value="' . $period. '">';
+ echo '<input name = comment' .' type=hidden value ="' . $comment. '">';  
  echo '<input name = payment_day' .' type=hidden value="' . $payment_date. '"><br>';
+
 
  if(empty($location)){
   $location = "スポットが選択されていません";
@@ -155,6 +158,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
          <?php echo $check_month; ?>：
          8:00-18:00
 	 -->
+        <br>
+        <p class = "text-danger h3">コメント：<?php echo $comment; ?></p>
         <br>
         <p class="text-danger h3">ガイド時間：<?php echo $period; ?>分</p>
 	<br>
