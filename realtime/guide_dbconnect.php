@@ -38,6 +38,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  $memberList[]=array(
   'GID' =>$row['GID'],
   'area' =>$row['area'],
+  'year' =>$row['year'],
   'date' =>$row['date'], //
   'location' =>$row['location'],
   'lat'=>$row['lat'],

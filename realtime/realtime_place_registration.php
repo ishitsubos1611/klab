@@ -31,6 +31,7 @@ $(window).on("popstate", function (event) {
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
+      var nowyearVal = "<?php echo date('Y'); ?>";
       var nowdateVal = "<?php echo date('n-j'); ?>";
       var nowtimeVal = "<?php echo date('H:i:s'); ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
@@ -68,12 +69,14 @@ $(window).on("popstate", function (event) {
           data:{
       //gid : gidVal,
       gid : '1',
+      nowyear : nowyearVal,
       nowdate : nowdateVal,
       nowtime : nowtimeVal
           }
-        }).done(function(data,nowdate,nowtime){
+        }).done(function(data,nowyear,nowdate,nowtime){
           console.log(data);
       guideData = data;
+      alert(nowyearVal);
       alert(nowdateVal);
       alert(nowtimeVal);
         }).fail(function(xhr,err){
@@ -131,7 +134,7 @@ $(window).on("popstate", function (event) {
           icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/blue-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
           for (j = 0; j <guideData.length; j++){
 	//if( markerData[i]['JPname'] == guideData[j]['location'] && nowdateVal == '11-2'){ 
-	    if( markerData[i]['JPname'] == guideData[j]['location'] && guideData[j]['date'] == nowdateVal){ //日付の条件			   
+	    if( markerData[i]['JPname'] == guideData[j]['location'] && guideData[j]['year'] == nowyearVal && guideData[j]['date'] == nowdateVal){ //日付の条件		 
               icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/pink-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
             }
           }
