@@ -46,15 +46,15 @@ $(window).on("popstate", function (event) {
             area : 'kyoto', 
             //category : categoryVal
             category : 'all',
-      lat : '35.069162899999995',
-      long : '135.7556467'
+      //lat : '35.069162899999995',
+      //long : '135.7556467'
 
           }
-        }).done(function(data,nowdate,nowtime){
+        }).done(function(data){
           console.log(data);
       //alert(data[0].lat);
-      alert(nowdateVal);
-      alert(nowtimeVal);
+      //alert(nowdateVal);
+      //alert(nowtimeVal);
           markerData = data;
         }).fail(function(xhr,err){
           console.log(err);
@@ -66,15 +66,16 @@ $(window).on("popstate", function (event) {
           url:"guide_dbconnect.php",
           dataType:"json",
           data:{
-      gid : gidVal,
+      //gid : gidVal,
+      gid : '1',
       nowdate : nowdateVal,
       nowtime : nowtimeVal
           }
-        }).done(function(data){
+        }).done(function(data,nowdate,nowtime){
           console.log(data);
       guideData = data;
-      //alert(nowdateVal);
-      //alert(nowtimeVal);
+      alert(nowdateVal);
+      alert(nowtimeVal);
         }).fail(function(xhr,err){
           console.log(err);
         });
@@ -122,15 +123,16 @@ $(window).on("popstate", function (event) {
 	map = new google.maps.Map(document.getElementById('map'), {
         center: mapLatLng,
       scaleControl: true ,//スケールバー表示
-      zoom: 16 // 地図のズームを指定
+      zoom: 14 // 地図のズームを指定
 
        	});
         for (var i = 0; i < markerData.length; i++) {
           //アイコンの種類指定
           icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/blue-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
           for (j = 0; j <guideData.length; j++){
-            if( markerData[i]['JPname'] == guideData[j]['location']){
-               icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/pink-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
+	//if( markerData[i]['JPname'] == guideData[j]['location'] && nowdateVal == '11-2'){ 
+	    if( markerData[i]['JPname'] == guideData[j]['location'] && guideData[j]['date'] == nowdateVal){ //日付の条件			   
+              icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/pink-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
             }
           }
  
@@ -211,7 +213,7 @@ $(window).on("popstate", function (event) {
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "user_select_date.php";
+        document.myform3.action = "guide_recommend.php";
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
         document.myform3.elements[1].value = $form_lat;
