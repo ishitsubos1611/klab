@@ -12,84 +12,68 @@ $errorMessage = "";
 
 // ログインボタンが押された場合
 if (isset($_POST["login"])) {
-    // 1. ユーザIDの入力チェック
-    if (empty($_POST["userid"])) {  // emptyは値が空のとき
-        $errorMessage = 'ユーザーIDが未入力です。';
-    } else if (empty($_POST["password"])) {
-        $errorMessage = 'パスワードが未入力です。';
+  // １．ユーザIDの入力チェック
+
+  if (empty($_POST["userid"])) {
+    $errorMessage = "ユーザIDが未入力です。";
+  }
+
+  if (empty($_POST["password"])) {
+    $errorMessage = "パスワードが未入力です。";
+  }
+
+  // ２．ユーザIDとパスワードが入力されていたら認証する
+  if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
+      try {
+      $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, [PDO::ATTR_EMULATE_PREPARES => false]);
+
+    } catch (PDOException $e) {
+      var_dump($e->getMessage());
+      echo '接続失敗';
+      exit;
     }
 
-    if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
-        // 入力したユーザIDを格納
-        $userid = $_POST["userid"];
+    // 入力したユーザIDを格納
+    $userid = $_POST["userid"];
 
-        // 2. ユーザIDとパスワードが入力されていたら認証する
-        $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $host, $dbname);
+    $stmt = $dbh->prepare('SELECT * FROM G_account WHERE Gname = ?');
+    $stmt->execute(array($userid));
 
-        // 3. エラー処理
-        try {
-            $pdo = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, [PDO::ATTR_EMULATE_PREPARES => false]);
 
-            $stmt = $pdo->prepare('SELECT * FROM G_account WHERE name = ?');
-            $stmt->execute(array($userid));
-
-            $password = $_POST["password"];
-
-            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                if (password_verify($password, $row['password'])) {
-                    session_regenerate_id(true);
-
-                    // 入力したIDのユーザー名を取得
-                    $id = $row['Gid'];
-                    $sql = "SELECT * FROM G_account WHERE Gid = $id";  //入力したIDからユーザー名を取得
-                    $stmt = $pdo->query($sql);
-                    foreach ($stmt as $row) {
-                        $row['Gname'];  // ユーザー名
-                    }
-                    $_SESSION["NAME"] = $row['Gname'];
-                    header("Location: ../top.php");  // メイン画面へ遷移
-                    exit();  // 処理終了
-                } else {
-                    // 認証失敗
-                    $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
-                }
-            } else {
-                // 4. 認証成功なら、セッションIDを新規に発行する
-                // 該当データなし
-                $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
-            }
-        } catch (PDOException $e) {
-            $errorMessage = 'データベースエラー';
-            //$errorMessage = $sql;
-            // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
-            // echo $e->getMessage();
-        }
+    if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      // パスワード(暗号化済み）の取り出し
+      $db_hashed_pwd = $row['password'];
     }
+
+    // ３．画面から入力されたパスワードとデータベースから取得したパスワードのハッシュを比較します。
+    if (password_verify($_POST["password"], $db_hashed_pwd)) {
+      // ４．認証成功なら、セッションIDを新規に発行する
+      session_regenerate_id(true);
+      $_SESSION["USERID"] = $_POST["userid"];
+      header("Location: top.html");
+      exit;
+    }else {
+      // 認証失敗
+      $errorMessage = "ユーザIDあるいはパスワードに誤りがあります。";
+    }
+  }
 }
-?>
 
+?>
 <!doctype html>
 <html>
-    <head>
-            <meta charset="UTF-8">
-            <title>ログイン</title>
-    </head>
-    <body>
-        <h1>ログイン画面</h1>
-        <form id="loginForm" name="loginForm" action="" method="POST">
-            <div>
-                <div><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
-                <p>ユーザーID</p>
-		<input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) {echo htmlspecialchars($_POST["userid"], ENT_QUOTES);} ?>">
-                <p>パスワード</p>
-		<input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
-                <p><input type="submit" id="login" name="login" value="ログイン"></p>
-            </div>
-        </form>
-        <form action="guide_signup.php">
-            <div>
-		<p>新規登録はこちらから<input type="submit" value="新規登録"></p>
-            </div>
-        </form>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン画面</title>
+</head>
+<body>
+  <h1>ログイン画面</h1>
+  <form id="loginForm" name="loginForm" action="" method="POST">
+    <div><?php echo $errorMessage ?></div>
+    <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>
+    <p>パスワード<input type="password" id="password" name="password" value=""></p>
+    <input type="submit" id="login" name="login" value="ログイン">
+  </form>
+  <p><a href="guide_signup.php">ユーザー情報登録ページへ</a></p>
+</body>
 </html>
