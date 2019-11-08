@@ -50,7 +50,7 @@ if (isset($_POST["login"])) {
       // ４．認証成功なら、セッションIDを新規に発行する
       session_regenerate_id(true);
       $_SESSION["USERID"] = $_POST["userid"];
-      header("Location: top.html");
+      header("Location: ../top.html");
       exit;
     }else {
       // 認証失敗
