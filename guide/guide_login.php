@@ -64,16 +64,86 @@ if (isset($_POST["login"])) {
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ログイン画面</title>
+  
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+  history.pushState(null, null, null);
+  $(window).on("popstate", function (event) {
+  if (!event.originalEvent.state) {
+    history.pushState(null, null, null);
+    return;
+    } 
+  });
+  </script>
+
+
 </head>
 <body>
-  <h1>ログイン画面</h1>
-  <form id="loginForm" name="loginForm" action="" method="POST">
-    <div><?php echo $errorMessage ?></div>
-    <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>
-    <p>パスワード<input type="password" id="password" name="password" value=""></p>
-    <input type="submit" id="login" name="login" value="ログイン">
-  </form>
-  <p><a href="guide_signup.php">ユーザー情報登録ページへ</a></p>
+  <div class="main">
+  <nav class="navbar navbar-dark bg-dark fixed-top">			
+    <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!--  <span class="navbar-toggler-icon"></span> -->
+    </button>
+  </nav>
+
+    <div class="container-fluid">
+      <div class="text-center">
+        <br><br><br>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <div><a href="#"  class = "btn btn-danger disabled btn-lg btn-block" >ガイドログイン画面</a></div>
+          </div>
+        </div>
+	<br>
+
+	<form id="loginForm" name="loginForm" action="" method="POST">
+        <div><?php echo $errorMessage ?></div>
+
+	<br>
+
+	<div class="form-group row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+	    <p>ユーザID</p>
+	  </div>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>" placeholder="ユーザIDを入力">
+<!--            <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>  -->
+	  </div>
+	</div>
+	
+	<div class="form-group row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+	    <p>パスワード</p>
+	  </div>
+	  <div class="col-sm-5">
+	  <input type="password" class="form-control" id="password" name="password" value="" placeholder="パスワードを入力">
+           <!-- <p>パスワード<input type="password" id="password" name="password" value=""></p> -->
+	  </div>
+        </div>
+        <br>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <a href="guide_signup.php" class="btn btn-outline-info btn-lg btn-block" >ユーザ情報登録ページへ</a>
+	  </div>
+	</div>
+	<br>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
+	  </div>
+	</div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
