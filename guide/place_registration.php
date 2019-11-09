@@ -367,7 +367,7 @@ $(window).on("popstate", function (event) {
 		<div class="form-group">
 		  <label for="exampleFormControlTextarea1" class="col-form-label-lg text-center">ガイド場所に関するコメント(128文字まで)</label>
 		  <!--<form method="POST" action="place_registration.php?rep=1" target="com" maxlength="128">-->
-		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+		    <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
 		  <!--</form>-->
 		</div>
 	      </div>
