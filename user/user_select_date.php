@@ -312,7 +312,7 @@ console.log('<?php echo $language ?>');
     if(etimeVal.length != 0){
       var etime_h = parseInt(etimeVal[0],10);
       var etime_m = parseInt(etimeVal[1],10);
-    }*/
+    }
     if(!(dayVal)){
       alert('日付をクリックして、ガイド開始時間を選択してください!');
       $('#day').focus();
