@@ -24,9 +24,12 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 // データ取得sql
-$sql = "SELECT * FROM G_Schedule WHERE GID = ? ";
+//$sql = "SELECT * FROM G_Schedule WHERE GID = ? ";
+//$sql = "SELECT * FROM G_Schedule WHERE date = ? ";
+$sql = "SELECT * FROM G_Schedule";
 $stmt = ($dbh->prepare($sql));
-$stmt->execute(array($gid));
+//$stmt->execute(array($nowdate));
+$stmt->execute();
 
 // データ取得
 //あらかじめ配列を生成しておき、while文で回します。
@@ -35,6 +38,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  $memberList[]=array(
   'GID' =>$row['GID'],
   'area' =>$row['area'],
+  'year' =>$row['year'],
+  'date' =>$row['date'], //
   'location' =>$row['location'],
   'lat'=>$row['lat'],
   'lng'=>$row['long']
