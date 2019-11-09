@@ -302,10 +302,10 @@ $(window).on("popstate", function (event) {
 	  </div>
 	  
 	  <br><br>
-	  
-	  <div class="destination-wrapper">
-            <p class="select-title">ガイド可能な場所</p>
-<!--      <div class="row">
+
+	  <p class="select-title">ガイド可能な場所</p>
+	  <!--<div class="destination-wrapper">-->
+           <!--      <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <div><a href="#"  class = "btn btn-info btn-lg btn-block" >ガイド可能な場所</a></div>
@@ -320,10 +320,9 @@ $(window).on("popstate", function (event) {
 		  </script>
 		</div>
 	      </div>
-	  </div>
 	  
 	    　　　　　　
-	    <br><br>
+	    <br>
 	    <!--<p class="select-title">ガイド場所に関するコメント(128文字まで)</p>-->
 	    <!--<div class="row">
               <div class="col-sm-2"></div>
@@ -355,7 +354,7 @@ $(window).on("popstate", function (event) {
               <div class="col-sm-2"></div>
               <div class="col-sm-8">
 		<div class="form-group">
-		  <label for="exampleFormControlTextarea1" class="col-form-label-lg">ガイド場所に関するコメント(128文字まで)</label>
+		  <label for="exampleFormControlTextarea1" class="col-form-label-lg text-center">ガイド場所に関するコメント(128文字まで)</label>
 		  <!--<form method="POST" action="place_registration.php?rep=1" target="com" maxlength="128">-->
 		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
 		  <!--</form>-->
