@@ -238,14 +238,51 @@ $(window).on("popstate", function (event) {
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
 <!--        <p>スポット登録中</p>
 	    </div>
- -->
+    -->
+      <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>		
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+	    <li class="nav-item">
+	      <a class="nav-link" href="#">ガイドログイン</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>
+	  </ul>
+	</div>
+      </nav>
+
       <div class="container-fluid">
         <div class="text-center">
-	  <br><br>
+	  <br><br><br>
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-	      <div><a href="#"  class = "btn btn-danger disabled btn-xl btn-block" >スポット登録中</a></div>
+	      <div><a href="#"  class = "btn btn-danger disabled btn-lg btn-block" >スポット登録中</a></div>
             </div>
           </div>
 	  <br>
@@ -255,56 +292,85 @@ $(window).on("popstate", function (event) {
               クリックして下さい。</p>
 	  <!--</div>-->
 	  <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既に登録されているスポットです </p>
-	  <div class="map-wrapper">
-            <div id="map"></div>
+	  <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div class="map-wrapper">
+		<div id="map"></div>
+	      </div>
+	    </div>
 	  </div>
-	  <br><br>
 	  
-	  <div class="destination-wrapper">
-            <p class="select-title">ガイド可能な場所</p>
-<!--      <div class="row">
+	  <br><br>
+
+	  <p class="select-title">ガイド可能な場所</p>
+	  <!--<div class="destination-wrapper">-->
+           <!--      <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <div><a href="#"  class = "btn btn-info btn-lg btn-block" >ガイド可能な場所</a></div>
         </div>
 	　　　</div>    -->
-            <div class="row">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+	 	  <div class="bg-warning" id="output"></div> 
+		  <script>
+		    document.getElementById("output").style.display = "none";
+		  </script>
+		</div>
+	      </div>
+	  
+	    　　　　　　
+	    <br>
+	    <!--<p class="select-title">ガイド場所に関するコメント(128文字まで)</p>-->
+	    <!--<div class="row">
               <div class="col-sm-2"></div>
               <div class="col-sm-8">
-		<div class="bg-warning" id="output"></div> 
-		<script>
-		  document.getElementById("output").style.display = "none";
-		</script>
+		<!--<table align="center" border="0" cellspacing="0" cellpadding="1">-->
+		<!--<table border="0" cellspacing="0" cellpadding="1">
+		  <tr>
+		    <td>
+		      <form method="POST" action="place_registration.php?rep=1" target="com">
+		      <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
+		      <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
+		      <!--<textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> -->
+		    <!--  <textarea id="comment" name="comment" rows="5" cols="100" maxlength="128" wrap="soft"></textarea>
+		      <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
+		      <!--</form>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      <div id="commentv" style="font-size:13px;line-height:15px;color:#666699;width:580px;height:160px;border:1px solid #00ccff;padding:8px;overflow-y:scroll;display:none;"></div>
+		      <iframe name="com" src="place_registration.php" id="com" style="width:301px;height:201px;frameborder:0px;border:0px;padding:0px;overflow:hidden;display:none;"></iframe>
+		    </td>
+		  </tr>
+		</table>
+	      </div>
+	    </div>-->
+
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+		<div class="form-group">
+		  <label for="exampleFormControlTextarea1" class="col-form-label-lg text-center">ガイド場所に関するコメント(128文字まで)</label>
+		  <!--<form method="POST" action="place_registration.php?rep=1" target="com" maxlength="128">-->
+		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+		  <!--</form>-->
+		</div>
 	      </div>
 	    </div>
-	    　　　　　　
-	    <br><br>
-	    <p class="select-title">ガイド場所に関するコメント(128文字まで)</p>
-	    <table align="center" border="0" cellspacing="0" cellpadding="1">
-	      <tr>
-		<td>
-		  <form method="POST" action="place_registration.php?rep=1" target="com">
-		    <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
-		    <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
-		    <textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> 
-		    <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
-		</td></form>
-	      </tr>
-	      <tr>
-		<td>
-		  <div id="commentv" style="font-size:13px;line-height:15px;color:#666699;width:580px;height:160px;border:1px solid #00ccff;padding:8px;overflow-y:scroll;display:none;"></div>
-		  <iframe name="com" src="place_registration.php" id="com" style="width:301px;height:201px;frameborder:0px;border:0px;padding:0px;overflow:hidden;display:none;"></iframe>
-		</td>
-	      </tr>
-	    </table>
+	   
 	
 	    <br><br>
 	    <!--<div class="select-wrapper">
 -->
-	    <p class = "select-title">ガイド時間</p>
+	    <!--<p class = "select-title">ガイド時間</p>-->
 	    <div class="row">
               <div class="col-sm-2"></div>
-              <div class="col-sm-8">
+              <div class="col-sm-3"><p class="select-title">ガイド時間</p></div>
+	      <div class="col-sm-5">
 		<div class="form-group">
 		  <div class="select-btn guide-select">
 		    <select name="time" required class="form-control">
@@ -322,10 +388,11 @@ $(window).on("popstate", function (event) {
 		</div>
               </div>
 	    </div>
-	    <p class ="select-title">料金</p>
+	    <!--<p class ="select-title">料金</p>-->
 	    <div class="row">
               <div class="col-sm-2"></div>
-              <div class="col-sm-8">
+              <div class="col-sm-3"><p class ="select-title">料金</p></div>
+	      <div class="col-sm-5">
 		<div class="form-group">
 		  <div class="select-btn guide-select">
 		    <select name="fee" required class="form-control">
@@ -344,10 +411,11 @@ $(window).on("popstate", function (event) {
 		</div>
               </div>
 	    </div>
-	    <p class="select-title">最大人数</p>
+	    <!--<p class="select-title">最大人数</p>-->
 	    <div class="row">
               <div class="col-sm-2"></div>
-              <div class="col-sm-8">
+              <div class="col-sm-3"><p class="select-title">最大人数</p></div>
+	      <div class="col-sm-5">
 		<div class="form-group">
 		  <div class="select-btn guide-select">
 		    <select name="maxsubject" required class="form-control">
@@ -361,10 +429,11 @@ $(window).on("popstate", function (event) {
 	   </div>
 	 </div>
        </div>       
-       <p class="select-title">対応可能言語</p>
+       <!--<p class="select-title">対応可能言語</p>-->
        <div class="row">
          <div class="col-sm-2"></div>
-         <div class="col-sm-8">
+         <div class="col-sm-3"><p class="select-title">対応可能言語</p></div>
+	 <div class="col-sm-5">
            
           <!-- <div class="select-btn guide-select">-->
              <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
@@ -374,7 +443,7 @@ $(window).on("popstate", function (event) {
              <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
            <!--</div>-->
 
-       </div>
+         </div>
        </div>
 
 <br>

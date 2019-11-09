@@ -71,7 +71,7 @@ $(window).on("popstate", function (event) {
             </li>
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
-              <a class="nav-link" href="../realtime/realtime_place_registration.php">現在地周辺登録</a>
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
             </li>
 	  </ul>
 	</div>

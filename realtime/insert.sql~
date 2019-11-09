@@ -1,0 +1,1 @@
+insert into G_Schedule (GID,date,start_time,end_time,location,lat,`long`) values ('1','11-2','10:00:00','15:00:00','美女山',35.1539,135.440681);

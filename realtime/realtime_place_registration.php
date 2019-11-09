@@ -21,6 +21,7 @@ $(window).on("popstate", function (event) {
 }
 </style>
 
+    <!--<link rel="stylesheet" href="../css/bootstrap.css">-->
     <link rel="stylesheet" href="../css/0-3-A3.css">
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -29,8 +30,11 @@ $(window).on("popstate", function (event) {
       var marker = [];
       var markerData = [];
       var guideData = [];
-            var areaVal = "<?php echo $area = $_POST['area']; ?>";
+      var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['uid']; ?>";
+      var nowyearVal = "<?php echo date('Y'); ?>";
+      var nowdateVal = "<?php echo date('n-j'); ?>";
+      var nowtimeVal = "<?php echo date('H:i:s'); ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
       var nowLat, nowLng;
       
@@ -44,13 +48,15 @@ $(window).on("popstate", function (event) {
             area : 'kyoto', 
             //category : categoryVal
             category : 'all',
-      lat : '35.069162899999995',
-      long : '135.7556467'
+      //lat : '35.069162899999995',
+      //long : '135.7556467'
 
           }
         }).done(function(data){
           console.log(data);
-          //alert(data[0].lat);
+      //alert(data[0].lat);
+      //alert(nowdateVal);
+      //alert(nowtimeVal);
           markerData = data;
         }).fail(function(xhr,err){
           console.log(err);
@@ -62,11 +68,18 @@ $(window).on("popstate", function (event) {
           url:"guide_dbconnect.php",
           dataType:"json",
           data:{
-             gid : gidVal
+      //gid : gidVal,
+      gid : '1',
+      nowyear : nowyearVal,
+      nowdate : nowdateVal,
+      nowtime : nowtimeVal
           }
-        }).done(function(data){
+        }).done(function(data,nowyear,nowdate,nowtime){
           console.log(data);
-          guideData = data;
+      guideData = data;
+      alert(nowyearVal);
+      alert(nowdateVal);
+      alert(nowtimeVal);
         }).fail(function(xhr,err){
           console.log(err);
         });
@@ -114,15 +127,16 @@ $(window).on("popstate", function (event) {
 	map = new google.maps.Map(document.getElementById('map'), {
         center: mapLatLng,
       scaleControl: true ,//スケールバー表示
-      zoom: 16 // 地図のズームを指定
+      zoom: 14 // 地図のズームを指定
 
        	});
         for (var i = 0; i < markerData.length; i++) {
           //アイコンの種類指定
           icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/blue-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
           for (j = 0; j <guideData.length; j++){
-            if( markerData[i]['JPname'] == guideData[j]['location']){
-               icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/pink-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
+	//if( markerData[i]['JPname'] == guideData[j]['location'] && nowdateVal == '11-2'){ 
+	    if( markerData[i]['JPname'] == guideData[j]['location'] && guideData[j]['year'] == nowyearVal && guideData[j]['date'] == nowdateVal){ //日付の条件		 
+              icon = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/pink-dot.png',new google.maps.Size(70,84),new google.maps.Point(0,0));
             }
           }
  
@@ -203,7 +217,7 @@ $(window).on("popstate", function (event) {
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "user_select_date.php";
+        document.myform3.action = "guide_recommend.php";
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
         document.myform3.elements[1].value = $form_lat;
@@ -245,6 +259,44 @@ $(window).on("popstate", function (event) {
  echo '<input name = uid' .' type=hidden value="' . $uid . '">';
 ?>
     <div class="main">
+
+<!--      <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>		
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+<!--	    <li class="nav-item">
+	      <a class="nav-link" href="#">ガイドログイン</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="#">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item active">
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>
+	  </ul>
+	</div>
+      </nav>-->
+      
       <div class="startup">
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
         <p><?php echo $famous; ?>ガイド</p>

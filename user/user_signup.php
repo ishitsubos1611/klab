@@ -33,8 +33,7 @@ if (isset($_POST["signUp"])) {
         // 3. エラー処理
         try {
 	    $pdo = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, [PDO::ATTR_EMULATE_PREPARES => false]);
-
-            $stmt = $pdo->prepare("INSERT INTO U_account(Uname, password) VALUES (?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO G_account(Gname, password) VALUES (?, ?)");
 
             $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT)));  // パスワードのハッシュ化を行う（今回は文字列のみなのでbindValue(変数の内容が変わらない)を使用せず、直接excuteに渡しても問題ない）
             $userid = $pdo->lastinsertid();  // 登録した(DB側でauto_incrementした)IDを$useridに入れる
@@ -55,25 +54,91 @@ if (isset($_POST["signUp"])) {
 <html>
     <head>
             <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>新規登録</title>
+
+	    <link rel="stylesheet" href="../css/bootstrap.css">
+	    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  	    <script>
+  	    history.pushState(null, null, null);
+  	    $(window).on("popstate", function (event) {
+  	    if (!event.originalEvent.state) {
+    	      history.pushState(null, null, null);
+    	      return;
+              }
+  	    });
+  	    </script>
+
     </head>
     <body>
-        <h1>新規登録画面</h1>
-        <form id="loginForm" name="loginForm" action="" method="POST">
+      <div class="main">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+          <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          </button>
+        </nav>
+	
+        <div class="container-fluid">
+          <div class="text-center">
+            <br><br><br>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                <div><a href="#"  class = "btn btn-danger disabled btn-lg btn-block" >新規登録画面</a></div>
+              </div>
+            </div>
+            <br>
+
+            <form id="loginForm" name="loginForm" action="" method="POST">
             <div>
                 <div><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
                 <div><?php echo htmlspecialchars($signUpMessage, ENT_QUOTES); ?></div>
-                <p>ユーザー名</p>
-		<input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>">
-                <p>パスワード</p>
-		<input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
-                <p>パスワード(確認用)</p>
-		<input type="password" id="password2" name="password2" value="" placeholder="再度パスワードを入力">
-                <p><input type="submit" id="signUp" name="signUp" value="新規登録"></p>
-            </div>
+		<br>
+		<div class="form-group row">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-2">
+                    <p>ユーザID</p>
+                  </div>
+                  <div class="col-sm-5">
+		    <input type="text" class="form-control "id="username" name="username" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>">
+		  </div>
+		</div>
+		<div class="form-group row">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-2">
+                    <p>パスワード</p>
+                  </div>
+                  <div class="col-sm-5">
+		    <input type="password" class="form-control" id="password" name="password" value="" placeholder="パスワードを入力">
+		  </div>
+		</div>
+		<div class="form-group row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <p>パスワード(確認用)</p>
+                  </div>
+                  <div class="col-sm-5">
+		    <input type="password" class="form-control" id="password2" name="password2" value="" placeholder="再度パスワードを入力">
+		  </div>
+		</div>
+		<br>
+		<div class="row">
+                  <div class="col-sm-2"></div>
+          	  <div class="col-sm-4">
+		    <a href="user_login.php" class="btn btn-outline-info btn-lg btn-block" >戻る</a>
+		  </div>
+		  <div class="col-sm-4">
+		    <p><input class="btn btn-outline-info btn-lg btn-block"  type="submit" id="signUp" name="signUp" value="新規登録"></p>
+		  </div>
+		</div>
+		  
+   <!--         </div>
         </form>
-        <form action="user_login.php">
+        <form action="guide_login.php">
             <p><input type="submit" value="戻る"></p>
-        </form>
+        </form>   -->
+	      </div>
+	    </div>
+	  </div>
     </body>
 </html>

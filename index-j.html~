@@ -42,9 +42,9 @@ $(window).on("popstate", function (event) {
 	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
 	    </li>-->
 	    <li class="nav-item">
-	      <a class="nav-link" href="guide/guide_login.php">ガイドログイン</a>
+	      <a class="nav-link" href="#">ガイドログイン</a>
 	    </li>
-<!--	    <li class="nav-item">
+	    <li class="nav-item">
 	      <a class="nav-link" href="guide/select_area_regist.php">ガイド登録</a>
 	    </li>
 	    <li class="nav-item">
@@ -52,18 +52,18 @@ $(window).on("popstate", function (event) {
             </li>
 	    <li class="nav-item">
               <a class="nav-link" href="guide/select_area4booking.php">ガイド予約確認</a>
-            </li>  -->
+            </li>
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
-              <a class="nav-link" href="user/user_login.php">ユーザログイン</a>
+              <a class="nav-link" href="#">ユーザログイン</a>
             </li>
-<!--	    <li class="nav-item">
+	    <li class="nav-item">
               <a class="nav-link" href="user/user_select_area.php">ユーザ希望登録</a>
             </li>
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="realtime/realtime_place_registration.php">今すぐ登録</a>
-            </li>  -->
+            </li>
 	  </ul>
 	</div>
       </nav>
@@ -92,11 +92,11 @@ $(window).on("popstate", function (event) {
 	  <div class="row">
 	    <div class="col-sm-2"></div>
             <div class="col-sm-8">
-              <div><a href="guide/guide_login.php"  class = "btn btn-outline-info btn-lg btn-block" >ガイドログイン</a></div>
+              <div><a href="guide/guide_login.php"  class = "btn btn-outline-info btn-lg btn-block" >ガイド　ログイン</a></div>
 	    </div>
 　　　　　</div>　　　
 	  <br><br>
-<!--	  <div class="row">
+	  <div class="row">
 	    <div class="col-sm-2"></div>
 	    <div class="col-sm-8">  
               <div><a href="guide/select_area_regist.php"  class = "btn btn-outline-info btn-lg btn-block" >ガイド（スポット）登録・削除</a></div>
@@ -116,12 +116,12 @@ $(window).on("popstate", function (event) {
               <div><a href="guide/select_area4booking.php"  class = "btn btn-outline-info btn-lg btn-block" >ガイド予約確認</a></div>
 	    </div>
 	  </div>
-	  <br><br>  -->
+	  <br><br>
 
 	  <div class="row">
 	    <div class="col-sm-2"></div>
 	    <div class="col-sm-8">
-              <div><a href="user/user_login.php"  class = "btn btn-outline-primary btn-lg btn-block" >ユーザログイン</a></div>
+              <div><a href="#"  class = "btn btn-outline-primary btn-lg btn-block" >ユーザログイン</a></div>
 	    </div>
 	  </div>
 	    <br><br>
@@ -132,11 +132,12 @@ $(window).on("popstate", function (event) {
         </form>
 -->
 
-    <!--      <div class="row">
+          <div class="row">
             <div class="col-sm-2"></div>
 	    <div class="col-sm-8">
               <div><a href="user/user_select_area.php"  class = "btn btn-outline-primary btn-lg btn-block" >ユーザ希望登録</a></div>
-	    </div>  
+	    </div>
+          <!--</div>-->
           </div>
 	  <br><br>
 
@@ -145,7 +146,7 @@ $(window).on("popstate", function (event) {
             <div class="col-sm-8">
               <div><a href="realtime/realtime_place_registration.php"  class = "btn btn-outline-success btn-lg btn-block" >今すぐ登録</a></div>
             </div>
-          </div>  -->
+          </div>
 	  <br><br><br><br>
 
       </div>
