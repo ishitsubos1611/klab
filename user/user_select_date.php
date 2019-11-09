@@ -308,7 +308,7 @@ console.log('<?php echo $language ?>');
     var stimeVal = stime.split(":");
     var stime_h = parseInt(stimeVal[0],10);
     var stime_m = parseInt(stimeVal[1],10);
-    /*console.log(etimeVal);
+
     if(etimeVal.length != 0){
       var etime_h = parseInt(etimeVal[0],10);
       var etime_m = parseInt(etimeVal[1],10);
