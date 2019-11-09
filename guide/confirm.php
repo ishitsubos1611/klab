@@ -134,7 +134,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     } else if (dbVal == 1) { 
       document.myform3.action = "insert_place.php";
     } else if( dbVal == 0) { 
-      document.myform3.action = "../top.html";
+      document.myform3.action = "./guide_top.html";
   }
 }
 

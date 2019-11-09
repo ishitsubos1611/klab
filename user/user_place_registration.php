@@ -38,6 +38,8 @@ $(window).on("popstate", function (event) {
       var uidVal = "<?php echo $uid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
 
+
+      
       $(function(){
         $.ajax({
           type:"POST",
@@ -76,8 +78,10 @@ $(window).on("popstate", function (event) {
       // 位置取得成功した場合
       function success(position) {
 	var data = position.coords ;
-　　　	nowLat = data.latitude ;
-	nowLng = data.longitude;
+　　　	//nowLat = data.latitude ;
+        //nowLng = data.longitude;
+      	nowLat = 35.010174;
+        nowLng = 135.759193;
 	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
       }
 

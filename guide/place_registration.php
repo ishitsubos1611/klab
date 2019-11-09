@@ -40,7 +40,8 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['gid']; ?>";
       var categoryVal = "<?php $area = $_POST['category']; echo $area ?>";
-
+      
+      
       $(function(){
         $.ajax({
           type:"POST",
@@ -126,14 +127,6 @@ $(window).on("popstate", function (event) {
 
           });
 
-          // 吹き出しに出す文
-          myInfoWindow = new google.maps.InfoWindow({
-            content: markerData[i]['JPname'],
-            disableAutoPan: true //自動移動を解除
-          });
-           // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
-
           markerEvent(i);//メソッド呼び出し
 	       //console.log(markerData[0]['lat']);
 	       //console.log(MKData['lat'], MKData['lng']);
@@ -151,7 +144,7 @@ $(window).on("popstate", function (event) {
 //          });
 //        }
 //      }
-
+            var currentInfoWindow = null; //吹き出しチェック
       function markerEvent(i) {
         google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
           return function(){
@@ -161,11 +154,28 @@ $(window).on("popstate", function (event) {
             target = document.getElementById("output");
             target.innerHTML = JPname;
             target.style.display = "block";
-           // target.innerHTML = "【　" + JPname + "  】";
-           // target = document.getElementById("message");
-           // target.innerHTML = "ガイド可能な場所";
-          };
+	              
+	    // 吹き出しに出す文	
+	    myInfoWindow = new google.maps.InfoWindow({
+	  	content: markerData[i]['JPname'],
+            	disableAutoPan: true //自動移動を解除
+	    });
+	    
+	    // 開いている他の吹き出しがあれば非表示
+	    if (currentInfoWindow) {
+		currentInfoWindow.close();
+	    }
+
+	    // 吹き出しを開く
+	    myInfoWindow.open(map, marker[i]);
+	    // 開いている吹き出しを記憶
+	    currentInfoWindow = myInfoWindow;
+	  };
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
+
+	 google.maps.event.addListener(marker, 'mouseover', function(){
+          infowin.open(map, marker);
+        });
       }
       function ajaxMap(){
         initMap();
@@ -177,6 +187,7 @@ $(window).on("popstate", function (event) {
       $(function() {
         StartTimer();
       });
+      
 
 
 //formにactionとvalueを代入する

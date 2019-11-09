@@ -52,6 +52,30 @@ $location = $_POST['location'];
 //$lat = $_POST['lat'];
 //$long = $_POST['lng'];
 $period = $_POST['period'];
+$end = [];  
+if($period > 60) {
+  $period_h = $period % 60;
+  $period_m = $period -	60;
+  $end_h = (int) $stime[0] + $period_h;
+  $end_m = (int) $stime[1] + $period_m;
+  if($end_h > 24){
+    $end_h = $end_h - 24;
+  }
+  if($end_m > 60){
+    $end_h = $end_h + $end_m / 60;
+    $end_m = $end_m % 60;
+  }
+  array_push($end,$end_h,$end_m);
+}else{
+  $end_h = (int) $stime[0];
+  $end_m = (int) $stime[1] + $period;
+  if($end_m > 60){
+    $end_h = $end_h + $end_m / 60;
+    $end_m = $end_m % 60;
+  }
+  array_push($end,$end_h,$end_m);
+}
+ $end_time = implode(":",$end);
 $participants = $_POST['participants'];  
 $start_time = implode(":",$stime);  
 //$fee = $_POST['charge'];
@@ -170,6 +194,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log('<?php echo $start_time ?>');
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
+   console.log('<?php echo $end_time ?>'); 
 </script>
 
 <script>
@@ -185,7 +210,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     } else if (dbVal == 1) { 
       document.myform3.action = "user_db_insert.php"; //ユーザのDBに登録するプログラム
     } else if( dbVal == 0) { 
-      document.myform3.action = "../top.html"; 
+      document.myform3.action = "./user_top.html"; 
   }
 } 
 
