@@ -212,10 +212,12 @@ list($row_month, $row_day)=explode("-", $row['date']);
   var stimeVal;
   var etimeVal;
 
+  console.log(data);
+
 //  $.getJSON("calender.json", function(data){
 
     var markerData = [];
-    var gidVal = <?php echo $gid ?>;
+    var gidVal = "<?php echo $gid ?>";
 
     $(function(){
 
