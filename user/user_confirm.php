@@ -151,7 +151,7 @@ $stmt->execute(array($uid));
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  
   
-  if(($location == $row['location']) && ($date == $row['date'])){
+  /*if(($location == $row['location']) && ($date == $row['date'])){
 
    $location = "既に" . $location . "は登録されています";
    $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
@@ -160,7 +160,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   
    $scheduleUID = $row['scheduleUID'];
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">'; 
-  }
+  }*/
  /* else if(($row['date'] == NULL && $location == $row['location'])){
    //$location = $row['location'];
    //$date == $row['date'];
@@ -172,14 +172,14 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
   }*/
   //今は削除にしているが、日付が同じ場合はupdateで登録情報を変更できるようにしたい
-   else if($date == $row['date']) {
+  /* else if($date == $row['date']) {
    $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
    $location = "この日は既に" . $row['location'] . "のガイド希望登録をしています";
    $final_step = "削除";
    $stepNum = 2;
    $scheduleUID = $row['scheduleUID'];
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
-  }
+  }*/
 }
 
 ?>
