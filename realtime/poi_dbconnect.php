@@ -2,6 +2,8 @@
 //$id = $_POST['id'];
 //$area = json_decode($_POST['area']);
 $area = $_POST['area'];
+$nowLat = $_POST['nowLat'];
+$nowLng = $_POST['nowLng'];
 //$area = 'kyoto';
 $category = $_POST['category'];
 //$category = 'all';
@@ -29,7 +31,9 @@ if($category == 'all'){
 $sql = "SELECT * FROM POI WHERE area = ? ";
 $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($area));
-
+//$sql = "SELECT *, (6371 * acos(cos(radians($nowLat)) * cos(radians(lat)) * cos(radians(long) - radians($nowLng)) + sin(radians($nowLat)) * sin(radians(lat)))) as distance FROM POI ORDER BY distance asc";
+//$stmt = ($dbh->prepare($sql));
+//$stmt->execute();
 
 }else{
 
@@ -43,7 +47,12 @@ $stmt->execute(array($area, $category));
 // データ取得
 //あらかじめ配列を生成しておき、while文で回します。
 $memberList = array();
+$distanceList = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+//	$distanceList[$row['id']] = (6371 * acos(cos(radians($nowLat)) * cos(radians($row['lat'])) * cos(radians($row['long']) - radians($nowLng)) + sin(radians($nowLat)) * sin(radians($row['lat']))));
+//	foreach(){
+//	}
  $memberList[]=array(
   'id' =>$row['id'],
   'area' =>$row['area'],
