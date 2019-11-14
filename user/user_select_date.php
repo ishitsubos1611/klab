@@ -250,7 +250,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 //console.log(markerData);
 //console.log(data);
 //console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData ?>")
-console.log('<?php echo $language ?>');
+//console.log('<?php echo $language ?>');
 
     $("#calender td").on("click",function(){
       dayVal = $(this)[0].innerText;
@@ -263,6 +263,7 @@ console.log('<?php echo $language ?>');
       
       $('#clickedDate').html('<div class="info">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
+      etimeVal = [];
       if (cellnum == previousNum){
           $('#cal').hide();
           $('#next').hide();
@@ -326,12 +327,17 @@ console.log('<?php echo $language ?>');
     }*/
     //alert(etime_h);
     //alert(etime_m);
-    if((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined')){
-       if ((etime_h <= stime_h)&&(etime_m <= stime_m)) {
-        alert('開始時間をEND(終了時間)よりも後になるように選択してください!');
+    //alert(typeof etime_h != 'undefined');
+    //alert(typeof etime_m != 'undefined');
+    //alert(etime_h <= stime_h);
+    //alert(etime_m <= stime_m);
+    //alert(etimeVal.length);					  
+    //alert((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined'));
+    if ((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined')) {
+       if (((stime_h <= etime_h)&&(stime_m <= etime_m))|(stime_h < etime_h)) {
+        alert('ガイド開始時間をEND(終了時間)よりも後になるように選択してください!');
         return false;
-       }
-    } else {
+       } else {
         //alert(stime_h);
         //alert(stime_m);			       
 	//alert(etime_h);
@@ -345,9 +351,12 @@ console.log('<?php echo $language ?>');
       //alert(dayVal);
    //alert( document.myform3.month.value );
 
-     }
-   }
-						 
+       }
+    } else {
+      //actionメソッドに遷移先のURLを代入する
+        document.myform3.action = "user_modify_registration.php";
+    }
+  }								   
 </script>
 
 
