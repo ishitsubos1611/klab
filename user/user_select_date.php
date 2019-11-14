@@ -288,8 +288,8 @@ list($row_month, $row_day)=explode("-", $row['date']);
            etimeVal = data[i].end_time.split(":");
            etime_h = parseInt(etimeVal[0],10);
            etime_m = parseInt(etimeVal[1],10);
-           $('#cal').prepend('<p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table>');
-           break;
+           $('#cal').prepend('<p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>GID</td><td>'+data[i].GID+'</td></tr><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table>');
+           //break;
          }
        }
      
