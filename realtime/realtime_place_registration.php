@@ -38,16 +38,46 @@ $(window).on("popstate", function (event) {
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
       var nowLat, nowLng;
       
+           // 位置取得成功した場合
+      function success(position) {
+        var data = position.coords ;
+　　　  nowLat = data.latitude ;
+        nowLng = data.longitude;
+        //nowLat = 35.010174;
+        //nowLng = 135.759193;
+        //alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
+      }
+      // 取得失敗した場合
+      function error(error) {
+        switch(error.code) {
+            case 1: //PERMISSION_DENIED
+            alert("位置情報の利用が許可されていません");
+            break;
+            case 2: //POSITION_UNAVAILABLE
+            alert("現在位置が取得できませんでした");
+            break;
+            case 3: //TIMEOUT
+            alert("タイムアウトになりました");
+            break;
+            default:
+            alert("その他のエラー(エラーコード:"+error.code+")");
+            break;
+        }
+      }
+
       $(function(){
         $.ajax({
           type:"POST",
           url:"poi_dbconnect.php",
           dataType:"json",
           data:{
-
-            area : 'kyoto', 
+           area : 'kyoto', 
             //category : categoryVal
             category : 'all',
+	    //カテゴリを取ってくる
+	    nowLat : 'nowLat', 
+	    nowLng : 'nowLng',
+	    //現在地を送る（緯度経度) 事前に位置情報を取る必要がある
       //lat : '35.069162899999995',
       //long : '135.7556467'
 
@@ -84,32 +114,6 @@ $(window).on("popstate", function (event) {
           console.log(err);
         });
       });
-      // 位置取得成功した場合
-      function success(position) {
-	var data = position.coords ;
-　　　	nowLat = data.latitude ;
-	nowLng = data.longitude;
-	//nowLat = 35.010174;
-        //nowLng = 135.759193;
-	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
-      }
-      // 取得失敗した場合
-      function error(error) {
-        switch(error.code) {
-            case 1: //PERMISSION_DENIED
-            alert("位置情報の利用が許可されていません");
-            break;
-            case 2: //POSITION_UNAVAILABLE
-            alert("現在位置が取得できませんでした");
-            break;
-            case 3: //TIMEOUT
-            alert("タイムアウトになりました");
-            break;
-            default:
-            alert("その他のエラー(エラーコード:"+error.code+")");
-            break;
-        }
-      }
       
       navigator.geolocation.getCurrentPosition(success, error);
       var timerID = 0;
