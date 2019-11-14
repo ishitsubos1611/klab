@@ -201,8 +201,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
    console.log('<?php echo $end_time ?>');
-   //console.log('<?php echo (int) $stime[0] ?>');
-  //console.log('<?php echo (int) $stime[0] + ($period % 60) ?>');
+   
+
 </script>
 
 <script>
