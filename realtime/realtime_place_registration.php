@@ -21,10 +21,12 @@ $(window).on("popstate", function (event) {
 }
 </style>
 
-    <!--<link rel="stylesheet" href="../css/bootstrap.css">-->
-    <link rel="stylesheet" href="../css/0-3-A3.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!--<link rel="stylesheet" href="../css/0-3-A3.css">-->
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
    <script>
       var map;
       var marker = [];
@@ -260,7 +262,7 @@ $(window).on("popstate", function (event) {
 ?>
     <div class="main">
 
-<!--      <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <nav class="navbar navbar-dark bg-dark fixed-top">			
       <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	<span class="navbar-toggler-icon"></span>
@@ -270,7 +272,7 @@ $(window).on("popstate", function (event) {
 	    <!--<li class="nav-item active">
 	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
 	    </li>-->
-<!--	    <li class="nav-item">
+	    <!--	    <li class="nav-item">
 	      <a class="nav-link" href="#">ガイドログイン</a>
 	    </li>
 	    <li class="nav-item">
@@ -285,7 +287,7 @@ $(window).on("popstate", function (event) {
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="#">ユーザログイン</a>
-            </li>
+            </li>  -->
 	    <li class="nav-item">
               <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
             </li>
@@ -295,33 +297,62 @@ $(window).on("popstate", function (event) {
             </li>
 	  </ul>
 	</div>
-      </nav>-->
-      
-      <div class="startup">
+      </nav>
+      <div class="container-fluid">
+        <div class="text-center">
+	  <br><br><br>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div><p class = "btn btn-danger disabled btn-lg btn-block" ><?php echo $famous; ?>ガイド</p></div>
+            </div>
+          </div>
+	  <br>
+
+<!--      <div class="startup">
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
-        <p><?php echo $famous; ?>ガイド</p>
+<!--        <p><?php echo $famous; ?>ガイド</p>
       </div>
       <div class="message">
         <p>ガイドしてほしい<?php echo $famous; ?>のピンを
         クリックして下さい。</p>
-      </div>
-     <p align="center"> ピンク色のピンは既にガイドさんが登録しているスポットです </p>
-      <div class="map-wrapper">
-          <div id="map"></div>
-      </div>
-      <div class="destination-wrapper">
-         <p id = "message">選択した名所</p>
-        <div class = "destination" id = "output"></div>
-        <script>
-          document.getElementById("output").style.display = "none";
+      </div>   -->
+          <p class="h4">ガイドしてほしい<?php echo $famous; ?>のピンを                                                                                                         
+        クリックして下さい。</p>  
+          <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既にガイドさんが登録しているスポットです </p>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div class="map-wrapper">
+		<div id="map"></div>
+	      </div>
+	    </div>
+	  </div>
+	  <br><br>
+<!--      <div class="destination-wrapper"> -->
+<p>選択した名所</p>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+              <div class = "destination" id = "output"></div>
+              <script>
+		document.getElementById("output").style.display = "none";
           //console.log(document.getElementById("output"));
-        </script>
-      </div>
+              </script>
+	    </div>
+	  </div>
+	<br>
 
-     <div class="select-wrapper">
+<!--     <div class="select-wrapper">
           <p class = "select-title">ガイド時間</p>
-          <div class="select-btn guide-select">
-            <select name=time>
+          <div class="select-btn guide-select">   -->
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3"><p class="select-title">ガイド時間</p></div>
+	    <div class="col-sm-5">
+	      <div class="form-group">
+		<div class="select-btn guide-select">
+		  <select name="time" required class="form-control">
               <option value="10">~10分</option>
               <option value="20">10~20分</option>
               <option value="30">20~30分</option>
@@ -331,12 +362,19 @@ $(window).on("popstate", function (event) {
               <option value="70">60~70分</option>
               <option value="80">70~80分</option>
               <option value="90">80~90分</option>
-            </select>
-        </div>
+                  </select>
+		</div>
+              </div>
+	    </div>  
+          </div>
 
-       <p class="select-title">参加人数</p>
-        <div class="select-btn guide-select">
-          <select name="maxsubject">
+	  <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3"><p class="select-title">参加人数</p></div>
+	    <div class="col-sm-5">
+              <div class="form-group">
+		<div class="select-btn guide-select">
+		  <select name="maxsubject" required class="form-control">
            <option value="1">1人</option>
            <option value="2">2人</option>
            <option value="3">3人</option>
@@ -346,28 +384,47 @@ $(window).on("popstate", function (event) {
            <option value="7">7人</option>
            <option value="8">8人</option>
            <option value="9">9人</option>
-          </select>
-        </div>
+                  </select>
+                </div>
+	      </div>
+	    </div>
+	  </div>
+	  
 
-        <p class="select-title">あなたの言語</p>
-        <div class="select-btn guide-select">
+	  <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3"><p class="select-title">対応可能言語</p></div>
+	    <div class="col-sm-5">
+              <!--<div class="form-group">
+		<select class="select-btn guide-select">-->
             <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
             <input type="checkbox" name="language[]"  value="EN">英語</option>
             <input type="checkbox" name="language[]"  value="CH">中国語</option>
             <input type="checkbox" name="language[]"  value="FR">フランス語</option>
             <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-          </select>
-        </div>
+                
+              
+            </div>
+          </div>
 
+
+     <!-- </div>
+
+	  </div>-->
+     <br>
+
+     
+      <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+	   <div class="next-btn-parent"> 
+        <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="Next"/>
+	   </div>
+	 </div>
       </div>
+      
 
-    </div>
-
-      <p> 
-
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="Next"/>
-      </div>
+      <br><br>
       </form>
 
   </body>
