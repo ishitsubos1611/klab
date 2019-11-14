@@ -56,13 +56,13 @@ $end = [];
 if($period >= 60) {
   //$period_h = $period % 60;
   //$period_m = $period -	60;
-  $end_h = (int) $stime[0] + ($period / 60);
+  $end_h = (int) $stime[0] + floor($period / 60);
   $end_m = (int) $stime[1] + ($period - 60);
   if($end_h >= 24){
     $end_h = $end_h - 24;
   }
   if($end_m >= 60){
-    $end_h = $end_h + $end_m / 60;
+    $end_h = $end_h + floor($end_m / 60);
     $end_m = $end_m % 60;
   }
   if(0 <= $end_m && $end_m < 10) {
@@ -73,7 +73,7 @@ if($period >= 60) {
   $end_h = (int) $stime[0];
   $end_m = (int) $stime[1] + $period;
   if($end_m >= 60){
-    $end_h = $end_h + $end_m / 60;
+    $end_h = $end_h + floor($end_m / 60);
     $end_m = $end_m % 60;
   }
   if(0 <= $end_m && $end_m < 10) {
@@ -202,7 +202,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log(<?php echo $year ?>);
    console.log('<?php echo $end_time ?>');
    //console.log('<?php echo (int) $stime[0] ?>');
-  console.log('<?php echo (int) $stime[0] + ($period % 60) ?>');
+  //console.log('<?php echo (int) $stime[0] + ($period % 60) ?>');
 </script>
 
 <script>
