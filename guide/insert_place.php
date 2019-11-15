@@ -3,7 +3,7 @@
 <head>    
 
 <meta charset="utf-8">
-  <META http-equiv="Refresh" content="1;URL=select_area_regist.php"> 
+  <META http-equiv="Refresh" content="1;URL=../guide_top.html"> 
     <title>ガイドスポット登録中</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
