@@ -10,9 +10,8 @@
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></\
 script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"\
- crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" cr\
-ossorigin="anonymous"></script>-->
+ crossorigin="anonymous"></script>  -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script>
 
@@ -140,8 +139,49 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
 </script>
 <div class="main">
+  <nav class="navbar navbar-dark bg-dark fixed-top">			
+	<a class="navbar-brand" href="#">シェアリングツアーガイド</a>				
+	<!--レスポンシブの際のハンバーガーメニューのボタン-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>		
+	<!--ナビバー内のメニュー-->
+	<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+<!--	    <li class="nav-item">
+	      <a class="nav-link" href="guide/guide_login.php">ガイドログイン</a>
+	    </li>  -->
+	    <li class="nav-item active">
+	      <a class="nav-link disabled" href="guide/select_area_regist.php">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="guide/select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="guide/select_area4booking.php">ガイド予約確認</a>
+            </li>
+<!--	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>   -->
+	  </ul>
+	</div>
+      </nav>
+
+  
   <div class="container-fluid">
     <div class="text-center">
+      <br><br>
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
@@ -178,7 +218,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    <div class="row">
      <div class="col-sm-2"></div>
      <div class="col-sm-8">
-       <INPUT class="btn btn-info btn-lg btn-block" type="submit" value='<?php echo $final_step; ?>'>
+       <INPUT class="btn btn-outline-info btn-lg btn-block" type="submit" value='<?php echo $final_step; ?>'>
      </div>
    </div>
  </form>
@@ -189,7 +229,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 	   <div class="row">
 	     <div class="col-sm-2"></div>
              <div class="col-sm-8">
-	       <a href="select_area_regist.php" class = "btn btn-info btn-lg btn-block" >戻る</a>
+	       <a href="select_area_regist.php" class="h5" >戻る</a>
 	     </div>
 	   </div>
       </div>

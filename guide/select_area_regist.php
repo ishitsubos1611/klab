@@ -50,11 +50,11 @@ $(window).on("popstate", function (event) {
 	    <!--<li class="nav-item active">
 	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
 	    </li>-->
-	    <li class="nav-item">
+	    <!--<li class="nav-item">
 	      <a class="nav-link" href="#">ガイドログイン</a>
-	    </li>
+	    </li> -->
 	    <li class="nav-item active">
-	      <a class="nav-link" href="#">ガイド登録</a>
+	      <a class="nav-link disabled" href="#">ガイド登録</a>
 	    </li>
 	    <li class="nav-item">
               <a class="nav-link" href="select_area.php">ガイド日程登録</a>
@@ -62,7 +62,7 @@ $(window).on("popstate", function (event) {
 	    <li class="nav-item">
               <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
             </li>
-	    <div class="dropdown-divider"></div>
+	    <!--<div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="#">ユーザログイン</a>
             </li>
@@ -72,7 +72,7 @@ $(window).on("popstate", function (event) {
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
-            </li>
+            </li>  -->
 	  </ul>
 	</div>
       </nav>

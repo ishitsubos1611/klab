@@ -31,6 +31,7 @@ $(window).on("popstate", function (event) {
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
    <script>
 
       var map;
@@ -260,11 +261,11 @@ $(window).on("popstate", function (event) {
 	    <!--<li class="nav-item active">
 	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
 	    </li>-->
-	    <li class="nav-item">
+	    <!--<li class="nav-item">
 	      <a class="nav-link" href="#">ガイドログイン</a>
-	    </li>
+	    </li> -->
 	    <li class="nav-item active">
-	      <a class="nav-link" href="#">ガイド登録</a>
+	      <a class="nav-link disabled" href="#">ガイド登録</a>
 	    </li>
 	    <li class="nav-item">
               <a class="nav-link" href="select_area.php">ガイド日程登録</a>
@@ -272,7 +273,7 @@ $(window).on("popstate", function (event) {
 	    <li class="nav-item">
               <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
             </li>
-	    <div class="dropdown-divider"></div>
+	    <!--<div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="#">ユーザログイン</a>
             </li>
@@ -282,7 +283,7 @@ $(window).on("popstate", function (event) {
 	    <div class="dropdown-divider"></div>
 	    <li class="nav-item">
               <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
-            </li>
+            </li>  -->
 	  </ul>
 	</div>
       </nav>
@@ -325,7 +326,7 @@ $(window).on("popstate", function (event) {
               <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-	 	  <div class="bg-warning" id="output"></div> 
+	 	  <div class="bg-light" id="output"></div> 
 		  <script>
 		    document.getElementById("output").style.display = "none";
 		  </script>
@@ -399,6 +400,7 @@ $(window).on("popstate", function (event) {
 		</div>
               </div>
 	    </div>
+	    <br>
 	    <!--<p class ="select-title">料金</p>-->
 	    <div class="row">
               <div class="col-sm-2"></div>
@@ -422,6 +424,7 @@ $(window).on("popstate", function (event) {
 		</div>
               </div>
 	    </div>
+	    <br>
 	    <!--<p class="select-title">最大人数</p>-->
 	    <div class="row">
               <div class="col-sm-2"></div>
@@ -439,7 +442,8 @@ $(window).on("popstate", function (event) {
              </div>
 	   </div>
 	 </div>
-       </div>       
+	    </div>
+	    <br>
        <!--<p class="select-title">対応可能言語</p>-->
        <div class="row">
          <div class="col-sm-2"></div>
@@ -462,7 +466,7 @@ $(window).on("popstate", function (event) {
          <div class="col-sm-2"></div>
          <div class="col-sm-8">
 	   <div class="next-btn-parent"> 
-             <input class="btn btn-info btn-lg btn-block" type="submit" value="Next"/>
+             <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="Next"/>
 	   </div>
 	 </div>
        </div>
