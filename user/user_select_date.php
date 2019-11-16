@@ -301,7 +301,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 //console.log(markerData);
 //console.log(data);
 //console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData ?>")
-console.log('<?php echo $language ?>');
+//console.log('<?php echo $language ?>');
 
     $("#calender td").on("click",function(){
       dayVal = $(this)[0].innerText;
@@ -314,6 +314,7 @@ console.log('<?php echo $language ?>');
       
       $('#clickedDate').html('<div class="info text-center h4">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
+      etimeVal = [];
       if (cellnum == previousNum){
           $('#cal').hide();
           $('#next').hide();
@@ -339,8 +340,13 @@ $('#next').html('<br>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">
            etimeVal = data[i].end_time.split(":");
            etime_h = parseInt(etimeVal[0],10);
            etime_m = parseInt(etimeVal[1],10);
-           $('#cal').prepend('<div id="guide" class="info text-center h4"><p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>');
-           break;
+
+           //$('#cal').prepend('<div id="guide" class="info text-center h4"><p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>');
+           //break;
+
+           $('#cal').prepend('<div id="guide" class="info text-center h4"><p>　(人気)　'+data[i].location+'ガイド </p>'+'<table id="states"><tr><td>GID</td><td>'+data[i].GID+'</td></tr><tr><td>Date</td><td>'+data[i].date+'</td></tr><tr><td>UID</td><td>'+data[i].UID+'</td></tr><tr><td>Boarding time</td><td>'+data[i].start_time+'</td></tr>'+'<tr><td>END</td><td>'+data[i].end_time+'</td><td>('+data[i].period+'min)</td></tr>'+'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'+'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>');
+           //break;
+
          }
        }
      
@@ -378,12 +384,17 @@ $('#next').html('<br>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">
     }*/
     //alert(etime_h);
     //alert(etime_m);
-    if((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined')){
-       if ((etime_h <= stime_h)&&(etime_m <= stime_m)) {
-        alert('開始時間をEND(終了時間)よりも後になるように選択してください!');
+    //alert(typeof etime_h != 'undefined');
+    //alert(typeof etime_m != 'undefined');
+    //alert(etime_h <= stime_h);
+    //alert(etime_m <= stime_m);
+    //alert(etimeVal.length);					  
+    //alert((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined'));
+    if ((typeof etime_h != 'undefined')&&(typeof etime_m != 'undefined')) {
+       if (((stime_h <= etime_h)&&(stime_m <= etime_m))|(stime_h < etime_h)) {
+        alert('ガイド開始時間をEND(終了時間)よりも後になるように選択してください!');
         return false;
-       }
-    } else {
+       } else {
         //alert(stime_h);
         //alert(stime_m);			       
 	//alert(etime_h);
@@ -397,9 +408,12 @@ $('#next').html('<br>'+'<input name="yearVal" type="hidden" value="'+yearVal+'">
       //alert(dayVal);
    //alert( document.myform3.month.value );
 
-     }
-   }
-						 
+       }
+    } else {
+      //actionメソッドに遷移先のURLを代入する
+        document.myform3.action = "user_modify_registration.php";
+    }
+  }								   
 </script>
 
 

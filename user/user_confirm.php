@@ -51,28 +51,34 @@ $(window).on("popstate", function (event) {
 $location = $_POST['location'];
 //$lat = $_POST['lat'];
 //$long = $_POST['lng'];
-$period = $_POST['period'];
+$period = (int) $_POST['period'];
 $end = [];  
-if($period > 60) {
-  $period_h = $period % 60;
-  $period_m = $period -	60;
-  $end_h = (int) $stime[0] + $period_h;
-  $end_m = (int) $stime[1] + $period_m;
-  if($end_h > 24){
+if($period >= 60) {
+  //$period_h = $period % 60;
+  //$period_m = $period -	60;
+  $end_h = (int) $stime[0] + floor($period / 60);
+  $end_m = (int) $stime[1] + ($period - 60);
+  if($end_h >= 24){
     $end_h = $end_h - 24;
   }
-  if($end_m > 60){
-    $end_h = $end_h + $end_m / 60;
+  if($end_m >= 60){
+    $end_h = $end_h + floor($end_m / 60);
     $end_m = $end_m % 60;
   }
+  if(0 <= $end_m && $end_m < 10) {
+    $end_m = "0".$end_m;
+  }			   
   array_push($end,$end_h,$end_m);
 }else{
   $end_h = (int) $stime[0];
   $end_m = (int) $stime[1] + $period;
-  if($end_m > 60){
-    $end_h = $end_h + $end_m / 60;
+  if($end_m >= 60){
+    $end_h = $end_h + floor($end_m / 60);
     $end_m = $end_m % 60;
   }
+  if(0 <= $end_m && $end_m < 10) {
+    $end_m = "0".$end_m;
+  }			     
   array_push($end,$end_h,$end_m);
 }
  $end_time = implode(":",$end);
@@ -151,7 +157,7 @@ $stmt->execute(array($uid));
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
  
   
-  if(($location == $row['location']) && ($date == $row['date'])){
+  /*if(($location == $row['location']) && ($date == $row['date'])){
 
    $location = "既に" . $location . "は登録されています";
    $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
@@ -160,7 +166,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   
    $scheduleUID = $row['scheduleUID'];
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">'; 
-  }
+  }*/
  /* else if(($row['date'] == NULL && $location == $row['location'])){
    //$location = $row['location'];
    //$date == $row['date'];
@@ -172,14 +178,14 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
   }*/
   //今は削除にしているが、日付が同じ場合はupdateで登録情報を変更できるようにしたい
-   else if($date == $row['date']) {
+  /* else if($date == $row['date']) {
    $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
    $location = "この日は既に" . $row['location'] . "のガイド希望登録をしています";
    $final_step = "削除";
    $stepNum = 2;
    $scheduleUID = $row['scheduleUID'];
    echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
-  }
+  }*/
 }
 
 ?>
@@ -194,7 +200,9 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log('<?php echo $start_time ?>');
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
-   console.log('<?php echo $end_time ?>'); 
+   console.log('<?php echo $end_time ?>');
+   
+
 </script>
 
 <script>
