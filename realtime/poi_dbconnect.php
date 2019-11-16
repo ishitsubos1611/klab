@@ -8,8 +8,9 @@ $nowLng = $_POST['nowLng'];
 $category = $_POST['category'];
 //$category = 'all';
 
-console.log('area');
-console.log($area);
+//console.log('area');
+//console.log($area);
+
 // データベース接続
 
 $host = 'localhost';
@@ -28,17 +29,17 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 if($category == 'all'){
 
 // データ取得sql
-$sql = "SELECT * FROM POI WHERE area = ? ";
-$stmt = ($dbh->prepare($sql));
-$stmt->execute(array($area));
-//$sql = "SELECT *, (6371 * acos(cos(radians($nowLat)) * cos(radians(lat)) * cos(radians(long) - radians($nowLng)) + sin(radians($nowLat)) * sin(radians(lat)))) as distance FROM POI ORDER BY distance asc";
+//$sql = "SELECT * FROM POI WHERE area = ? ";
 //$stmt = ($dbh->prepare($sql));
-//$stmt->execute();
+//$stmt->execute(array($area));
+$sql = "SELECT *, (6371 * acos(cos(radians($nowLat)) * cos(radians(lat)) * cos(radians(POI.long) - radians($nowLng)) + sin(radians($nowLat)) * sin(radians(lat)))) as distance FROM POI ORDER BY distance limit 20";
+$stmt = ($dbh->prepare($sql));
+$stmt->execute();
 
 }else{
 
 // データ取得sql
-$sql = "SELECT * FROM POI WHERE area = ? AND category = ?";
+$sql = "SELECT * FROM POI WHERE area = ? AND category = ? limit 20";
 $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($area, $category));
 

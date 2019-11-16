@@ -50,7 +50,7 @@ if (isset($_POST["login"])) {
       // ４．認証成功なら、セッションIDを新規に発行する
       session_regenerate_id(true);
       $_SESSION["USERID"] = $_POST["userid"];
-      header("Location: ../user_top.html");
+      header("Location: ../user_top.php");
       exit;
     }else {
       // 認証失敗
@@ -113,10 +113,11 @@ if (isset($_POST["login"])) {
 	  </div>
 	  <div class="col-sm-5">
 	    <input type="text" class="form-control" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>" placeholder="ユーザIDを入力">
+	   <!-- <input type=hidden name="uid" value="<?php echo $_POST['userid']; ?>" > -->
 <!--            <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>  -->
 	  </div>
 	</div>
-	
+	<!--<input name = uid' .' type=hidden value="<?php echo $userid ?>">-->    
 	<div class="form-group row">
           <div class="col-sm-3"></div>
           <div class="col-sm-2">

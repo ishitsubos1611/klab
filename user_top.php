@@ -26,6 +26,12 @@ $(window).on("popstate", function (event) {
 });
 
 </script>
+<!--
+<?php session_start(); $id = $_SESSION["USERID"];
+      echo '<input name = area' .' type=hidden value="' . $id . '">';
+?>
+-->
+
   </head>
   <body>
     <div class="main">
@@ -140,9 +146,10 @@ $(window).on("popstate", function (event) {
           </div>
 	  <br><br>
 
-	  <input name = "uid" type=hidden value="<?php $id=$_POST['userid']; echo $id; ?>">
-	  <?php $id = $_POST['userid']; echo "test" . $id; ?>
-	  
+	  <form name="myform3" method='post' onsubmit="return checkText3()">
+	  <input name = "uid" type=hidden value="<?php session_start(); $id = $_SESSION["USERID"]; echo $id; ?>">
+	  <!-- <?php $id = $_SESSION["USERID"]; echo $id;  ?> -->
+	  </from>
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">

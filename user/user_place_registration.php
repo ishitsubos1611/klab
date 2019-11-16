@@ -37,7 +37,35 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var uidVal = "<?php echo $uid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
+      var nowLat, nowLng;
+      
+      // 位置取得成功した場合
+      function success(position) {
+	var data = position.coords ;
+　　　	//nowLat = data.latitude ;
+        //nowLng = data.longitude;
+      	nowLat = 35.010174;
+        nowLng = 135.759193;
+	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
+      }
 
+      // 取得失敗した場合
+      function error(error) {
+        switch(error.code) {
+            case 1: //PERMISSION_DENIED
+            alert("位置情報の利用が許可されていません");
+            break;
+            case 2: //POSITION_UNAVAILABLE
+            alert("現在位置が取得できませんでした");
+            break;
+            case 3: //TIMEOUT
+            alert("タイムアウトになりました");
+            break;
+            default:
+            alert("その他のエラー(エラーコード:"+error.code+")");
+            break;
+        }
+      }
 
       
       $(function(){
@@ -74,34 +102,7 @@ $(window).on("popstate", function (event) {
         });
       });
 	
-      var nowLat, nowLng;
-      // 位置取得成功した場合
-      function success(position) {
-	var data = position.coords ;
-　　　	//nowLat = data.latitude ;
-        //nowLng = data.longitude;
-      	nowLat = 35.010174;
-        nowLng = 135.759193;
-	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
-      }
-
-      // 取得失敗した場合
-      function error(error) {
-        switch(error.code) {
-            case 1: //PERMISSION_DENIED
-            alert("位置情報の利用が許可されていません");
-            break;
-            case 2: //POSITION_UNAVAILABLE
-            alert("現在位置が取得できませんでした");
-            break;
-            case 3: //TIMEOUT
-            alert("タイムアウトになりました");
-            break;
-            default:
-            alert("その他のエラー(エラーコード:"+error.code+")");
-            break;
-        }
-      }
+      
       
       navigator.geolocation.getCurrentPosition(success, error);
 
@@ -150,7 +151,7 @@ $(window).on("popstate", function (event) {
 
           });
           markerEvent(i);//メソッド呼び出し
-       }
+        }
       }
 	
       var currentInfoWindow = null; //吹き出しチェック
@@ -221,6 +222,7 @@ $(window).on("popstate", function (event) {
     <input name = "location" type="hidden" />
     <input name = "lat" type="hidden" />
     <input name = "lng" type="hidden" />
+    
 <?php
 
  $area = $_POST['area'];
