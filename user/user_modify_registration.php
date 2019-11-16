@@ -152,6 +152,10 @@
       <div id="guide"></div>
 
       <div id="output"></div>
+      <!--<script>
+	document.getElementById("output").style.display = "none";
+      </script> -->
+      
 
 <!--
       <div id="cal">
@@ -227,7 +231,10 @@
       
         //if(guideData === []){
         //    $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
-   // }
+    // }
+
+    $('#output').hide('');
+    
     function selectGuide(){
         //console.log(guideData.length);
 	//console.log(<?php echo $uid; ?>);
@@ -269,11 +276,13 @@
 		  $('#output').html('<p>ガイド'+vals[0]+'さんにチェックしました。</p>');
 		  //$.post("user_confirm.php",charge=value);
 		  //$('form').html('<input id="submit_charge" type="hidden" name="charge" value="">');
-		  			     
+
+                  $('#output').show('');
 		  console.log(check);
 		  console.log(vals);			     
 	       }else{
-                  $('#output').html('');
+                  //$('#output').html('');
+                  $('#output').hide('');
 		  console.log(check);
 		  console.log(vals);			     
 	       }
