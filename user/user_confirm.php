@@ -25,41 +25,81 @@ $(window).on("popstate", function (event) {
 //    error_reporting(E_ALL);//全ての種類のエラーを表示
 //    session_start(); 
 //    if(isset($_POST['datapost'])){
-//     $_SESSION['name'] = $_POST['name']; 
+//      $_SESSION['name'] = $_POST['name']; 
 //    }
 ?>
 
 <p>
  <form name="myform3" method='post' onsubmit="return checkText3()">
 
-<?php
- $area = $_POST['area'];
- $style = $_POST['style'];
- $month = $_POST['month'];
- $day = $_POST['day'];
- $gid = $_POST['gid'];
+<?php    
+ //$ginfo = array();
+ $ginfo = explode(",",$_POST['guide']);
+ $stime = explode(":",$_POST['stime'],-1); 
+ //$area = $_POST['area'];
+ //$style = $_POST['style'];
+ //$month = $_POST['month'];
+ //$day = $_POST['day'];
+ //$ginfo = $_POST['guide'];
+ if(!empty($ginfo)){  
+  $gid = $ginfo[0];
+  $fee = $ginfo[1];
+ }
+ $uid = $_POST['uid']; 
  $year = $_POST['year'];
+ $date = $_POST['date']; 
 $location = $_POST['location'];
-$lat = $_POST['lat'];
-$long = $_POST['lng'];
-$period = $_POST['time'];
-$fee = $_POST['fee'];
-$maxsub = $_POST['maxsubject'];
+//$lat = $_POST['lat'];
+//$long = $_POST['lng'];
+$period = $_POST['period'];
+$end = [];  
+if($period > 60) {
+  $period_h = $period % 60;
+  $period_m = $period -	60;
+  $end_h = (int) $stime[0] + $period_h;
+  $end_m = (int) $stime[1] + $period_m;
+  if($end_h > 24){
+    $end_h = $end_h - 24;
+  }
+  if($end_m > 60){
+    $end_h = $end_h + $end_m / 60;
+    $end_m = $end_m % 60;
+  }
+  array_push($end,$end_h,$end_m);
+}else{
+  $end_h = (int) $stime[0];
+  $end_m = (int) $stime[1] + $period;
+  if($end_m > 60){
+    $end_h = $end_h + $end_m / 60;
+    $end_m = $end_m % 60;
+  }
+  array_push($end,$end_h,$end_m);
+}
+ $end_time = implode(":",$end);
+$participants = $_POST['participants'];  
+$start_time = implode(":",$stime);  
+//$fee = $_POST['charge'];
+//$participants = $_POST['participants'];
 //$language = $_POST['language'];
-$language = implode("、", $_POST['language']);
-$thisdate = $_POST['thisdate'];
-$thismonth = $_POST['thismonth'];
-$thisyear = $_POST['thisyear'];
-
+$language = $_POST['language'];
+//$thisdate = $_POST['thisdate'];
+//$thismonth = $_POST['thismonth'];
+//$thisyear = $_POST['thisyear'];
 $payment_date = '8';
-
+$confirm = "確認";  
+  
  echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+ echo '<input name = uid' .' type=hidden value="' . $uid . '">'; 
  echo '<input name = location' .' type=hidden value="' . $location . '">';
- echo '<input name = lat' .' type=hidden value="' . $lat . '">';
- echo '<input name = long' .' type=hidden value="' . $long . '">';
+ echo '<input name = year' .' type=hidden value="' . $year . '">'; 
+ echo '<input name = date' .' type=hidden value="' . $date . '">'; 
+ //echo '<input name = lat' .' type=hidden value="' . $lat . '">';
+ //echo '<input name = long' .' type=hidden value="' . $long . '">';
+ echo '<input name = start_time' .' type=hidden value="' . $start_time . '">';
+ echo '<input name = end_time' .' type=hidden value="' . $end_time . '">'; 
  echo '<input name = language' .' type=hidden value="' . $language. '">';
- echo '<input name = fee' .' type=hidden value="' . $fee. '">';
- echo '<input name = maxsub' .' type=hidden value="' . $maxsub. '">';
+ echo '<input name = fee' .' type=hidden value="' . $fee . '">';
+ echo '<input name = participants' .' type=hidden value="' . $participants. '">';
  echo '<input name = period' .' type=hidden value="' . $period. '">';
  echo '<input name = payment_day' .' type=hidden value="' . $payment_date. '"><br>';
 
@@ -67,9 +107,22 @@ $payment_date = '8';
   $location = "スポットが選択されていません";
   $final_step = "トップに戻る";
   $stepNum = 0;
+ }
+ else if(empty($gid)){
+   $confirm="ガイドさんの募集"; 
+   $reserve =   "". $year . "年"  . $date . "";
+   $gid = "募集中";
+   $fee = 0; 
+   $final_step = "登録";
+   $stepNum = 1;
+   echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+   echo '<input name = fee' .' type=hidden value="' . $fee . '">';
  }else{
-  $final_step = "登録";
-  $stepNum = 1;
+   //echo '<input name = gid' .' type=hidden value="' . $gid . '">';
+   //echo '<input name = fee' .' type=hidden value="' . $fee . '">';  
+   $reserve =   "". $year . "年"  . $date . "";
+   $final_step = "登録";
+   $stepNum = 1;
  }
 
 // データベース接続
@@ -88,7 +141,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 //データ取得
-$sql = "SELECT * FROM U_Schedule WHERE UID = ?";
+$sql = "SELECT * FROM U_Schedule WHERE UID = ? ";
 //$dblocation = "'". $location . "'";
 //$dblocation = '京都鉄道博物館';
 $stmt = ($dbh->prepare($sql));
@@ -96,54 +149,88 @@ $stmt->execute(array($uid));
 
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-  if(($location == $row['location'])){
+ 
+  
+  if(($location == $row['location']) && ($date == $row['date'])){
 
    $location = "既に" . $location . "は登録されています";
+   $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
    $final_step = "削除";
    $stepNum = 2;
   
-   $scheduleGID = $row['scheduleGID'];  
-   echo '<input name = scheduleGID' .' type=hidden value="' . $scheduleGID. '">'; 
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">'; 
   }
-  if(($date == $row['date'])){
-   $date = "既に". $date . "は登録されています";
+ /* else if(($row['date'] == NULL && $location == $row['location'])){
+   //$location = $row['location'];
+   //$date == $row['date'];
+   $reserve = "既に" . $year . "年" . $row['date'] . "に登録済みのガイド予定があります";
    $final_step = "削除";
    $stepNum = 2;
-} 
 
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
+  }*/
+  //今は削除にしているが、日付が同じ場合はupdateで登録情報を変更できるようにしたい
+   else if($date == $row['date']) {
+   $reserve = "既に" . $year . "年" . $date . "に登録済みのガイド予定があります";
+   $location = "この日は既に" . $row['location'] . "のガイド希望登録をしています";
+   $final_step = "削除";
+   $stepNum = 2;
+   $scheduleUID = $row['scheduleUID'];
+   echo '<input name = scheduleUID' .' type=hidden value="' . $scheduleUID. '">';
+  }
+}
 
 ?>
+
+<script>
+  //デバッグ用
+   console.log('<?php echo $location ?>');
+   //console.log('<?php echo $row['location'] ?>');
+   console.log('<?php echo $gid ?>');
+   console.log('<?php echo $fee ?>');
+   console.log('<?php echo $date ?>');
+   console.log('<?php echo $start_time ?>');
+   console.log(<?php echo $scheduleUID ?>);
+   console.log(<?php echo $year ?>);
+   console.log('<?php echo $end_time ?>'); 
+</script>
 
 <script>
 
  function checkText3() {
 
-    var dbVal = <?php echo $stepNum ?>; 
-
+    var dbVal = <?php echo $stepNum ?>;
+ 
+    //console.log(<?php echo $fee ?>);
+ 
     if(dbVal == 2){
-      document.myform3.action = "db_delete.php";
+      document.myform3.action = "user_db_delete.php"; 
     } else if (dbVal == 1) { 
-      document.myform3.action = "insert_place.php";
+      document.myform3.action = "user_db_insert.php"; //ユーザのDBに登録するプログラム
     } else if( dbVal == 0) { 
-      document.myform3.action = "../top.html";
+      document.myform3.action = "./user_top.html"; 
   }
-}
+} 
 
-</script>
+</script> 
       <div class="startup">
-        <p>確認</p>
+        <p><?php echo $confirm; ?></p>
       </div>
       <div class="confirmation-wrapper">
         <p class = "destination" id = "location-output"><?php echo $location; ?></p>
  <!--       <p class="time-zone check-list">
          <?php echo $check_month; ?>：
          8:00-18:00
--->
+  -->
+ <!-- <p class="time red check-list">ガイドさん：<?php echo $gid; ?></p> -->
+        <p class="time red check-list">ガイド予約日：<?php echo $reserve; ?></p>
+	<p class="time red check-list">開始時間：<?php echo $start_time; ?></p>
         <p class="time red check-list">ガイド時間：<?php echo $period; ?>分</p>
-        <p class="message">Language : <?php echo implode("、", $_POST['language']);?>　</p>
-        <p class="charge red check-list">Charge ¥<?php echo $fee; ?> (1~<?php echo $maxsub?>名)</p>
-      </div>
+        <p class="message">Language : <?php echo $language ?>　</p>
+        <p class="charge red check-list">Charge ¥<?php echo $fee; ?> (1~<?php echo $participants?>名)</p>
+      </div> 
    <!--   <div class="btn-wrapper">
          <a href="../top.html" class = "resistration" onclick="dbinsert();" ><?php echo $final_step; ?></a>
       </div>
@@ -156,7 +243,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       <div class="btn-wrapper">
        <form>
 <p><!--         <INPUT class="resistration" type="button" onClick='history.back();' value="戻る"> -->
-      <a href="select_area_regist.php" class = "resistration" >戻る</a>
+      <a href="user_select_area.php" class = "resistration" >戻る</a>
       </div>
 
        </form>

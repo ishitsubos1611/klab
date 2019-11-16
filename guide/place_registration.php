@@ -24,8 +24,12 @@ $(window).on("popstate", function (event) {
 }
 </style>
 
-    <link rel="stylesheet" href="../css/0-3-A3.css">
-    <script src="https://maps.googleapis.com/maps/api/js?lang=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
+    
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!--<link rel="stylesheet" href="../css/0-3-A3.css">
+-->
+    <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
 
@@ -36,7 +40,8 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var gidVal = "<?php echo $gid = $_POST['gid']; ?>";
       var categoryVal = "<?php $area = $_POST['category']; echo $area ?>";
-
+      
+      
       $(function(){
         $.ajax({
           type:"POST",
@@ -122,14 +127,6 @@ $(window).on("popstate", function (event) {
 
           });
 
-          // 吹き出しに出す文
-          myInfoWindow = new google.maps.InfoWindow({
-            content: markerData[i]['JPname'],
-            disableAutoPan: true //自動移動を解除
-          });
-           // 吹き出しを開く
-          myInfoWindow.open(map, marker[i]);
-
           markerEvent(i);//メソッド呼び出し
 	       //console.log(markerData[0]['lat']);
 	       //console.log(MKData['lat'], MKData['lng']);
@@ -147,7 +144,7 @@ $(window).on("popstate", function (event) {
 //          });
 //        }
 //      }
-
+            var currentInfoWindow = null; //吹き出しチェック
       function markerEvent(i) {
         google.maps.event.addListener(marker[i], 'click', (function(JPname,lat,lng){
           return function(){
@@ -157,11 +154,28 @@ $(window).on("popstate", function (event) {
             target = document.getElementById("output");
             target.innerHTML = JPname;
             target.style.display = "block";
-           // target.innerHTML = "【　" + JPname + "  】";
-           // target = document.getElementById("message");
-           // target.innerHTML = "ガイド可能な場所";
-          };
+	              
+	    // 吹き出しに出す文	
+	    myInfoWindow = new google.maps.InfoWindow({
+	  	content: markerData[i]['JPname'],
+            	disableAutoPan: true //自動移動を解除
+	    });
+	    
+	    // 開いている他の吹き出しがあれば非表示
+	    if (currentInfoWindow) {
+		currentInfoWindow.close();
+	    }
+
+	    // 吹き出しを開く
+	    myInfoWindow.open(map, marker[i]);
+	    // 開いている吹き出しを記憶
+	    currentInfoWindow = myInfoWindow;
+	  };
         })(markerData[i].JPname, markerData[i].lat, markerData[i].lng));
+
+	 google.maps.event.addListener(marker, 'mouseover', function(){
+          infowin.open(map, marker);
+        });
       }
       function ajaxMap(){
         initMap();
@@ -173,8 +187,10 @@ $(window).on("popstate", function (event) {
       $(function() {
         StartTimer();
       });
+      
 
-//formにactionとvalueを代入する
+
+//formにactionとvalueを代入する
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
@@ -228,87 +244,237 @@ $(window).on("popstate", function (event) {
 
 ?>
     <div class="main">
-      <div class="startup">
+<!--      <div class="startup">
+ -->
 <!--        <p><?php echo $thisyear ?> 年<?php echo $thismonth ?>月から2ヶ月間の名所登録中</p> -->
-        <p>スポット登録中</p>
-      </div>
-      <div class="message">
-        <p>ガイド可能な場所のピンを
-        クリックして下さい。</p>
-      </div>
-     <p align="center"> ピンク色のピンは既に登録されているスポットです </p>
-      <div class="map-wrapper">
-          <div id="map"></div>
-      </div>
-      <div class="destination-wrapper">
-         <p id = "message">ガイド可能な場所</p>
-        <div class = "destination" id = "output"></div>
-        <script>
-          document.getElementById("output").style.display = "none";
-        </script>
-      </div>
+<!--        <p>スポット登録中</p>
+	    </div>
+    -->
+      <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>		
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+	    <li class="nav-item">
+	      <a class="nav-link" href="#">ガイドログイン</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>
+	  </ul>
+	</div>
+      </nav>
 
-     <div class="select-wrapper">
-          <p class = "select-title">ガイド時間</p>
-          <div class="select-btn guide-select">
-            <select name=time required>
-              <option value="10">10分</option>
-              <option value="20">20分</option>
-              <option value="30">30分</option>
-              <option value="40">40分</option>
-              <option value="50">50分</option>
-              <option value="60">60分</option>
-              <option value="70">70分</option>
-              <option value="80">80分</option>
-              <option value="90">90分</option>
-            </select>
+      <div class="container-fluid">
+        <div class="text-center">
+	  <br><br><br>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div><a href="#"  class = "btn btn-danger disabled btn-lg btn-block" >スポット登録中</a></div>
+            </div>
+          </div>
+	  <br>
+	  <!--<div class="message">
+-->
+            <p class="h4">ガイド可能な場所のピンを
+              クリックして下さい。</p>
+	  <!--</div>-->
+	  <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既に登録されているスポットです </p>
+	  <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+	      <div class="map-wrapper">
+		<div id="map"></div>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <br><br>
+
+	  <p class="select-title">ガイド可能な場所</p>
+	  <!--<div class="destination-wrapper">-->
+           <!--      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <div><a href="#"  class = "btn btn-info btn-lg btn-block" >ガイド可能な場所</a></div>
         </div>
-        <p class ="select-title">料金</p>
-        <div class="select-btn guide-select">
-          <select name="fee" required>
-            <option value="100">100円</option>
-            <option value="200">200円</option>
-            <option value="250">250円</option>
-            <option value="290">290円</option>
-            <option value="350">350円</option>
-            <option value="490">490円</option>
-            <option value="590">590円</option>
-            <option value="690">690円</option>
-            <option value="790">790円</option>
-            <option value="1000">1,000円~</option>
-          </select>
-        </div>
-        <p class="select-title">最大人数</p>
-        <div class="select-btn guide-select">
-          <select name="maxsubject" required>
-            <option value="5">5人</option>
-            <option value="10">10人</option>
-            <option value="12">12人</option>
-            <option value="15">15人</option>
-            <option value="20">20人</option>
-          </select>
-        </div>
+	　　　</div>    -->
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+	 	  <div class="bg-warning" id="output"></div> 
+		  <script>
+		    document.getElementById("output").style.display = "none";
+		  </script>
+		</div>
+	      </div>
+	  
+	    　　　　　　
+	    <br>
+	    <!--<p class="select-title">ガイド場所に関するコメント(128文字まで)</p>-->
+	    <!--<div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+		<!--<table align="center" border="0" cellspacing="0" cellpadding="1">-->
+		<!--<table border="0" cellspacing="0" cellpadding="1">
+		  <tr>
+		    <td>
+		      <form method="POST" action="place_registration.php?rep=1" target="com">
+		      <!--<span style="font-size:18px;font-weight:100;color:#ff0000">■ </span><b>一言コメントをどうぞ！</b>（100字まで）<r>-->
+		      <!--<input type="text" id="comment" name="comment" size="80" maxlength="128" style="width:535;border:1px solid #00ccff">-->
+		      <!--<textarea id="comment" name="comment" rows="5" cols="50" maxlength="128" wrap="soft"></textarea> -->
+		    <!--  <textarea id="comment" name="comment" rows="5" cols="100" maxlength="128" wrap="soft"></textarea>
+		      <!--<input type="submit" id="submit" value=" 送信 " style="width:54"> -->
+		      <!--</form>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      <div id="commentv" style="font-size:13px;line-height:15px;color:#666699;width:580px;height:160px;border:1px solid #00ccff;padding:8px;overflow-y:scroll;display:none;"></div>
+		      <iframe name="com" src="place_registration.php" id="com" style="width:301px;height:201px;frameborder:0px;border:0px;padding:0px;overflow:hidden;display:none;"></iframe>
+		    </td>
+		  </tr>
+		</table>
+	      </div>
+	    </div>-->
 
-        <p class="select-title">対応可能言語</p>
-        <div class="select-btn guide-select">
-            <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
-            <input type="checkbox" name="language[]"  value="EN">英語</option>
-            <input type="checkbox" name="language[]"  value="CH">中国語</option>
-            <input type="checkbox" name="language[]"  value="FR">フランス語</option>
-            <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
-          </select>
-        </div>
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+		<div class="form-group">
+		  <label for="exampleFormControlTextarea1" class="col-form-label-lg text-center">ガイド場所に関するコメント(128文字まで)</label>
+		  <!--<form method="POST" action="place_registration.php?rep=1" target="com" maxlength="128">-->
+		    <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+		  <!--</form>-->
+		</div>
+	      </div>
+	    </div>
+	   
+	
+	    <br><br>
+	    <!--<div class="select-wrapper">
+-->
+	    <!--<p class = "select-title">ガイド時間</p>-->
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3"><p class="select-title">ガイド時間</p></div>
+	      <div class="col-sm-5">
+		<div class="form-group">
+		  <div class="select-btn guide-select">
+		    <select name="time" required class="form-control">
+                      <option value="10">10分</option>
+                      <option value="20">20分</option>
+                      <option value="30">30分</option>
+                      <option value="40">40分</option>
+                      <option value="50">50分</option>
+                      <option value="60">60分</option>
+                      <option value="70">70分</option>
+                      <option value="80">80分</option>
+                      <option value="90">90分</option>
+		    </select>
+		  </div>
+		</div>
+              </div>
+	    </div>
+	    <!--<p class ="select-title">料金</p>-->
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3"><p class ="select-title">料金</p></div>
+	      <div class="col-sm-5">
+		<div class="form-group">
+		  <div class="select-btn guide-select">
+		    <select name="fee" required class="form-control">
+                      <option value="100">100円</option>
+                      <option value="200">200円</option>
+                      <option value="250">250円</option>
+                      <option value="290">290円</option>
+                      <option value="350">350円</option>
+                      <option value="490">490円</option>
+                      <option value="590">590円</option>
+                      <option value="690">690円</option>
+                      <option value="790">790円</option>
+                      <option value="1000">1,000円~</option>
+		    </select>
+		  </div>
+		</div>
+              </div>
+	    </div>
+	    <!--<p class="select-title">最大人数</p>-->
+	    <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3"><p class="select-title">最大人数</p></div>
+	      <div class="col-sm-5">
+		<div class="form-group">
+		  <div class="select-btn guide-select">
+		    <select name="maxsubject" required class="form-control">
+		      <option value="5">5人</option>
+		      <option value="10">10人</option>
+		      <option value="12">12人</option>
+		      <option value="15">15人</option>
+		      <option value="20">20人</option>
+               </select>
+             </div>
+	   </div>
+	 </div>
+       </div>       
+       <!--<p class="select-title">対応可能言語</p>-->
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-3"><p class="select-title">対応可能言語</p></div>
+	 <div class="col-sm-5">
+           
+          <!-- <div class="select-btn guide-select">-->
+             <input type="checkbox" name="language[]"  value="JP" checked="checked">日本語</option>
+             <input type="checkbox" name="language[]"  value="EN">英語</option>
+             <input type="checkbox" name="language[]"  value="CH">中国語</option>
+             <input type="checkbox" name="language[]"  value="FR">フランス語</option>
+             <input type="checkbox" name="language[]"  value="DE">ドイツ語</option>
+           <!--</div>-->
 
-      </div>
+         </div>
+       </div>
 
-    </div>
+<br>
+       <div class="row">
+         <div class="col-sm-2"></div>
+         <div class="col-sm-8">
+	   <div class="next-btn-parent"> 
+             <input class="btn btn-info btn-lg btn-block" type="submit" value="Next"/>
+	   </div>
+	 </div>
+       </div>
+       <br>
+      
+</div>
+</div>
+</div>
+</div>
+<br><br>
+</form>
 
-      <p> 
 
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="Next"/>
-      </div>
-      </form>
-
-  </body>
+</body>
 </html>

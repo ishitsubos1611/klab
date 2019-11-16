@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <title>変更・追加・削除希望の日選択</title>
 
-  <!--<link rel="stylesheet" href="../css/0-3-A1.css">
-      <link rel="stylesheet" href="../css/0-3-A3.css">-->
-  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/0-3-A1.css">
+  <link rel="stylesheet" href="../css/0-3-A3.css">
   <link rel="stylesheet" href="../css/calender.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -19,28 +18,21 @@
 ?>
 
 </head>
-<!--<body margin:auto; text-align:center;>-->
-<body>
+<body margin:auto; text-align:center;>
 
-  <div class="main">
-    <div class="container-fluid">
-      <div class="text-center">
-	<br><br>
-	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
-	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド予約日の確認中
-	</a>
-	<div class="message">
+ <div class="main">
+    <div class="startup">
+      <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
+   </div>
+ <div class="message">
         カレンダーの日を
         クリックして下さい。
-	</div>
- <p class="h4">※<font color="ff69b4">ピンク</font>はガイド予約日として登録されている日です</p>
+ </div>
+ ※緑はガイド可能な日として登録されている日です
 <!-- 
  <br> ※赤はガイド予定（予約）が入っている日です
 --> 
-      </div>
-    </div>
-  </div>
-  
+</div>
 
    <form name="myform3" method='post' onsubmit="return checkText3()">
 
@@ -67,7 +59,7 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 //データ取得
-$sql = "SELECT * FROM U_Schedule WHERE GID = ?";
+$sql = "SELECT * FROM G_Schedule WHERE GID = ?";
 $stmt = ($dbh->prepare($sql));
 $stmt->execute(array($gid));
 
@@ -79,7 +71,6 @@ $end_time = 0;
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 list($row_month, $row_day)=explode("-", $row['date']);
         $guideData[]=array(
-'UserScheduleID' =>$row['scheduleUID'],
         'GuidScheduleID'=>$row['scheduleGID'],
     'GuideID'=>$row['GID'],
     'year'=>$row['year'],
@@ -89,11 +80,11 @@ list($row_month, $row_day)=explode("-", $row['date']);
     'start_time'=>$row['start_time'],
     'end_time'=>$row['end_time'],
     //'language'=>implode("、", $row['Language']),
-    'language'=>$row['language'],
+    'language'=>$row['Language'],
     'guidelocation'=>$row['location'],
     'requiredTime'=>$row['period'],
     'guidelat'=>$row['lat'],
-    'guidelong'=>$row['lng'],
+    'guidelong'=>$row['long'],
     'charge'=>$row['charge'],
     'max_num_participant'=>$row['max_num_participant']
         );
@@ -121,15 +112,15 @@ list($row_month, $row_day)=explode("-", $row['date']);
   function color_get($j, $d, $day, $thismonth, $thisyear, $m, $y, $arr) {
 //    $date = $y.$m.$d;
     $date = $m. "-" .$d;
-//    $date = $m. "月" .$d . "日";
-
-    foreach ($arr as &$value) {
-      if ($value["date"] == $date && $value["year"] == $y) {
-        return '#ff69b4';
-      } 
-    }
     if ($j == 0) {
       return '#C0C0C0';
+    }else {
+      foreach ($arr as &$value) {
+        //if ($value["date"] == $date || $value["date"] == "all") {
+        if ($value["date"] == $date && $value["year"] == $y) {
+          return '#99FF66';
+        }
+      }
     }
     return '#ffffff';
   }
@@ -214,35 +205,35 @@ list($row_month, $row_day)=explode("-", $row['date']);
 
 //  $.getJSON("calender.json", function(data){
 
-//    var markerData = [];
-//    var gidVal = <?php echo $gid ?>;
-//
-    $(function(){
-//
-//        $.ajax({
-//          type:"POST",
-//          url:"db_getschedule.php",
-//          dataType:"json",
-//          data:{
-//             gid : gidVal
-//          }
-//        }).done(function(data){
-//         markerData = data;
-//        }).fail(function(xhr,err){
-//          console.log(err);
-//        });
+    var markerData = [];
+    var gidVal = <?php echo $gid ?>;
 
+    $(function(){
+
+        $.ajax({
+          type:"POST",
+          url:"db_getschedule.php",
+          dataType:"json",
+          data:{
+             gid : gidVal
+          }
+        }).done(function(data){
+ //      console.log(data);
+         markerData = data;
+        }).fail(function(xhr,err){
+          console.log(err);
+        });
+
+//console.log(markerData);
 //console.log(data);
 
     $("#calender td").on("click",function(){
       dayVal = $(this)[0].innerText;
  //     cellnum = '' +yearVal+ monthVal + dayVal;
-  //    cellnum =  monthVal + '月'  + dayVal + '日';
-  cellnum =  monthVal + '-'  + dayVal;
-//console.log(cellnum);
+      cellnum =  monthVal + '-'  + dayVal;
 
       $('.info').remove();
-      $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
+      $('#clickedDate').html('<div class="info">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
 
       for(var i in data){
         if (cellnum == previousNum){
@@ -256,7 +247,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
           etimeVal = data[i].end_time;
 
           $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>UserScheduleID</td><td>'+data[i].UserScheduleID+'</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
+          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
           +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
@@ -328,7 +319,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
 
 </script>
 
-<!-- 
+
 <input name = "year" type="hidden" >
 <input name = "month" type="hidden" >
 <input name = "day" type="hidden" >
@@ -351,18 +342,6 @@ list($row_month, $row_day)=explode("-", $row['date']);
       </div>
  </div>
 
-</form> -->
-
-<div class="main">
-  <br>
-  <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-      <div class="confirmation-wrapper">
-	<a href="../top.html" class = "btn btn-info btn-lg btn-block"  >トップページに戻る</a>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
+</form>
+ </body>
 </html>

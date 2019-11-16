@@ -18,10 +18,11 @@
 
 
 <?php 
-echo $scheduleUID = $_POST['scheduleUID'];
-echo $date = $_POST['date'];
+$scheduleUID = $_POST['scheduleUID'];
+$date = $_POST['date'];
 
-$UID = 1;
+//$UID = 1;
+$UID = $_POST['uid'];  
 
 $host = 'localhost';
 $dbname = 'tour_db';
@@ -37,19 +38,19 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 //if($date=="all"){
-if(empty($date)){
+//if(empty($date)){
 
 $sql = "DELETE FROM U_Schedule WHERE scheduleUID=:scheduleUID";
 $stmt = $dbh->prepare($sql);
 //print_r($dbh->errorInfo());
 
-$stmt->bindParam(':scheduleGID', $scheduleGID, PDO::PARAM_INT);
+$stmt->bindParam(':scheduleUID', $scheduleUID, PDO::PARAM_INT);
 
 
 $stmt->execute();
 
 
-}else{
+/*}else{
 
  for($i=1; $i<=31; $i++){
 
@@ -64,6 +65,6 @@ $stmt->execute();
   $stmt->execute();
  }
 
-}
+}*/
 
 ?>

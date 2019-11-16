@@ -1,5 +1,5 @@
 <?php
-$gid = $_POST['gid'];
+$uid = $_POST['uid'];
 //$location = $_POST['location'];
 //$lat = $_POST['lat'];
 //$long = $_POST['long'];
@@ -29,9 +29,9 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 }
 
 //データ取得
-$sql = "SELECT * FROM G_Schedule WHERE GID = ?";
+$sql = "SELECT * FROM U_Schedule WHERE UID = ?";
 $stmt = ($dbh->prepare($sql));
-$stmt->execute(array($gid));
+$stmt->execute(array($uid));
 
 $guideData[] = array();
 $start_time = 0;
@@ -39,9 +39,9 @@ $end_time = 0;
 
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-	$guideData[]=array(
-	'GuidScheduleID'=>$row['scheduleGID'],
-    'GuideID'=>$row['GID'],
+	$userData[]=array(
+	'scheduleUID'=>$row['scheduleUID'],
+    'uid'=>$row['UID'],
     'year'=>$row['year'],
     'date'=>$row['date'],
     'start_time'=>$row['start_time'],
@@ -58,11 +58,11 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 } 
 
 //jsonとして出力
- console.log($guideData);
+ console.log($userData);
  header('Content-type: application/json');
  //echo json_encode($guideData,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 // echo json_encode($guideData,JSON_UNESCAPED_UNICODE);
-echo json_encode($guideData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+echo json_encode($userData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 ?>
 

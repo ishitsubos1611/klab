@@ -1,0 +1,46 @@
+<?php
+//$id = $_POST['id'];
+//$area = json_decode($_POST['area']);
+$uid = $_POST['uid'];
+//$area = 'kyoto';
+//$category = $_POST['category'];
+//$category = 'all';
+
+// データベース接続
+
+$host = 'localhost';
+$dbname = 'tour_db';
+$dbuser = 'yamamoto';
+$dbpass = 'rikuya0217';
+
+try {
+$dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, array(PDO::ATTR_EMULATE_PREPARES => false));
+} catch (PDOException $e) {
+ var_dump($e->getMessage());
+ echo '接続失敗';
+ exit;
+}
+
+// データ取得sql
+$sql = "SELECT * FROM U_Schedule WHERE UID = ? ";
+$stmt = ($dbh->prepare($sql));
+$stmt->execute(array($uid));
+
+// データ取得
+//あらかじめ配列を生成しておき、while文で回します。
+$memberList = array();
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+ $memberList[]=array(
+  'GID' =>$row['GID'],
+  'UID' =>$row['UID'],
+  'area' =>$row['area'],
+  'location' =>$row['location'],
+  'lat'=>$row['lat'],
+  'lng'=>$row['long']
+ );
+}
+
+//jsonとして出力
+console.log($memberList);
+header('Content-type: application/json');
+echo json_encode($memberList,JSON_UNESCAPED_UNICODE);
