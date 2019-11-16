@@ -2,8 +2,10 @@
   <head>
     <meta charset="utf-8">
     <title>登録確認</title>
-    <link rel="stylesheet" href="../css/2-3-A.css">
+    <!--<link rel="stylesheet" href="../css/2-3-A.css">-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script>
 
@@ -218,40 +220,101 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     } else if (dbVal == 1) { 
       document.myform3.action = "user_db_insert.php"; //ユーザのDBに登録するプログラム
     } else if( dbVal == 0) { 
-      document.myform3.action = "./user_top.html"; 
+      document.myform3.action = "./../user_top.html"; 
   }
 } 
 
-</script> 
-      <div class="startup">
+</script>
+      <div class="main">
+	<div class="container-fluid">
+	  <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>		
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+	    <!--<li class="nav-item">
+	      <a class="nav-link" href="#">ガイドログイン</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>  -->
+	    <li class="nav-item active">
+              <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <!--<div class="dropdown-divider"></div>-->
+	    <li class="nav-item">
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>
+	  </ul>
+	</div>
+      </nav>
+
+	  
+	  <div class="text-center">
+	    <br><br>
+	    <div class="row">
+	      <div class="col-sm-2"></div>
+	      <div class="col-sm-8">
+		<a href="#" class="btn btn-danger disabled btn-lg btn-block">確認</a>
+	      </div>
+	    </div>
+	    
+	    <br>
+      <!--<div class="startup">
         <p><?php echo $confirm; ?></p>
-      </div>
+      </div>   -->
       <div class="confirmation-wrapper">
-        <p class = "destination" id = "location-output"><?php echo $location; ?></p>
+        <p class="text-danger h3" id="location-output"><?php echo $location; ?></p>
  <!--       <p class="time-zone check-list">
          <?php echo $check_month; ?>：
          8:00-18:00
-  -->
+	 -->
+        <br>
  <!-- <p class="time red check-list">ガイドさん：<?php echo $gid; ?></p> -->
-        <p class="time red check-list">ガイド予約日：<?php echo $reserve; ?></p>
-	<p class="time red check-list">開始時間：<?php echo $start_time; ?></p>
-        <p class="time red check-list">ガイド時間：<?php echo $period; ?>分</p>
-        <p class="message">Language : <?php echo $language ?>　</p>
-        <p class="charge red check-list">Charge ¥<?php echo $fee; ?> (1~<?php echo $participants?>名)</p>
-      </div> 
+        <p class="text-danger h3">ガイド予約日：<?php echo $reserve; ?></p>
+	<br>
+	<p class="text-danger h3">開始時間：<?php echo $start_time; ?></p>
+	<br>
+        <p class="text-danger h3">ガイド時間：<?php echo $period; ?>分</p>
+	<br>
+        <p class="text-danger h3">Language : <?php echo $language ?>　</p>
+	<br>
+        <p class="text-danger h3">Charge ¥<?php echo $fee; ?> (1~<?php echo $participants?>名)</p>
+      </div>
+      <br>
    <!--   <div class="btn-wrapper">
          <a href="../top.html" class = "resistration" onclick="dbinsert();" ><?php echo $final_step; ?></a>
       </div>
 <p>
          <INPUT class="resistration" type="submit" name = "datapost" value='<?php echo $final_step; ?>'>
-   --> 
-         <INPUT class="resistration" type="submit" value='<?php echo $final_step; ?>'>
+	 -->
+   <div class="row">
+     <div class="col-sm-2"></div>
+     <div class="col-sm-8">
+       <INPUT class="btn btn-outline-info btn-lg btn-block" type="submit" value='<?php echo $final_step; ?>'>
+     </div>
+   </div>
  </form>
-
+   <br>
       <div class="btn-wrapper">
        <form>
 <p><!--         <INPUT class="resistration" type="button" onClick='history.back();' value="戻る"> -->
-      <a href="user_select_area.php" class = "resistration" >戻る</a>
+      <a href="user_select_area.php" class="h5" >戻る</a>
       </div>
 
        </form>

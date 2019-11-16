@@ -13,9 +13,11 @@
  height: 450px;
 }
 </style>
-    <link rel="stylesheet" href="../css/0-3-A1.css">
-    <link rel="stylesheet" href="../css/0-3-A3.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/calender.css">
+
+
+
 
 <?php
 
@@ -47,7 +49,7 @@
 ?>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
   </head>
   <body margin:auto; text-align:center;>
@@ -58,9 +60,55 @@
     </script> 
  
    <div class="main">
-    <div class="startup">
-        ガイドさんの選択
-    </div> 
+     <nav class="navbar navbar-dark bg-dark fixed-top">			
+      <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>		
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+	    <!--<li class="nav-item">
+	      <a class="nav-link" href="#">ガイドログイン</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="select_area4booking.php">ガイド予約確認</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>  -->
+	    <li class="nav-item active">
+              <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <!--<div class="dropdown-divider"></div>-->
+	    <li class="nav-item">
+              <a class="nav-link" href="../realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>
+	  </ul>
+	</div>
+      </nav>
+
+     <div class="container-fluid">
+      <div class="text-center">
+	<br><br><br>
+        <!--<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">  -->
+	    <a href="#"  class="btn btn-danger disabled btn-xl btn-block">
+              ガイドさんの選択
+	    </a>
+	  <!--</div>  
+	</div> -->
+	
     <form name="myform3" method='post' onsubmit="return checkText3()">
 <!--    <form name="myform3" method='post' onsubmit="return checkText3()">
     <input name = "location" type="hidden"/>
@@ -104,6 +152,10 @@
       <div id="guide"></div>
 
       <div id="output"></div>
+      <!--<script>
+	document.getElementById("output").style.display = "none";
+      </script> -->
+      
 
 <!--
       <div id="cal">
@@ -179,7 +231,10 @@
       
         //if(guideData === []){
         //    $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
-   // }
+    // }
+
+    $('#output').hide('');
+    
     function selectGuide(){
         //console.log(guideData.length);
 	//console.log(<?php echo $uid; ?>);
@@ -194,7 +249,7 @@
 
            for (var i = 0; i <guideData.length; i++){
 					       			     
-		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　料金：'+guideData[i].charge+'　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
+		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　料金：'+guideData[i].charge+' 円　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
 					       
 	   }
         //console.log(document.getElementById("checkbox").value);				     
@@ -221,11 +276,13 @@
 		  $('#output').html('<p>ガイド'+vals[0]+'さんにチェックしました。</p>');
 		  //$.post("user_confirm.php",charge=value);
 		  //$('form').html('<input id="submit_charge" type="hidden" name="charge" value="">');
-		  			     
+
+                  $('#output').show('');
 		  console.log(check);
 		  console.log(vals);			     
 	       }else{
-                  $('#output').html('');
+                  //$('#output').html('');
+                  $('#output').hide('');
 		  console.log(check);
 		  console.log(vals);			     
 	       }
@@ -330,11 +387,12 @@
 
     </div>
 
-      <p> 
+      <br> 
 
-      <div class="next-btn-parent"> 
-        <input class="next-btn" type="submit" value="確認"/>
-      </div>
+       
+        <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="確認"/>
+
+	<br><br>
       </form>
 
   </body>

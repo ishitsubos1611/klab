@@ -148,7 +148,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 	  <!--<div class="bg-danger text-white h2">-->
             <!--<p class="text-info bg-danger h2">確認</p><br>-->
 	    <!--</div>-->
-	  <a href="#" class="btn btn-danger disabled btn-xl btn-block">確認</a>
+	  <a href="#" class="btn btn-danger disabled btn-lg btn-block">確認</a>
 	</div>
       </div>
       <p></p>
