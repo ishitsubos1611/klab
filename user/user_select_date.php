@@ -51,7 +51,7 @@
 	    <li class="nav-item">
               <a class="nav-link" href="#">ユーザログイン</a>
             </li>  -->
-	    <li class="nav-item">
+	    <li class="nav-item active">
               <a class="nav-link" href="../user/user_select_area.php">ユーザ希望登録</a>
             </li>
 	    <!--<div class="dropdown-divider"></div>-->
