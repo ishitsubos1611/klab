@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/calender.css">
 
 <?php
-
+ //session_start();
  //$area = $_POST['area'];
  //$style = $_POST['style'];
  //$month = $_POST['month'];

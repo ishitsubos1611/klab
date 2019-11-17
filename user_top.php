@@ -13,7 +13,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
 
-    
+<?php
+  session_start();
+  $id = $_SESSION["USERID"]; 
+?>
     
 <script>
 
@@ -34,6 +37,8 @@ $(window).on("popstate", function (event) {
 
   </head>
   <body>
+  <!--  <form method='post' action="user/user_select_area.php"> -->
+	    
     <div class="main">
       <nav class="navbar navbar-dark bg-dark fixed-top">			
 	<a class="navbar-brand" href="#">シェアリングツアーガイド</a>				
@@ -73,6 +78,7 @@ $(window).on("popstate", function (event) {
 	</div>
       </nav>
       
+     <!-- <input name="uid" type=hidden value="<?php echo $id; ?>"> -->
       
       <div class="container-fluid">
       <div class="text-center">
@@ -135,7 +141,7 @@ $(window).on("popstate", function (event) {
 <!--        <form name=step action="#" method='post'>
           <input class = "btn next-btn-user" type="submit" value="ユーザ ログイン">
         </form>
--->
+-->      
 
           <div class="row">
             <div class="col-sm-2"></div>
@@ -146,10 +152,9 @@ $(window).on("popstate", function (event) {
           </div>
 	  <br><br>
 
-	  <form name="myform3" method='post' onsubmit="return checkText3()">
-	  <input name = "uid" type=hidden value="<?php session_start(); $id = $_SESSION["USERID"]; echo $id; ?>">
+	  
 	  <!-- <?php $id = $_SESSION["USERID"]; echo $id;  ?> -->
-	  </from>
+	  
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
@@ -159,7 +164,8 @@ $(window).on("popstate", function (event) {
 	  <br><br><br><br>
 
       </div>
-    </div>
+      </div>
+      </from>      
   </body>
 </html>
 

@@ -25,10 +25,11 @@
 
 </head>
 <body>
-
-<?php 
+<form name="step1" action="user_place_registration.php" method='post'>
+<?php
+  session_start();  
   $select_step = $_POST['step'];
-  $uid = $_POST['uid'];
+  $uid = $_SESSION["USERID"];
 
  if($select_step == 1){
   $step = "./user_place_registration.php";
@@ -36,8 +37,13 @@
   $step = "./select_date.php";
  }
 
+ echo '<input name=uid' .' type=hidden value="' . $uid . '">';
 ?>
-<form name="step1" action="user_place_registration.php" method='post'>
+<!--
+<script>
+  console.log("<?php echo $uid; ?>");
+</script>  
+-->
   <div class="main">
     <div class="container-fluid">
       <div class="text-center">
@@ -49,7 +55,7 @@
             <input name = "uid" style=text value=" . ">
           </div> -->
 
-	<input name = uid' .' type=hidden value="' . $uid . '">    
+<!--	<input name="uid" type=hidden value="<?php echo $uid; ?>">    -->
 	
           <p>エリアを選択してください</p>
 	  <div class="row">

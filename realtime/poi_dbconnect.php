@@ -29,12 +29,12 @@ $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$d
 if($category == 'all'){
 
 // データ取得sql
-//$sql = "SELECT * FROM POI WHERE area = ? ";
+//$sql = "SELECT * FROM POI WHERE area = ? limit 20";
 //$stmt = ($dbh->prepare($sql));
 //$stmt->execute(array($area));
-$sql = "SELECT *, (6371 * acos(cos(radians($nowLat)) * cos(radians(lat)) * cos(radians(POI.long) - radians($nowLng)) + sin(radians($nowLat)) * sin(radians(lat)))) as distance FROM POI ORDER BY distance limit 20";
+$sql = "SELECT *, (6371 * acos(cos(radians(?)) * cos(radians(lat)) * cos(radians(POI.long) - radians(?)) + sin(radians(?)) * sin(radians(lat)))) as distance FROM POI where area = ? ORDER BY distance limit 20";
 $stmt = ($dbh->prepare($sql));
-$stmt->execute();
+$stmt->execute(array($nowLat, $nowLng, $nowLat, $area));
 
 }else{
 

@@ -14,6 +14,11 @@ $(window).on("popstate", function (event) {
 });
 </script>
 
+<?php
+  session_start();
+  $uid = $_SESSION["USERID"];
+?>
+
     <style type='text/css'>
 #map {
  width: 100%;
@@ -227,23 +232,24 @@ $(window).on("popstate", function (event) {
         document.myform3.elements[2].value = $form_lng;
         
     }
-    </script>
-  </head>
-  <body>
-
-
-   <form name="myform3" method='post' onsubmit="return checkText3()">
+</script>
+</head>
+<body>
+<form name="myform3" method='post' onsubmit="return checkText3()">
+  
     <input name = "location" type="hidden" />
     <input name = "lat" type="hidden" />
     <input name = "lng" type="hidden" />
+
 <?php
+ //session_start();
  $area = $_POST['area'];
  $style = $_POST['style'];
  $month = $_POST['month'];
  $day = $_POST['day'];
  $mode = $_POST['mode'];
  $gid = $_POST['gid'];
- $uid = $_POST['uid'];
+ //$uid = $_SESSION["USERID"];
  $thisday = date('j');
  $thismonth = date('n');
  $thisyear = date('Y');
@@ -260,7 +266,11 @@ $(window).on("popstate", function (event) {
  echo '<input name = thismonth' .' type=hidden value="' . $thismonth . '">';
  echo '<input name = thisday' .' type=hidden value="' . $thisday . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">';
-?>
+?>    
+
+<script>
+console.log("<?php echo $uid; ?>");
+</script>  
     <div class="main">
 
 <!--      <nav class="navbar navbar-dark bg-dark fixed-top">			

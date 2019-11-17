@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/calender.css">
 
 <?php
-
+ //session_start();
  //$area = $_POST['area'];
  //$style = $_POST['style'];
  //$month = $_POST['month'];
@@ -179,11 +179,15 @@
       
         //if(guideData === []){
         //    $('#cal').append('<div id="guide" class="info"><p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p></div>');
-   // }
+    // }
+
+     $('#output').hide();
+    
     function selectGuide(){
         //console.log(guideData.length);
 	//console.log(<?php echo $uid; ?>);
-	if(guideData.length == 0){
+        if(guideData.length == 0){
+            $('#output').show();
             $('#output').html('<p>申し訳ありませんが、現在ご希望の名所をガイドできるものがいません。</p>');
 	}else{
 	
@@ -197,7 +201,7 @@
 		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　料金：'+guideData[i].charge+'　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
 					       
 	   }
-        //console.log(document.getElementById("checkbox").value);				     
+        //console.log(document.getElementById("checkbox").value);			  
 
       $('input[name="guide"]').on('change',function() {
 	   //var vals=[];
@@ -221,11 +225,12 @@
 		  $('#output').html('<p>ガイド'+vals[0]+'さんにチェックしました。</p>');
 		  //$.post("user_confirm.php",charge=value);
 		  //$('form').html('<input id="submit_charge" type="hidden" name="charge" value="">');
-		  			     
+		  $('#output').show();			     
 		  console.log(check);
 		  console.log(vals);			     
 	       }else{
-                  $('#output').html('');
+                  //$('#output').html('');
+                  $('#output').hide();
 		  console.log(check);
 		  console.log(vals);			     
 	       }
@@ -243,14 +248,14 @@
   
 //formにactionとvalueを代入する
   function checkText3() {
-      console.log(checkVal);
+      //alert(checkVal);
       if(guideData.length == 0){
         document.myform3.action = "user_confirm.php";
         //document.myform3.elements[0].value = $form_name;
         //document.myform3.elements[1].value = $form_lat;
         //document.myform3.elements[2].value = $form_lng;
       }       
-      else if(!(checkVal)) {
+      else if((!(checkVal) | checkVal=="")) {
          alert('チェックを付けてください!');
          return false;
       }else{   

@@ -32,7 +32,8 @@ $(window).on("popstate", function (event) {
 <p>
  <form name="myform3" method='post' onsubmit="return checkText3()">
 
-<?php    
+<?php
+ session_start();     
  //$ginfo = array();
  $ginfo = explode(",",$_POST['guide']);
  $stime = explode(":",$_POST['stime'],-1); 
@@ -45,7 +46,7 @@ $(window).on("popstate", function (event) {
   $gid = $ginfo[0];
   $fee = $ginfo[1];
  }
- $uid = $_POST['uid']; 
+ $uid = $_SESSION['USERID']; 
  $year = $_POST['year'];
  $date = $_POST['date']; 
 $location = $_POST['location'];
@@ -201,7 +202,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
    console.log('<?php echo $end_time ?>');
-   
+   console.log('<?php echo $uid ?>');
 
 </script>
 
@@ -218,7 +219,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     } else if (dbVal == 1) { 
       document.myform3.action = "user_db_insert.php"; //ユーザのDBに登録するプログラム
     } else if( dbVal == 0) { 
-      document.myform3.action = "./user_top.html"; 
+      document.myform3.action = "../user_top.php"; 
   }
 } 
 

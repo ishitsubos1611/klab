@@ -29,7 +29,7 @@ $(window).on("popstate", function (event) {
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
-
+      console.log("<?php $uid=$_POST['uid']; echo $uid; ?>");
       var map;
       var marker = [];
       var markerData = [];
@@ -253,6 +253,9 @@ $(window).on("popstate", function (event) {
 
 
 ?>
+<script>
+console.log("<?php echo $uid; ?>");
+</script>
 <div class="main">
   <div class="container-fluid">
     <div class="text-center">

@@ -11,6 +11,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <?php
+ //session_start();   
  $area = $_POST['area'];
  $style = $_POST['style'];
  $gid = $_POST['gid'];
