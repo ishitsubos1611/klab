@@ -260,8 +260,8 @@ console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData
       $('#clickedDate').html('<div class="info text-center h4">選択したガイド希望日：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div><br>');
       //$('#cal').remove();
       //$('.select-btn guide-select').remove();
-      $('#cal').html('<p class ="select-title text-center">ガイド開始時間</p>'
-+'<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="form-group"><div class="select-btn guide-select text-center"><select class="form-control"><option value="08:00:00">8:00</option>	       <option value="09:00:00">9:00</option>	       <option value="10:00:00">10:00</option>	       <option value="11:00:00">11:00</option>	       <option value="12:00:00">12:00</option>	       <option value="13:00:00">13:00</option>	       <option value="14:00:00">14:00</option>	       <option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div></div></div></div>');
+      $('#cal').html('<div class="row"><div class="col-sm-2"></div><div class="col-sm-3"><div class="text-center h4">ガイド開始時間</div></div>'
++'<div class="col-sm-5"><div class="form-group"><div class="select-btn guide-select text-center"><select class="form-control"><option value="08:00:00">8:00</option>	       <option value="09:00:00">9:00</option>	       <option value="10:00:00">10:00</option>	       <option value="11:00:00">11:00</option>	       <option value="12:00:00">12:00</option>	       <option value="13:00:00">13:00</option>	       <option value="14:00:00">14:00</option>	       <option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div></div></div></div>');
       $('#next').html('<p></p>'+'<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><input id="submit_btn" class = "btn btn-info btn-lg btn-block" type="submit" value="ガイドさんの検索へ"></div></div><br><br>');
 
       for(var i in data){
@@ -280,7 +280,7 @@ console.log("<?php $json_userData = $_POST['json_userData']; echo $json_userData
           //etimeVal = data[i].end_time;
             
           /*$('#cal').html(
-          '<p class = "select-title">ガイド開始時間</p>'
+          '<div class="info text-center h4">ガイドa開始時間</div><br>'
           +'<div class="select-btn guide-select"><select name=start_time><option value="08:00:00">8:00</option><option value="09:00:00">9:00</option><option value="10:00:00">10:00</option><option value="11:00:00">11:00</option><option value="12:00:00">12:00</option><option value="13:00:00">13:00</option><option value="14:00:00">14:00</option><option value="15:00:00">15:00</option><option value="16:00:00">16:00</option><option value="17:00:00">17:00</option></select></div>'
               
  //             +'<p class = "select-title">ガイド終了時間</p>'+'<div class="select-btn guide-select"><select name=end_time required><option value="9:00">9:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option></select></div>'
