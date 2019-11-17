@@ -14,6 +14,11 @@ $(window).on("popstate", function (event) {
 });
 </script>
 
+<?php
+  session_start();
+  $uid = $_SESSION["USERID"];
+?>
+
     <style type='text/css'>
 #map {
  width: 100%;
@@ -77,12 +82,11 @@ $(window).on("popstate", function (event) {
             //category : categoryVal
             category : 'all',
 	    //カテゴリを取ってくる
-	    nowLat : 'nowLat', 
-	    nowLng : 'nowLng',
+	    nowLat : nowLat, 
+            nowLng : nowLng
 	    //現在地を送る（緯度経度) 事前に位置情報を取る必要がある
       //lat : '35.069162899999995',
       //long : '135.7556467'
-
           }
         }).done(function(data){
           console.log(data);
@@ -109,9 +113,9 @@ $(window).on("popstate", function (event) {
         }).done(function(data,nowyear,nowdate,nowtime){
           console.log(data);
       guideData = data;
-      alert(nowyearVal);
-      alert(nowdateVal);
-      alert(nowtimeVal);
+      //alert(nowyearVal);
+      //alert(nowdateVal);
+      //alert(nowtimeVal);
         }).fail(function(xhr,err){
           console.log(err);
         });
@@ -223,30 +227,31 @@ $(window).on("popstate", function (event) {
   function checkText3() {
  
         //actionメソッドに遷移先のURLを代入する
-        document.myform3.action = "guide_recommend.php";
+        document.myform3.action = "user_select_date.php";
         //nameに合わせてvalueを代入する
         document.myform3.elements[0].value = $form_name;
         document.myform3.elements[1].value = $form_lat;
         document.myform3.elements[2].value = $form_lng;
         
     }
-    </script>
-  </head>
-  <body>
-
-
-   <form name="myform3" method='post' onsubmit="return checkText3()">
+</script>
+</head>
+<body>
+<form name="myform3" method='post' onsubmit="return checkText3()">
+  
     <input name = "location" type="hidden" />
     <input name = "lat" type="hidden" />
     <input name = "lng" type="hidden" />
+
 <?php
+ //session_start();
  $area = $_POST['area'];
  $style = $_POST['style'];
  $month = $_POST['month'];
  $day = $_POST['day'];
  $mode = $_POST['mode'];
  $gid = $_POST['gid'];
- $uid = $_POST['uid'];
+ //$uid = $_SESSION["USERID"];
  $thisday = date('j');
  $thismonth = date('n');
  $thisyear = date('Y');
@@ -263,7 +268,11 @@ $(window).on("popstate", function (event) {
  echo '<input name = thismonth' .' type=hidden value="' . $thismonth . '">';
  echo '<input name = thisday' .' type=hidden value="' . $thisday . '">';
  echo '<input name = uid' .' type=hidden value="' . $uid . '">';
-?>
+?>    
+
+<script>
+console.log("<?php echo $uid; ?>");
+</script>  
     <div class="main">
 
       <nav class="navbar navbar-dark bg-dark fixed-top">			

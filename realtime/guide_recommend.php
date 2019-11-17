@@ -1,7 +1,7 @@
 <?php
 //$area = $_POST['area'];
 //$style = $_POST['style'];
-echo $location = $_POST['location']; //ユーザーが希望するガイド場所
+$location = $_POST['location']; //ユーザーが希望するガイド場所
 $stime = $_POST['stime']; //ユーザーが希望するガイドのスタート時間
 //$period = $_POST['period'];
 
