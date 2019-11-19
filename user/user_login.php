@@ -84,7 +84,7 @@ if (isset($_POST["login"])) {
 <body>
   <div class="main">
   <nav class="navbar navbar-dark bg-dark fixed-top">			
-    <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+    <a class="navbar-brand" href="../top.html">ガイドシェアリング</a>				
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <!--  <span class="navbar-toggler-icon"></span> -->
     </button>
@@ -132,14 +132,14 @@ if (isset($_POST["login"])) {
 	<div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-	    <a href="user_signup.php" class="btn btn-outline-info btn-lg btn-block" >ユーザ情報登録ページへ</a>
+            <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
 	  </div>
 	</div>
 	<br>
-	<div class="row">
+        <div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-            <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
+	    <a href="user_signup.php" class="btn btn-outline-info btn-lg btn-block" >ユーザID新規発行</a>
 	  </div>
 	</div>
         </form>

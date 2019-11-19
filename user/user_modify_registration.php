@@ -251,7 +251,7 @@
 
            for (var i = 0; i <guideData.length; i++){
 					       			     
-		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　料金：'+guideData[i].charge+' 円　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
+		$('#guide').append('<p>ガイドID：'+guideData[i].GID+'　料金：'+guideData[i].charge+' 円　一言：'　+guideData[i].comment+ '　<input type="checkbox" name="guide" value="'+guideData[i].GID+','+guideData[i].charge+'"></p>');
 					       
 	   }
         //console.log(document.getElementById("checkbox").value);			  

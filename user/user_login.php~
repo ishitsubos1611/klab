@@ -2,97 +2,149 @@
 // セッション開始
 session_start();
 
-$db['host'] = "localhost";  // DBサーバのURL
-$db['user'] = "ishi";  // ユーザー名
-$db['pass'] = "asdf1611";  // ユーザー名のパスワード
-$db['dbname'] = "account_db";  // データベース名
+$host = "localhost";  // DBサーバのURL
+$dbuser = "ishi";  // ユーザー名
+$dbpass = "asdf1611";  // ユーザー名のパスワード
+$dbname = "account_db";  // データベース名
 
 // エラーメッセージの初期化
 $errorMessage = "";
 
 // ログインボタンが押された場合
 if (isset($_POST["login"])) {
-    // 1. ユーザIDの入力チェック
-    if (empty($_POST["userid"])) {  // emptyは値が空のとき
-        $errorMessage = 'ユーザーIDが未入力です。';
-    } else if (empty($_POST["password"])) {
-        $errorMessage = 'パスワードが未入力です。';
+  // １．ユーザIDの入力チェック
+
+  if (empty($_POST["userid"])) {
+    $errorMessage = "ユーザIDが未入力です。";
+  }
+
+  if (empty($_POST["password"])) {
+    $errorMessage = "パスワードが未入力です。";
+  }
+
+  // ２．ユーザIDとパスワードが入力されていたら認証する
+  if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
+      try {
+      $dbh = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $dbuser,$dbpass, [PDO::ATTR_EMULATE_PREPARES => false]);
+
+    } catch (PDOException $e) {
+      var_dump($e->getMessage());
+      echo '接続失敗';
+      exit;
     }
 
-    if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
-        // 入力したユーザIDを格納
-        $userid = $_POST["userid"];
+    // 入力したユーザIDを格納
+    $userid = $_POST["userid"];
 
-        // 2. ユーザIDとパスワードが入力されていたら認証する
-        $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $db['host'], $db['dbname']);
+    $stmt = $dbh->prepare('SELECT * FROM G_account WHERE Gname = ?');
+    $stmt->execute(array($userid));
 
-        // 3. エラー処理
-        try {
-            $pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
-            $stmt = $pdo->prepare('SELECT * FROM U_account WHERE Uname = ?');
-            $stmt->execute(array($userid));
-
-            $password = $_POST["password"];
-
-            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                if (password_verify($password, $row['password'])) {
-                    session_regenerate_id(true);
-
-                    // 入力したIDのユーザー名を取得
-                    $id = $row['Uid'];
-                    $sql = "SELECT * FROM U_account WHERE Uid = $id";  //入力したIDからユーザー名を取得
-                    $stmt = $pdo->query($sql);
-                    foreach ($stmt as $row) {
-                        $row['Uname'];  // ユーザー名
-                    }
-                    $_SESSION["NAME"] = $row['Uname'];
-                    header("Location: top.php");  // メイン画面へ遷移
-                    exit();  // 処理終了
-                } else {
-                    // 認証失敗
-                    $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
-                }
-            } else {
-                // 4. 認証成功なら、セッションIDを新規に発行する
-                // 該当データなし
-                $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
-            }
-        } catch (PDOException $e) {
-            $errorMessage = 'データベースエラー';
-            //$errorMessage = $sql;
-            // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
-            // echo $e->getMessage();
-        }
+    if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      // パスワード(暗号化済み）の取り出し
+      $db_hashed_pwd = $row['password'];
     }
+
+    // ３．画面から入力されたパスワードとデータベースから取得したパスワードのハッシュを比較します。
+    if (password_verify($_POST["password"], $db_hashed_pwd)) {
+      // ４．認証成功なら、セッションIDを新規に発行する
+      session_regenerate_id(true);
+      $_SESSION["USERID"] = $_POST["userid"];
+      header("Location: ../user_top.php");
+      exit;
+    }else {
+      // 認証失敗
+      $errorMessage = "ユーザIDあるいはパスワードに誤りがあります。";
+    }
+  }
 }
-?>
 
+?>
 <!doctype html>
 <html>
-    <head>
-            <meta charset="UTF-8">
-            <title>ログイン</title>
-    </head>
-    <body>
-        <h1>ログイン画面</h1>
-        <form id="loginForm" name="loginForm" action="" method="POST">
-            <fieldset>
-                <legend>ログインフォーム</legend>
-                <div><font color="#ff0000"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></font></div>
-                <label for="userid">ユーザーID</label><input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) {echo htmlspecialchars($_POST["userid"], ENT_QUOTES);} ?>">
-                <br>
-                <label for="password">パスワード</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
-                <br>
-                <input type="submit" id="login" name="login" value="ログイン">
-            </fieldset>
-        </form>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ログイン画面</title>
+  
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+  history.pushState(null, null, null);
+  $(window).on("popstate", function (event) {
+  if (!event.originalEvent.state) {
+    history.pushState(null, null, null);
+    return;
+    } 
+  });
+  </script>
+
+
+</head>
+<body>
+  <div class="main">
+  <nav class="navbar navbar-dark bg-dark fixed-top">			
+    <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!--  <span class="navbar-toggler-icon"></span> -->
+    </button>
+  </nav>
+
+    <div class="container-fluid">
+      <div class="text-center">
+        <br><br><br>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <div><a href="#"  class = "btn btn-danger disabled btn-lg btn-block" >ユーザログイン画面</a></div>
+          </div>
+        </div>
+	<br>
+
+	<form id="loginForm" name="loginForm" action="" method="POST">
+        <div><?php echo $errorMessage ?></div>
+
+	<br>
+
+	<div class="form-group row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+	    <p>ユーザID</p>
+	  </div>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>" placeholder="ユーザIDを入力">
+	   <!-- <input type=hidden name="uid" value="<?php echo $_POST['userid']; ?>" > -->
+<!--            <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>  -->
+	  </div>
+	</div>
+	<!--<input name = uid' .' type=hidden value="<?php echo $userid ?>">-->    
+	<div class="form-group row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+	    <p>パスワード</p>
+	  </div>
+	  <div class="col-sm-5">
+	  <input type="password" class="form-control" id="password" name="password" value="" placeholder="パスワードを入力">
+           <!-- <p>パスワード<input type="password" id="password" name="password" value=""></p> -->
+	  </div>
+        </div>
         <br>
-        <form action="guide_signup.php">
-            <fieldset>
-                <legend>新規登録フォーム</legend>
-                <input type="submit" value="新規登録">
-            </fieldset>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+	    <a href="user_signup.php" class="btn btn-outline-info btn-lg btn-block" >ユーザ情報登録ページへ</a>
+	  </div>
+	</div>
+	<br>
+	<div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
+	  </div>
+	</div>
         </form>
-    </body>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

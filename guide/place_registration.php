@@ -4,6 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>シェアリングツアーガイドサービス</title>
 
+ <!--
+    
 <script>
 
 history.pushState(null, null, null);
@@ -13,9 +15,11 @@ $(window).on("popstate", function (event) {
     return;
   }
 });
-
+ 
 </script>
+   -->
 
+ 
     <style type='text/css'>
 
 #map {
@@ -24,7 +28,11 @@ $(window).on("popstate", function (event) {
 }
 </style>
 
-    
+ <?php
+  session_start();  
+  $uid = $_SESSION["USERID"];
+?>
+ 
     <link rel="stylesheet" href="../css/bootstrap.css">
     <!--<link rel="stylesheet" href="../css/0-3-A3.css">
 -->
@@ -32,13 +40,14 @@ $(window).on("popstate", function (event) {
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
-
+      console.log("<?php echo $uid; ?>");
       var map;
       var marker = [];
       var markerData = [];
       var guideData = [];
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
-      var gidVal = "<?php echo $gid = $_POST['gid']; ?>";
+      //      var gidVal = "<?php echo $gid = $_POST['gid']; ?>";
+      var gidVal = "<?php echo $uid; ?>";
       var categoryVal = "<?php $area = $_POST['category']; echo $area ?>";
       
       
@@ -96,7 +105,7 @@ $(window).on("popstate", function (event) {
         //var mapLatLng = new google.maps.LatLng(35.700000,139.772000);
         map = new google.maps.Map(document.getElementById('map'), {
           center: mapLatLng,
-          zoom: 16 // 地図のズームを指定
+          zoom: 14 // 地図のズームを指定
 	  
         });
 
@@ -219,7 +228,8 @@ $(window).on("popstate", function (event) {
  $month = $_POST['month'];
  $day = $_POST['day'];
  $mode = $_POST['mode'];
- $gid = $_POST['gid'];
+  // $gid = $_POST['gid'];
+ $gid = $uid;
 
  $thisday = date('j');
  $thismonth = date('n');

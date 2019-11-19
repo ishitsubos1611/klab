@@ -79,7 +79,6 @@
               <div class="form-group">
 		<div class="select-btn guide-select">
 		  <select name="category" class="form-control">
-		    <option value="all" >all</option>
 		    <option value="Shrine and Temple" >神社仏閣</option>
 		    <option value="Historic site" >史跡</option>
 		    <option value="Castle" >城</option>
@@ -90,6 +89,7 @@
 		    <option value="Zoo and Botanical garden" >動植物園</option>
 		    <option value="Mountain" >山</option>
 		    <option value="Famous place" >その他</option>
+		    <option value="all" >all</option>
 		  </select>
 		</div>
 	      </div>
@@ -131,7 +131,7 @@
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-	      <a href="../top.html" class = "btn btn-info btn-lg btn-block" >トップページに戻る</a>
+	      <a href="../user_top.php" class = "btn btn-info btn-lg btn-block" >トップページに戻る</a>
 	    </div>
 	  </div>
 	  <br>
