@@ -189,7 +189,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 	   <div class="row">
 	     <div class="col-sm-2"></div>
              <div class="col-sm-8">
-	       <a href="../guide_top.html" class = "btn btn-info btn-lg btn-block" >ログインに戻る</a>
+	       <a href="select_area_regist.php" class = "btn btn-info btn-lg btn-block" >戻る</a>
 	     </div>
 	   </div>
       </div>

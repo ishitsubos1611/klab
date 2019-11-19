@@ -118,6 +118,7 @@ $(window).on("popstate", function (event) {
 	      <div class="form-group">
                 <div class="select-btn guide-select">
                   <select name="category" class="form-control">
+                    <option value="all" >all</option>
                     <option value="Shrine and Temple" >神社仏閣</option>
                     <option value="Historic site" >史跡</option>
                     <option value="Castle" >城</option>
@@ -127,7 +128,6 @@ $(window).on("popstate", function (event) {
                     <option value="Park" >公園</option>
                     <option value="Zoo and Botanical garden" >動植物園</option>
                     <option value="Mountain" >山</option>
-                    <option value="all" >all</option>
                     <option value="Famous place" >その他</option>
                   </select>
 		</div>

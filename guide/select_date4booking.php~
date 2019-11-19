@@ -84,10 +84,9 @@ $end_time = 0;
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 list($row_month, $row_day)=explode("-", $row['date']);
-   $guideData[]=array(
-    'UserScheduleID' =>$row['scheduleUID'],
-    'GuidScheduleID'=>$row['scheduleGID'],
-    'UserID'=>$row['UID'],
+        $guideData[]=array(
+'UserScheduleID' =>$row['scheduleUID'],
+        'GuidScheduleID'=>$row['scheduleGID'],
     'GuideID'=>$row['GID'],
     'year'=>$row['year'],
     'date'=>$row['date'],
@@ -103,13 +102,18 @@ list($row_month, $row_day)=explode("-", $row['date']);
     'guidelong'=>$row['lng'],
     'charge'=>$row['charge'],
     'max_num_participant'=>$row['max_num_participant']
-   );
+        );
   //$start_time = $row['start_time'];
   //$end_time = $row['end_time'];
   
 } 
 
 //jsonとして出力
+ //console.log($guideData);
+ //header('Content-type: application/json');
+ //echo json_encode($guideData,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+ //echo json_encode($guideData,JSON_UNESCAPED_UNICODE);
+ //$json_guideData =  json_encode($guideData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
  $json_guideData =  json_encode($guideData, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 //print_r($json_guideData);
 ?>
@@ -122,8 +126,8 @@ list($row_month, $row_day)=explode("-", $row['date']);
   }
   function color_get($j, $d, $day, $thismonth, $thisyear, $m, $y, $arr) {
 //    $date = $y.$m.$d;
-//    $date = $m. "-" .$d;
-    $date = $m. "月" .$d . "日";
+    $date = $m. "-" .$d;
+//    $date = $m. "月" .$d . "日";
 
     foreach ($arr as &$value) {
       if ($value["date"] == $date && $value["year"] == $y) {
@@ -214,7 +218,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
   var stimeVal;
   var etimeVal;
 
-//console.log(monthVal);
+console.log(data);
 
 //  $.getJSON("calender.json", function(data){
 
@@ -232,7 +236,7 @@ list($row_month, $row_day)=explode("-", $row['date']);
           }
         }).done(function(data){
 //console.log(data);
-markerData = data;
+//markerData = data;
 //console.log(markerData);
         }).fail(function(xhr,err){
           console.log(err);
@@ -244,8 +248,9 @@ markerData = data;
     $("#calender td").on("click",function(){
       dayVal = $(this)[0].innerText;
  //     cellnum = '' +yearVal+ monthVal + dayVal;
-      cellnum =  monthVal + '月'  + dayVal + '日';
-  //cellnum =  monthVal + '-'  + dayVal;
+  //    cellnum =  monthVal + '月'  + dayVal + '日';
+  cellnum =  monthVal + '-'  + dayVal;
+console.log(cellnum);
 
       $('.info').remove();
       $('#clickedDate').html('<div class="info text-center h4">登録または変更の日付：'+yearVal+'年'+monthVal+'月'+dayVal+'日</div>');
@@ -262,11 +267,11 @@ markerData = data;
           etimeVal = data[i].end_time;
 
           $('#cal').append('<div id="guide" class="info"><p>　(人気)　'+data[i].guidelocation+'ガイド </p>'
-          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>UserScheduleID</td><td>'+data[i].UserScheduleID+'</td></tr><tr><td>UserID</td><td>'+data[i].UserID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
+          +'<table id="states"><tr><td>Date</td><td>'+monthVal+'月'+dayVal+'日</td></tr><tr><td>UserScheduleID</td><td>'+data[i].UserScheduleID+'</td></tr><tr><td>GuidScheduleID</td><td>'+data[i].GuidScheduleID+'</td></tr><tr><td>Boarding time</td><td>'+stimeVal+'</td></tr>'
           +'<tr><td>END</td><td>'+etimeVal+'</td><td>('+data[i].requiredTime+'min)</td></tr>'
           +'<tr><td>Language</td><td>'+data[i].language+'</td></tr>'
           +'<tr><td>Total fee</td><td>¥'+data[i].charge+'</td><td>('+data[i].max_num_participant+'名)</td></tr></table></div>'
-          +'<input type="hidden" name="scheduleGID" value="'+data[i].ScheduleID+'"/>');
+          +'<input type="hidden" name="scheduleGID" value="'+data[i].GuidScheduleID+'"/>');
           //+'<form  id="form'+idnumber+'" action="guideDelete.php" method="post"><input type="hidden" name="id" value="'+idnumber+'"/><input id="detail" type="submit" value="detail"></form></div>'
         }
       }

@@ -12,9 +12,7 @@
 <body>
 
 <?php 
-  session_start();
-  $select_step = $_POST['step'];
-  $uid = $_SESSION["USERID"];
+ $select_step = $_POST['step'];
 
  if($select_step == 1){
   $step = "./place_registration.php";
@@ -30,14 +28,12 @@
 	<div class="btn-wrapper">
 	  <br><br>
 
-     <input name=uid type=hidden value="<?php echo $uid; ?>">
-	  <!-- 
           <p>IDを入力して下さい</p>
+	  
           <div class="select-btn guide-select">
             <input name = "gid" style=text value="1">
           </div>
-	  -->
-	  
+	
 	  <p></p>
           <p>エリアを選択してください</p>
 	  <div class="row">

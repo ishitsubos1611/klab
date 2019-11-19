@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>シェアリングツアーガイドサービス</title>
 
+<!--    
 <script>
 
 history.pushState(null, null, null);
@@ -15,6 +16,7 @@ $(window).on("popstate", function (event) {
 });
 
 </script>
+-->
 
     <style type='text/css'>
 
@@ -29,7 +31,7 @@ $(window).on("popstate", function (event) {
     <script src="https://maps.googleapis.com/maps/api/js?language=jakey=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script>
-      console.log("<?php $uid=$_POST['uid']; echo $uid; ?>");
+//      console.log("<?php $uid=$_POST['uid']; echo $uid; ?>");
       var map;
       var marker = [];
       var markerData = [];
@@ -37,36 +39,37 @@ $(window).on("popstate", function (event) {
       var areaVal = "<?php echo $area = $_POST['area']; ?>";
       var uidVal = "<?php echo $uid = $_POST['uid']; ?>";
       var categoryVal = "<?php $area= $_POST['category']; echo $area ?>";
-      var nowLat, nowLng;
+//      var nowLat, nowLng;
+
+console.log(areaVal);
       
       // 位置取得成功した場合
-      function success(position) {
-	var data = position.coords ;
+//      function success(position) {
+//	var data = position.coords ;
 　　　	//nowLat = data.latitude ;
         //nowLng = data.longitude;
-      	nowLat = 35.010174;
-        nowLng = 135.759193;
+//      	nowLat = 35.010174;
+//        nowLng = 135.759193;
 	//alert("緯度["+ nowLat +"] 経度["+ nowLng +"]");
-      }
+//      }
 
       // 取得失敗した場合
-      function error(error) {
-        switch(error.code) {
-            case 1: //PERMISSION_DENIED
-            alert("位置情報の利用が許可されていません");
-            break;
-            case 2: //POSITION_UNAVAILABLE
-            alert("現在位置が取得できませんでした");
-            break;
-            case 3: //TIMEOUT
-            alert("タイムアウトになりました");
-            break;
-            default:
-            alert("その他のエラー(エラーコード:"+error.code+")");
-            break;
-        }
-      }
-
+//      function error(error) {
+//        switch(error.code) {
+//            case 1: //PERMISSION_DENIED
+//            alert("位置情報の利用が許可されていません");
+//            break;
+//            case 2: //POSITION_UNAVAILABLE
+//            alert("現在位置が取得できませんでした");
+//            break;
+//            case 3: //TIMEOUT
+//            alert("タイムアウトになりました");
+//            break;
+//            default:
+//            alert("その他のエラー(エラーコード:"+error.code+")");
+//            break;
+//        }
+//      }
       
       $(function(){
         $.ajax({
@@ -103,10 +106,8 @@ $(window).on("popstate", function (event) {
       });
 	
       
-      
-      navigator.geolocation.getCurrentPosition(success, error);
-
-
+      var MKData = JSON.parse('{"lat":35.010239,"lng":135.759646}');
+//      navigator.geolocation.getCurrentPosition(success, error);
       var timerID = 0;
 
       StartTimer = function() {
@@ -118,11 +119,11 @@ $(window).on("popstate", function (event) {
       };
 
       function initMap(){
-	 var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
-
+//        var mapLatLng = new google.maps.LatLng(nowLat, nowLng);
+        var mapLatLng = new google.maps.LatLng(MKData['lat'], MKData['lng']);
 	map = new google.maps.Map(document.getElementById('map'), {
         center: mapLatLng,
-        zoom: 13 // 地図のズームを指定
+        zoom: 14 // 地図のズームを指定
        	});
 
         for (var i = 0; i < markerData.length; i++) {
@@ -275,7 +276,8 @@ console.log("<?php echo $uid; ?>");
         クリックして下さい。</p>
 	  <!--</div>-->
       
-      <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既にガイドさんが登録しているスポットです </p>
+	  <!--      <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既にガイドさんが登録しているスポットです </p>-->
+      <p class="h4"> <font color="ff69b4">ピンク</font>色のピンは既に希望しているスポットです </p>	  
       <p></p>
       <div class="map-wrapper">
         <div id="map"></div>

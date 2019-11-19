@@ -49,7 +49,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   'long' =>$row['long'],
   'max_num_participant' =>$row['max_num_participant'],
   //'charge' =>$row['charge'],
-  'period' =>$row['period']
+  'period' =>$row['period'],
+  'comment' =>$row['comment']
  );
 }
 

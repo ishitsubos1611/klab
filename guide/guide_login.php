@@ -15,7 +15,7 @@ if (isset($_POST["login"])) {
   // １．ユーザIDの入力チェック
 
   if (empty($_POST["userid"])) {
-    $errorMessage = "ユーザIDが未入力です。";
+    $errorMessage = "ガイドIDが未入力です。";
   }
 
   if (empty($_POST["password"])) {
@@ -54,9 +54,9 @@ if (isset($_POST["login"])) {
       exit;
     }else {
       // 認証失敗
-      $errorMessage = "ユーザIDあるいはパスワードに誤りがあります。";
+      $errorMessage = "ガイドIDあるいはパスワードに誤りがあります。";
     }
-  }
+   }
 }
 
 ?>
@@ -84,7 +84,7 @@ if (isset($_POST["login"])) {
 <body>
   <div class="main">
   <nav class="navbar navbar-dark bg-dark fixed-top">			
-    <a class="navbar-brand" href="../top.html">シェアリングツアーガイド</a>				
+    <a class="navbar-brand" href="../top.html">ガイドシェアリング</a>				
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <!--  <span class="navbar-toggler-icon"></span> -->
     </button>
@@ -109,11 +109,11 @@ if (isset($_POST["login"])) {
 	<div class="form-group row">
           <div class="col-sm-3"></div>
           <div class="col-sm-2">
-	    <p>ユーザID</p>
+	    <p>ガイドID</p>
 	  </div>
 	  <div class="col-sm-5">
-	    <input type="text" class="form-control" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>" placeholder="ユーザIDを入力">
-<!--            <p>ユーザID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>  -->
+	    <input type="text" class="form-control" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>" placeholder="ガイドIDを入力">
+<!--            <p>ガイドID<input type="text" id="userid" name="userid" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></p>  -->
 	  </div>
 	</div>
 	
@@ -131,14 +131,14 @@ if (isset($_POST["login"])) {
 	<div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-	    <a href="guide_signup.php" class="btn btn-outline-info btn-lg btn-block" >ユーザ情報登録ページへ</a>
+           <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
 	  </div>
 	</div>
 	<br>
 	<div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-            <input class="btn btn-outline-info btn-lg btn-block" type="submit" id="login" name="login" value="ログイン">
+	    <a href="guide_signup.php" class="btn btn-outline-info btn-lg btn-block" >ガイドID新規発行</a>
 	  </div>
 	</div>
         </form>

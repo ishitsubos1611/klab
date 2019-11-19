@@ -30,21 +30,22 @@
     <div class="container-fluid">
       <div class="text-center">
 	<br><br>
-        <div class="btn-wrapper">
-<!-- 
-          <p>IDを入力して下さい</p>
+        <div class="select-wrapper">
+	  
+<!--          <p>IDを入力して下さい</p>
 	<div class="form-group form-check">
           <input name = "gid" style=text value="1">
         </div>
 -->
         <p>エリアを選択してください</p>
 	<div class="row">
-           <div class="col-sm-2"></div>
-           <div class="col-sm-8">
-             <div class="select-btn guide-select">
-	       <select name="area" class="form-control">
-                 <option value="kyoto" >近畿（京都）</option>
-                 <option value="kanto" >関東</option>
+	  <div class="form-group">
+	    <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+              <div class="selsect-btn">
+		<select name="area" class="form-control">
+                  <option value="kyoto" >近畿（京都）</option>
+                  <option value="kanto" >関東</option>
 		</select>
 	      </div>
 	    </div>

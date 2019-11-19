@@ -12,9 +12,11 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <?php
+  session_start();
+  $uid = $_SESSION["USERID"];
+
  $area = $_POST['area'];
  $style = $_POST['style'];
- $gid = $_POST['gid'];
 
 ?>
 
@@ -26,7 +28,8 @@
       <div class="text-center">
 	<br><br>
 	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
-	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
+<!--	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中-->
+ 	  <?php  $gid = $uid; echo $gid; ?>さんのガイド可能日と予約日の確認中
 	</a>
 	<div class="message">
           カレンダーの日を
