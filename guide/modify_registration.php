@@ -14,15 +14,56 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvUA-zwsf7ihPqKggFYt8wOsdNaEXz134" async="async" defer="defer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
   <div class="main">
+
+    <nav class="navbar navbar-dark bg-dark fixed-top">			
+	<a class="navbar-brand" href="#">シェアリングツアーガイド</a>				
+	<!--レスポンシブの際のハンバーガーメニューのボタン-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>		
+	<!--ナビバー内のメニュー-->
+	<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
+	    <!--<li class="nav-item active">
+	      <a class="nav-link" href="#"><span class="sr-only">(カレント)</span></a>
+	    </li>-->
+<!--	    <li class="nav-item">
+	      <a class="nav-link" href="guide/guide_login.php">ガイドログイン</a>
+	    </li>  -->
+	    <li class="nav-item active">
+	      <a class="nav-link disabled" href="guide/select_area_regist.php">ガイド登録</a>
+	    </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="guide/select_area.php">ガイド日程登録</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="guide/select_area4booking.php">ガイド予約確認</a>
+            </li>
+<!--	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="#">ユーザログイン</a>
+            </li>
+	    <li class="nav-item">
+              <a class="nav-link" href="user/user_select_area.php">ユーザ希望登録</a>
+            </li>
+	    <div class="dropdown-divider"></div>
+	    <li class="nav-item">
+              <a class="nav-link" href="realtime/realtime_place_registration.php">今すぐ登録</a>
+            </li>   -->
+	  </ul>
+	</div>
+      </nav>
+    
     <div class="container-fluid">
       <div class="text-center">
-	<br><br>
-	<div class="startup">
+	<br><br><br>
+	<!--<div class="startup">-->
 
 <?php
 
@@ -79,7 +120,7 @@
  echo  '<div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-	    <a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
+	    <a href="#"  class = "btn btn-danger disabled btn-lg btn-block">
 	      <p>' . $year . '年' . $month . '月' . $day . '日' . 'のガイド登録' . $modify_mode. '中</p>
 	    </a>
 	  </div>
@@ -323,7 +364,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 echo ' </select>
       </div>
     </div>
-  </div>
+ 
         <p></p>
       </div>';
 
