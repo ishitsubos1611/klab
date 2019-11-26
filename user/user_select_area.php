@@ -25,9 +25,11 @@
 
 </head>
 <body>
-
-<?php 
- $select_step = $_POST['step'];
+<form name="step1" action="user_place_registration.php" method='post'>
+<?php
+  session_start();  
+  $select_step = $_POST['step'];
+  $uid = $_SESSION["USERID"];
 
  if($select_step == 1){
   $step = "./user_place_registration.php";
@@ -35,19 +37,26 @@
   $step = "./select_date.php";
  }
 
+ echo '<input name=uid' .' type=hidden value="' . $uid . '">';
 ?>
-<form name="step1" action="user_place_registration.php" method='post'>
+<!--
+<script>
+  console.log("<?php echo $uid; ?>");
+</script>  
+-->
   <div class="main">
     <div class="container-fluid">
       <div class="text-center">
 	<br><br>
 	<div class="btn-wrapper">
 
-          <p>ユーザーIDを入力して下さい</p>
+        <!--  <p>ユーザーIDを入力して下さい</p>
           <div class="form-group form-check">
-            <input name = "uid" style=text value="1">
-          </div>
+            <input name = "uid" style=text value=" . ">
+          </div> -->
 
+<!--	<input name="uid" type=hidden value="<?php echo $uid; ?>">    -->
+	
           <p>エリアを選択してください</p>
 	  <div class="row">
             <div class="col-sm-2"></div>
@@ -70,7 +79,6 @@
               <div class="form-group">
 		<div class="select-btn guide-select">
 		  <select name="category" class="form-control">
-		    <option value="all" >all</option>
 		    <option value="Shrine and Temple" >神社仏閣</option>
 		    <option value="Historic site" >史跡</option>
 		    <option value="Castle" >城</option>
@@ -81,6 +89,7 @@
 		    <option value="Zoo and Botanical garden" >動植物園</option>
 		    <option value="Mountain" >山</option>
 		    <option value="Famous place" >その他</option>
+		    <option value="all" >all</option>
 		  </select>
 		</div>
 	      </div>
@@ -122,7 +131,7 @@
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-	      <a href="../top.html" class = "btn btn-info btn-lg btn-block" >トップページに戻る</a>
+	      <a href="../user_top.php" class = "btn btn-info btn-lg btn-block" >トップページに戻る</a>
 	    </div>
 	  </div>
 	  <br>

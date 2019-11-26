@@ -6,8 +6,6 @@ $area = $_POST['area'];
 $category = $_POST['category'];
 //$category = 'all';
 
-console.log('area');
-console.log($area);
 // データベース接続
 
 $host = 'localhost';

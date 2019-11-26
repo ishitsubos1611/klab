@@ -13,9 +13,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <?php
+  session_start();
+  $uid = $_SESSION["USERID"];
+
  $area = $_POST['area'];
  $style = $_POST['style'];
- $gid = $_POST['gid'];
 
 ?>
 
@@ -67,7 +69,8 @@
       <div class="text-center">
 	<br><br><br>
 	<a href="#"  class = "btn btn-danger disabled btn-xl btn-block">
-	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中
+<!--	  <?php if(isset($_GET["id"])) echo $gid = $_GET['id'];else echo $gid = $_POST['gid']; ?>さんのガイド可能日と予約日の確認中-->
+ 	  <?php  $gid = $uid; echo $gid; ?>さんのガイド可能日と予約日の確認中
 	</a>
 	<div class="message">
           カレンダーの日を

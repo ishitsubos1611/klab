@@ -218,14 +218,14 @@ $(window).on("popstate", function (event) {
     <input name = "lat" type="hidden" />
     <input name = "lng" type="hidden" />
 <?php
-
+ session_start();
  $area = $_POST['area'];
  $style = $_POST['style'];
  $month = $_POST['month'];
  $day = $_POST['day'];
  $mode = $_POST['mode'];
  $gid = $_POST['gid'];
- $uid = $_POST['uid'];
+ $uid = $_SESSION['USERID'];
 
  $thisday = date('j');
  $thismonth = date('n');

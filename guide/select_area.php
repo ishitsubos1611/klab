@@ -13,7 +13,11 @@
 <body>
 
 <?php 
- $select_step = $_POST['step'];
+  session_start();
+  $select_step = $_POST['step'];
+  $uid = $_SESSION["USERID"];
+
+ echo '<input name=uid' .' type=hidden value="' . $uid . '">';
 
  if($select_step == 1){
   $step = "./place_registration.php";
@@ -66,16 +70,20 @@
     
     <div class="container-fluid">
       <div class="text-center">
+<<<<<<< HEAD
 	<br><br><br>
         <div class="select-wrapper">
 	  
+=======
+	<br><br>
+        <div class="btn-wrapper">
+<!-- 
+>>>>>>> 3a15403ecccdf6ada3561e95faa2fdd078b366c0
           <p>IDを入力して下さい</p>
-        <!--<div class="select-btn guide-select">
-          <input name = "gid" style=text value="1">
-        </div>-->
 	<div class="form-group form-check">
           <input name = "gid" style=text value="1">
         </div>
+<<<<<<< HEAD
 	<br>
        
 	<div class="row">
@@ -87,6 +95,17 @@
 		<select name="area" class="form-control">
                   <option value="kyoto" >近畿（京都）</option>
                   <option value="kanto" >関東</option>
+=======
+-->
+        <p>エリアを選択してください</p>
+	<div class="row">
+           <div class="col-sm-2"></div>
+           <div class="col-sm-8">
+             <div class="select-btn guide-select">
+	       <select name="area" class="form-control">
+                 <option value="kyoto" >近畿（京都）</option>
+                 <option value="kanto" >関東</option>
+>>>>>>> 3a15403ecccdf6ada3561e95faa2fdd078b366c0
 		</select>
 	      </div>
 	    </div>

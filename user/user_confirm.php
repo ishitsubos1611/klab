@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+    <!--
 <script>
 
 history.pushState(null, null, null);
@@ -18,7 +19,8 @@ $(window).on("popstate", function (event) {
 });
 
 </script>
-
+-->
+    
   </head>
   <body>
 
@@ -34,7 +36,8 @@ $(window).on("popstate", function (event) {
 <p>
  <form name="myform3" method='post' onsubmit="return checkText3()">
 
-<?php    
+<?php
+ session_start();     
  //$ginfo = array();
  $ginfo = explode(",",$_POST['guide']);
  $stime = explode(":",$_POST['stime'],-1); 
@@ -47,7 +50,7 @@ $(window).on("popstate", function (event) {
   $gid = $ginfo[0];
   $fee = $ginfo[1];
  }
- $uid = $_POST['uid']; 
+ $uid = $_SESSION['USERID']; 
  $year = $_POST['year'];
  $date = $_POST['date']; 
 $location = $_POST['location'];
@@ -203,7 +206,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    console.log(<?php echo $scheduleUID ?>);
    console.log(<?php echo $year ?>);
    console.log('<?php echo $end_time ?>');
-   
+   console.log('<?php echo $uid ?>');
 
 </script>
 
@@ -220,7 +223,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     } else if (dbVal == 1) { 
       document.myform3.action = "user_db_insert.php"; //ユーザのDBに登録するプログラム
     } else if( dbVal == 0) { 
-      document.myform3.action = "./../user_top.html"; 
+      document.myform3.action = "../user_top.php"; 
   }
 } 
 
@@ -277,7 +280,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 	    <br>
       <!--<div class="startup">
         <p><?php echo $confirm; ?></p>
-      </div>   -->
+      </div>
+   -->
       <div class="confirmation-wrapper">
         <p class="text-danger h3" id="location-output"><?php echo $location; ?></p>
  <!--       <p class="time-zone check-list">
@@ -285,7 +289,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
          8:00-18:00
 	 -->
         <br>
- <!-- <p class="time red check-list">ガイドさん：<?php echo $gid; ?></p> -->
+        <p class="text-danger h3">ガイドID：<?php echo $gid; ?></p>
+        <br>
         <p class="text-danger h3">ガイド予約日：<?php echo $reserve; ?></p>
 	<br>
 	<p class="text-danger h3">開始時間：<?php echo $start_time; ?></p>
